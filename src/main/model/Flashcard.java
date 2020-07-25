@@ -1,6 +1,7 @@
 package model;
 
 import static com.sun.xml.internal.bind.v2.schemagen.Util.equalsIgnoreCase;
+import static jdk.nashorn.internal.objects.NativeString.trim;
 
 public class Flashcard {
     private String name;
@@ -47,8 +48,10 @@ public class Flashcard {
         this.name = newName;
     }
 
-    // EFFECTS: returns true if the input string equals the answer, case insensitive. If not equal, return false.
+    // EFFECTS: returns true if the input string equals the answer, case insensitive and regardless of whitespace
+    // characters before or after the string. If not equal, return false.
     public boolean correctAnswer(String userAnswer) {
+        userAnswer = trim(userAnswer);
         return equalsIgnoreCase(this.answer, userAnswer);
     }
 

@@ -27,13 +27,23 @@ class FlashcardTest {
     }
 
     @Test
-    public void correctAnswer(){
+    public void correctAnswer() {
         assertTrue(card.correctAnswer("Answer"));
     }
 
     @Test
+    public void correctAnswerCaseInsensitive() {
+        assertTrue(card.correctAnswer("aNsWeR"));
+    }
+
+    @Test
+    public void correctAnswerTrim(){
+        assertTrue(card.correctAnswer("  Answer  "));
+    }
+
+    @Test
     public void wrongAnswer(){
-        assertFalse(card.correctAnswer("Not the answer."));
+        assertFalse(card.correctAnswer("A n s w e r"));
     }
 
 
