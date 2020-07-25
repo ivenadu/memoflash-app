@@ -3,7 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FlashcardTest {
 
@@ -11,19 +11,30 @@ class FlashcardTest {
 
     @BeforeEach
     public void preTest(){
-        card = new Flashcard("Question", "Answer");
+        card = new Flashcard("Name","Question", "Answer");
     }
 
     @Test
     public void getQATest(){
-        assertEquals(card.getQA(), "Question: Question\nAnswer: Answer");
+        assertEquals(card.getQA(),"Question: Question\nAnswer: Answer");
     }
 
     @Test
-    public void editCardTest(){
-        card.editCard("editedQ", "editedA");
-        assertEquals(card.getQuestion(),"editedQ");
-        assertEquals(card.getAnswer(), "editedA");
+    public void setQATest(){
+        card.setQA("edited Q", "edited A");
+        assertEquals(card.getQuestion(),"edited Q");
+        assertEquals(card.getAnswer(), "edited A");
     }
+
+    @Test
+    public void correctAnswer(){
+        assertTrue(card.correctAnswer("Answer"));
+    }
+
+    @Test
+    public void wrongAnswer(){
+        assertFalse(card.correctAnswer("Not the answer."));
+    }
+
 
 }
