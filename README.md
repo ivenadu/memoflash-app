@@ -22,9 +22,9 @@ As a user, I want to be able to...
 - remove cards from the deck <<
 - remove decks I no longer need <<
 
-Additional Features:
+Additional Features: (added at a later date)
 - rename cards and decks
-- view all of my decks
+- view all of my decks1
 - view all the cards in my deck
 - select deck to use for flashcard testing 
 - have the option of setting a timer

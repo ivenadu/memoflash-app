@@ -23,8 +23,20 @@ public class DeckTest {
     public void removeCardTest(){
         Flashcard fact1 = new Flashcard("First", "FirstQ", "FirstA");
         testingDeck.addCard(fact1);
-        testingDeck.removeCard("First");
+        assertTrue(testingDeck.removeCard("First"));
         assertEquals(testingDeck.size(), 0);
+    }
+
+    @Test
+    public void removeCardNoExist() {
+        quickAdd();
+        assertFalse(testingDeck.removeCard("You Can't Find This"));
+        assertEquals(testingDeck.size(), 2);
+    }
+
+    @Test
+    public void removeCardEmptyDeck() {
+        assertFalse(testingDeck.removeCard("Hmm"));
     }
 
     @Test
@@ -35,8 +47,8 @@ public class DeckTest {
     @Test
     public void viewDeckCardsTest(){
         quickAdd();
-        assertEquals(testingDeck.viewCards(), "Card Name: Second\nQuestion: SecondQ\nAnswer: SecondA" +
-                "\n\nCard Name: First\nQuestion: FirstQ\nAnswer: FirstA\n\n" );
+        assertEquals(testingDeck.viewCards(), "Card Name: First\nQuestion: FirstQ\nAnswer: FirstA" +
+                "\n\nCard Name: Second\nQuestion: SecondQ\nAnswer: SecondA\n\n" );
 
     }
 
@@ -65,6 +77,7 @@ public class DeckTest {
         Flashcard fact2 = new Flashcard("Second", "SecondQ", "SecondA");
         testingDeck.addCard(fact1);
         testingDeck.addCard(fact2);
+
 
     }
 

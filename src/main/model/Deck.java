@@ -1,23 +1,22 @@
 package model;
 
-import javafx.util.Pair;
-
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Deck {
 
-    HashSet<Flashcard> cardList;
+    ArrayList<Flashcard> cardList;
     String title;
 
 
     // EFFECTS: makes a new Deck with title
     public Deck(String title) {
-        cardList = new HashSet<>();
+        cardList = new ArrayList<>();
         this.title = title;
     }
 
     // EFFECTS: returns Deck
-    public HashSet<Flashcard> getCardList() {
+    public ArrayList<Flashcard> getCardList() {
         return cardList;
     }
 
@@ -28,19 +27,19 @@ public class Deck {
         cardList.add(card);
     }
 
-    // REQUIRES: there is at least one card in Deck
     // MODIFIES: this
-    // EFFECTS: removes the card with given name from Deck
-    public void removeCard(String cardName) {
+    // EFFECTS: If Deck contains Flashcard with given name, removes it and return true. Otherwise return false.
+    public boolean removeCard(String cardName) {
         for (Flashcard c : cardList) {
             if (c.getName() == cardName) {
-                cardList.remove(c);
+                return cardList.remove(c);
             }
         }
+        return false;
     }
 
 
-    // EFFECTS: returns, from most to least recently added, each Flashcard's name, question, and answer in the Deck
+    // EFFECTS: returns, from least to most recently added, each Flashcard's name, question, and answer in the Deck
     public String viewCards() {
         String appendedResult = new String();
         if (cardList.size() == 0) {
