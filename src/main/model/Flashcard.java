@@ -16,7 +16,7 @@ public class Flashcard {
 
     // EFFECTS: returns the question and answer of the flashcard
     public String getQA() {
-        return "Question: " + getQuestion() + "\nAnswer: " + getAnswer();
+        return "Question: " + getQuestion() + "\tAnswer: " + getAnswer();
     }
 
     // EFFECTS: returns the Flashcard's question

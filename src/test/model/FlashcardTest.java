@@ -16,7 +16,7 @@ class FlashcardTest {
 
     @Test
     public void getQATest(){
-        assertEquals(card.getQA(),"Question: Question\nAnswer: Answer");
+        assertEquals(card.getQA(),"Question: Question\tAnswer: Answer");
     }
 
     @Test
