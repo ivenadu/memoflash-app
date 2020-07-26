@@ -22,17 +22,6 @@ public class Deck {
         cardList.add(card);
     }
 
-    // MODIFIES: this
-    // EFFECTS: If Deck contains Flashcard with given name, removes it and return true. Otherwise return false.
-    public boolean removeCard(String cardName) {
-        for (Flashcard c : cardList) {
-            if (c.getName() == cardName) {
-                return cardList.remove(c);
-            }
-        }
-        return false;
-    }
-
 
     // EFFECTS: returns, from least to most recently added, each Flashcard's name, question, and answer in the Deck
     public String viewCards() {
@@ -80,5 +69,11 @@ public class Deck {
     // EFFECTS: retrieves Flashcard at given index
     public Flashcard getCardFromIndex(int i) {
         return cardList.get(i);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes Flashcard at given index
+    public Flashcard removeCardWithIndex(int i) {
+        return cardList.remove(i);
     }
 }

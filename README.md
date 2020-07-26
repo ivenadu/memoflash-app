@@ -5,8 +5,8 @@
 
 #### The App
 
-Welcome! MemoFlash is an application that allows students to create their own flashcards, organize them into decks, and 
-test their knowledge.
+Welcome! MemoFlash is an application that allows the user to create their own flashcards to test themselves with how
+well they retain knowledge. This application is useful for students, but learners of any kind can benefit from this.
 
 #### My Interest
 
@@ -17,15 +17,14 @@ require memorization is useful.
 #### User Stories:  
 
 As a user, I want to be able to... 
-- create flashcards <<
-- view all the cards in my deck <<
-- test myself with the flashcards
-- see my score after every flashcard session
+- create flashcards
+- view all the cards in my deck
+- test myself with the flashcards (be quizzed, see answers to incorrect questions and total score)
+- remove flashcards from active deck
 
-Additional Features: (added at a later date)
+Additional Features: (possibly added at a later date)
 - create decks to organize flashcards
 - rename cards and decks
-- remove cards from the deck
 - remove decks I no longer need
 - view all of my decks
 - select deck to use for flashcard testing 
