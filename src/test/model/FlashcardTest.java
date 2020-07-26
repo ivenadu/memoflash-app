@@ -36,14 +36,10 @@ class FlashcardTest {
         assertTrue(card.correctAnswer("aNsWeR"));
     }
 
-    @Test
-    public void correctAnswerTrim(){
-        assertTrue(card.correctAnswer("  Answer  "));
-    }
 
     @Test
     public void wrongAnswer(){
-        assertFalse(card.correctAnswer("A n s w e r"));
+        assertFalse(card.correctAnswer("Answe r"));
     }
 
 
