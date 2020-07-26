@@ -15,11 +15,6 @@ public class Deck {
         this.title = title;
     }
 
-    // EFFECTS: returns Deck
-    public ArrayList<Flashcard> getCardList() {
-        return cardList;
-    }
-
     // REQUIRES: cannot add duplicate card to Deck
     // MODIFIES: this
     // EFFECTS: adds flashcard to the deck

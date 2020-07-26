@@ -47,8 +47,8 @@ public class DeckTest {
     @Test
     public void viewDeckCardsTest(){
         quickAdd();
-        assertEquals(testingDeck.viewCards(), "Card Name: First\nQuestion: FirstQ\nAnswer: FirstA" +
-                "\n\nCard Name: Second\nQuestion: SecondQ\nAnswer: SecondA\n\n" );
+        assertEquals(testingDeck.viewCards(), "Card Name: First\nQuestion: FirstQ\tAnswer: FirstA" +
+                "\n\nCard Name: Second\nQuestion: SecondQ\tAnswer: SecondA\n\n" );
 
     }
 
@@ -71,15 +71,19 @@ public class DeckTest {
         assertFalse(testingDeck.sameTitle(otherDeck));
     }
 
+    @Test
+    public void setDeckTitle() {
+        testingDeck.setTitle("New Title");
+        assertEquals(testingDeck.getTitle(), "New Title");
+    }
 
     public void quickAdd() {
         Flashcard fact1 = new Flashcard("First", "FirstQ", "FirstA");
         Flashcard fact2 = new Flashcard("Second", "SecondQ", "SecondA");
         testingDeck.addCard(fact1);
         testingDeck.addCard(fact2);
-
-
     }
+
 
 
 

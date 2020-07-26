@@ -49,6 +49,11 @@ public class DeckCollectionTest {
         assertEquals(deckSet.viewDeckTitles(), "Deck: History\nDeck: ABC's\nDeck: Animal Species\n");
     }
 
+    @Test
+    public void viewDeckTitlesNone() {
+        assertEquals(deckSet.viewDeckTitles(), "There are no decks.");
+    }
+
     public void quickDeckAdder() {
         Deck deck1 = new Deck("History");
         Deck deck2 = new Deck("ABC's");

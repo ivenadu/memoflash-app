@@ -27,6 +27,12 @@ class FlashcardTest {
     }
 
     @Test
+    public void setCardName() {
+        card.setName("New Name");
+        assertEquals(card.getName(), "New Name");
+    }
+
+    @Test
     public void correctAnswer() {
         assertTrue(card.correctAnswer("Answer"));
     }
