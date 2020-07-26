@@ -21,7 +21,7 @@ public class MemoFlashApp {
     // EFFECTS:
     private void runApp(Scanner scan) {
         boolean status = true;
-        String input = null;
+        String input;
 
         mainMenu();
 
@@ -98,7 +98,7 @@ public class MemoFlashApp {
         System.out.println("Delete a deck: Press d");
         System.out.println("Go to main menu: Press m");
 
-        String in = scan.next();
+        String in = getInput();
         processDMenu(in);
     }
 
@@ -121,14 +121,14 @@ public class MemoFlashApp {
         }
     }
 
+
     private void cardMaker() {
         System.out.println("Enter name of card: ");
-        String in = scan.nextLine();
-        scan.nextLine();
+        String in = getInput();
         System.out.println("Enter question: ");
-        String in2 = scan.nextLine(); // or set in2 = in to save input??
+        String in2 = getInput(); // or set in2 = in to save input??
         System.out.println("Enter answer: ");
-        String in3 = scan.nextLine();
+        String in3 = getInput();
         Flashcard card = new Flashcard(in, in2, in3);
         userDeck.addCard(card);
         System.out.println("Your flashcard- \t name: " + card.getName() + "\t" + card.getQA()
@@ -137,16 +137,25 @@ public class MemoFlashApp {
 
     }
 
+    private String getInput() {
+        String str = "";
+
+        while (str.isEmpty()) {
+            str = scan.nextLine();
+        }
+        return str;
+    }
+
     private void cardEditor() {
     }
 
     private void cardViewer() {
-        System.out.println("You have " + userDeck.size() + " cards in the deck.");
+        System.out.println("You have " + userDeck.size() + " cards in the deck.\n");
         System.out.println(userDeck.viewCards());
         System.out.println();
         System.out.println("Go to flashcard menu: Press f");
         System.out.println("Go to main menu: Press m");
-        String in = scan.next();
+        String in = getInput();
         processCViewer(in);
 
     }
@@ -181,10 +190,15 @@ public class MemoFlashApp {
     }
 
     private void testMode() {
+        while (userDeck.size() == 0) {
+            System.out.println("You have no cards in this deck. Please press 'm' to return to main menu.");
+            String in = getInput();
+            processAfterTest(in);
+        }
         doTest();
-        System.out.println("Your score: " + this.count + "/" + userDeck.size());
-        System.out.println("Go back to menu: Press m");
-        String in = scan.nextLine();
+        System.out.println("\nFinished! Your score: " + this.count + "/" + userDeck.size());
+        System.out.println("Go back to main menu: Press m");
+        String in = getInput();
         processAfterTest(in);
     }
 
@@ -195,23 +209,23 @@ public class MemoFlashApp {
     }
 
     private int doTest() {
-
-        for (int count = 0; count <= userDeck.size(); ) {
-            for (int i = 0; i < userDeck.size(); i++) {
-                Flashcard card = userDeck.getCardFromIndex(i);
-                String question = card.getQuestion();
-                System.out.println(question);
-                String in = scan.nextLine();
-                if (card.getAnswer().equalsIgnoreCase(in)) {
-                    System.out.println("Correct!");
-                    this.count = count++;
-                } else {
-                    this.count = count;
-                    System.out.println("Incorrect. The answer is " + card.getAnswer());
-                }
+        int count = 0;
+        for (int i = 0; i < userDeck.size(); i++) {
+            Flashcard card = userDeck.getCardFromIndex(i);
+            String question = card.getQuestion();
+            System.out.println(question);
+            String in = getInput();
+            if (card.getAnswer().equalsIgnoreCase(in)) {
+                System.out.println("Correct!");
+                count++;
+                this.count = count;
+            } else {
+                this.count = count;
+                System.out.println("Incorrect. The answer is " + card.getAnswer());
             }
         }
         return this.count;
     }
-
 }
+
+
