@@ -26,7 +26,6 @@ public class DeckTest {
         assertEquals(testingDeck.size(), 1);
     }
 
-
     @Test
     public void viewDeckCardsNone(){
         assertEquals(testingDeck.viewCards(), "There are no cards in the deck.");
@@ -63,6 +62,12 @@ public class DeckTest {
     public void setDeckTitle() {
         testingDeck.setTitle("New Title");
         assertEquals(testingDeck.getTitle(), "New Title");
+    }
+
+    @Test
+    public void getCardFromIndexTest() {
+        quickAdd();
+        assertEquals(testingDeck.getCardFromIndex(0),testingDeck.cardList.get(0));
     }
 
 
