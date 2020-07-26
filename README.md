@@ -18,17 +18,16 @@ require memorization is useful.
 
 As a user, I want to be able to... 
 - create flashcards <<
-- create decks to organize flashcards <<
-- remove cards from the deck <<
-- remove decks I no longer need <<
+- view all the cards in my deck
+- test myself with the flashcards
+- see my score after every flashcard session
 
 Additional Features: (added at a later date)
+- create decks to organize flashcards
 - rename cards and decks
-- view all of my decks1
-- view all the cards in my deck
+- remove cards from the deck
+- remove decks I no longer need
+- view all of my decks
 - select deck to use for flashcard testing 
-- have the option of setting a timer
-- quit in the middle of flashcard session
-- see my score after every flashcard session
 
 
