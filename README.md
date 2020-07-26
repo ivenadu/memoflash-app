@@ -18,7 +18,7 @@ require memorization is useful.
 
 As a user, I want to be able to... 
 - create flashcards <<
-- view all the cards in my deck
+- view all the cards in my deck <<
 - test myself with the flashcards
 - see my score after every flashcard session
 

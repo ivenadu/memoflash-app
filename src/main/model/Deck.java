@@ -75,4 +75,10 @@ public class Deck {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    // REQUIRES: given integer is < deck size
+    // EFFECTS: retrieves Flashcard at given index
+    public Flashcard getCardFromIndex(int i) {
+        return cardList.get(i);
+    }
 }

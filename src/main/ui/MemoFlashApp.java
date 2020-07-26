@@ -7,9 +7,11 @@ import java.util.*;
 
 //TODO: W.I.P.'s: testMode
 
+
 public class MemoFlashApp {
     private Scanner scan = new Scanner(System.in);
-    private Deck userDeck = new Deck("Default Deck");
+    Deck userDeck = new Deck("Default");
+    private int count;
 
     //EFFECTS: Runs MemoFlash application
     public MemoFlashApp() {
@@ -43,7 +45,7 @@ public class MemoFlashApp {
         System.out.println();
         System.out.println("Go to flashcard menu: Press f");
         System.out.println("Go to deck menu: Press d");
-        System.out.println("Begin test: Press t"); //TODO: WIP
+        System.out.println("Begin test: Press t");
         System.out.println("End Program: Press q");
 
     }
@@ -53,8 +55,8 @@ public class MemoFlashApp {
             flashcardMenu();
         } else if (in.equalsIgnoreCase("d")) {
             deckMenu();
-//        } else if (in.equalsIgnoreCase("t")) { //TODO: WIP
-//            testMode();
+        } else if (in.equalsIgnoreCase("t")) {
+            testMode();
         }
 
     }
@@ -121,12 +123,12 @@ public class MemoFlashApp {
 
     private void cardMaker() {
         System.out.println("Enter name of card: ");
-        String in = scan.next();
+        String in = scan.nextLine();
+        scan.nextLine();
         System.out.println("Enter question: ");
-        String in2 = scan.next(); // or set in2 = in to save input??
+        String in2 = scan.nextLine(); // or set in2 = in to save input??
         System.out.println("Enter answer: ");
-        String in3 = scan.next();
-        System.out.println();
+        String in3 = scan.nextLine();
         Flashcard card = new Flashcard(in, in2, in3);
         userDeck.addCard(card);
         System.out.println("Your flashcard- \t name: " + card.getName() + "\t" + card.getQA()
@@ -139,6 +141,22 @@ public class MemoFlashApp {
     }
 
     private void cardViewer() {
+        System.out.println("You have " + userDeck.size() + " cards in the deck.");
+        System.out.println(userDeck.viewCards());
+        System.out.println();
+        System.out.println("Go to flashcard menu: Press f");
+        System.out.println("Go to main menu: Press m");
+        String in = scan.next();
+        processCViewer(in);
+
+    }
+
+    private void processCViewer(String in) {
+        if (in.equalsIgnoreCase("f")) {
+            flashcardMenu();
+        } else if (in.equalsIgnoreCase("m")) {
+            mainMenu();
+        }
     }
 
     private void cardDeleter() {
@@ -147,19 +165,53 @@ public class MemoFlashApp {
     private void deckCreator() {
     }
 
-    public void deckEditor() {
+    private void deckEditor() {
     }
 
-    public void deckCardsViewer() {
+    private void deckCardsViewer() {
     }
 
-    public void decksViewer() {
+    private void decksViewer() {
     }
 
-    public void deckSwitcher() {
+    private void deckSwitcher() {
     }
 
-    public void deckDeleter() {
+    private void deckDeleter() {
+    }
+
+    private void testMode() {
+        doTest();
+        System.out.println("Your score: " + this.count + "/" + userDeck.size());
+        System.out.println("Go back to menu: Press m");
+        String in = scan.nextLine();
+        processAfterTest(in);
+    }
+
+    private void processAfterTest(String in) {
+        if (in.equalsIgnoreCase("m")) {
+            mainMenu();
+        }
+    }
+
+    private int doTest() {
+
+        for (int count = 0; count <= userDeck.size(); ) {
+            for (int i = 0; i < userDeck.size(); i++) {
+                Flashcard card = userDeck.getCardFromIndex(i);
+                String question = card.getQuestion();
+                System.out.println(question);
+                String in = scan.nextLine();
+                if (card.getAnswer().equalsIgnoreCase(in)) {
+                    System.out.println("Correct!");
+                    this.count = count++;
+                } else {
+                    this.count = count;
+                    System.out.println("Incorrect. The answer is " + card.getAnswer());
+                }
+            }
+        }
+        return this.count;
     }
 
 }
