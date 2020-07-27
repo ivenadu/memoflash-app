@@ -43,7 +43,6 @@ public class Deck {
         cardList.clear();
     }
 
-
     // EFFECTS: If this and the Deck being compared share the same title, return true. Otherwise return false.
     public boolean sameTitle(Deck d) {
         return (this.title.equals(d.title));

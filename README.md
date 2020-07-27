@@ -5,8 +5,8 @@
 
 #### The App
 
-Welcome! MemoFlash is an application that allows the user to create their own flashcards to test themselves with how
-well they retain knowledge. This application is useful for students, but learners of any kind can benefit from this.
+Welcome! MemoFlash is an application that allows the user to create their own flashcards and decks to test themselves 
+with how well they retain knowledge. This application is useful for students, but learners of any kind can benefit from it.
 
 #### My Interest
 
