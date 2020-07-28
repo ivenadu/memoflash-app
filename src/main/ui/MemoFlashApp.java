@@ -65,8 +65,6 @@ public class MemoFlashApp {
         } else if (in.equalsIgnoreCase("t")) {
             testMode();
         }
-
-
     }
 
     // MODIFIES: this
