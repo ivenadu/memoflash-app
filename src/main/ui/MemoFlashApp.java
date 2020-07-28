@@ -49,7 +49,7 @@ public class MemoFlashApp {
         System.out.println("Welcome to the main menu. What would you like to do?");
         System.out.println();
         System.out.println("Go to flashcard menu: Press f");//TODO: not all features done yet
-//        System.out.println("Go to deck menu: Press d [WIP]"); //TODO: not done yet
+        System.out.println("Go to deck menu: Press d [WIP]"); //TODO: not done yet
         System.out.println("Begin test: Press t");
         System.out.println("End Program: Press q\n");
 
@@ -60,8 +60,8 @@ public class MemoFlashApp {
     private void processMenu(String in) {
         if (in.equalsIgnoreCase("f")) {
             flashcardMenu();
-//        } else if (in.equalsIgnoreCase("d")) {
-//            deckMenu();
+        } else if (in.equalsIgnoreCase("d")) {
+            deckMenu();
         } else if (in.equalsIgnoreCase("t")) {
             testMode();
         }
@@ -76,11 +76,11 @@ public class MemoFlashApp {
         while (!(in.equalsIgnoreCase("n") || in.equalsIgnoreCase("e")
                 || in.equalsIgnoreCase("v") || in.equalsIgnoreCase("d")
                 || in.equalsIgnoreCase("m"))) {
-            System.out.println("Create a new flashcard:\tPress n");
-//            System.out.println("Edit an existing flashcard:\tPress e [WIP]"); //TODO: not done yet
-            System.out.println("View all flashcards:\tPress v");
-            System.out.println("Delete a flashcard:\tPress d");
-            System.out.println("Go to main menu:\tPress m");
+            System.out.println("Create a new flashcard: Press n");
+            System.out.println("Edit an existing flashcard: Press e [WIP]"); //TODO: not done yet
+            System.out.println("View all flashcards: Press v");
+            System.out.println("Delete a flashcard: Press d");
+            System.out.println("Go to main menu: Press m");
             in = getInput();
         }
         processFMenu(in);
@@ -101,51 +101,51 @@ public class MemoFlashApp {
             mainMenu();
         }
     }
-    //TODO: incomplete
-//
-//    // MODIFIES: this
-//    // EFFECTS: displays deck menu and takes in user input to be processed
-//    private void deckMenu() {
-//        String in = "";
-//
-//        while (!(in.equalsIgnoreCase("n") || in.equalsIgnoreCase("e")
-//                || in.equalsIgnoreCase("v") || in.equalsIgnoreCase("g")
-//                || in.equalsIgnoreCase("s") || in.equalsIgnoreCase("d")
-//                || in.equalsIgnoreCase("m"))) {
-//            System.out.println("Create a new deck: Press n");
-//            System.out.println("Edit active deck: Press e"); //TODO: WIP
-//            System.out.println("View flashcards in current deck: Press v");
-//            System.out.println("View all decks: Press g"); //TODO: WIP
-//            System.out.println("Switch active deck: Press s"); //TODO: WIP
-//            System.out.println("Delete a deck: Press d"); //TODO: WIP
-//            System.out.println("Go to main menu: Press m");
-//            in = getInput();
-//        }
-//
-//
-//        processDMenu(in);
-//    }
-//
-//    // MODIFIES: this
-//    // EFFECTS: process user's input keys at deck menu
-//    public void processDMenu(String in) {
-//
-//        if (in.equalsIgnoreCase("n")) {
-//            deckCreator();
-//        } else if (in.equalsIgnoreCase("e")) {
-//            deckEditor();
-//        } else if (in.equalsIgnoreCase("v")) {
-//            deckCardsViewer();
-//        } else if (in.equalsIgnoreCase("g")) {
-//            decksViewer();
-//        } else if (in.equalsIgnoreCase("s")) {
-//            deckSwitcher();
-//        } else if (in.equalsIgnoreCase("d")) {
-//            deckDeleter();
-//        } else if (in.equalsIgnoreCase("m")) {
-//            mainMenu();
-//        }
-//    }
+
+
+    // MODIFIES: this
+    // EFFECTS: displays deck menu and takes in user input to be processed
+    private void deckMenu() {
+        String in = "";
+
+        while (!(in.equalsIgnoreCase("n") || in.equalsIgnoreCase("e")
+                || in.equalsIgnoreCase("v") || in.equalsIgnoreCase("g")
+                || in.equalsIgnoreCase("s") || in.equalsIgnoreCase("d")
+                || in.equalsIgnoreCase("m"))) {
+            System.out.println("Create a new deck: Press n"); //TODO: WIP
+            System.out.println("Edit active deck: Press e"); //TODO: WIP
+            System.out.println("View flashcards in current deck: Press v"); //TODO: WIP
+            System.out.println("View all decks: Press g"); //TODO: WIP
+            System.out.println("Switch active deck: Press s"); //TODO: WIP
+            System.out.println("Delete a deck: Press d"); //TODO: WIP
+            System.out.println("Go to main menu: Press m");
+            in = getInput();
+        }
+
+
+        processDMenu(in);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: process user's input keys at deck menu
+    public void processDMenu(String in) {
+
+        if (in.equalsIgnoreCase("n")) {
+            deckCreator();
+        } else if (in.equalsIgnoreCase("e")) {
+            deckEditor();
+        } else if (in.equalsIgnoreCase("v")) {
+            deckCardsViewer();
+        } else if (in.equalsIgnoreCase("g")) {
+            decksViewer();
+        } else if (in.equalsIgnoreCase("s")) {
+            deckSwitcher();
+        } else if (in.equalsIgnoreCase("d")) {
+            deckDeleter();
+        } else if (in.equalsIgnoreCase("m")) {
+            mainMenu();
+        }
+    }
 
     // MODIFIES: this
     // EFFECTS: adds a new card to the deck
@@ -218,7 +218,6 @@ public class MemoFlashApp {
                 break;
             }
             System.out.println("Please enter integer within range.");
-
         }
         userDeck.removeCardWithIndex(intIn);
         System.out.println("Card removed.");
