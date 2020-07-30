@@ -2,11 +2,17 @@ package model;
 
 import java.lang.String;
 
+/**
+ * Represents a Flashcard with a name, a question, and an answer.
+ */
+
 public class Flashcard {
     private String name;
     private String question;
     private String answer;
 
+    //REQUIRES: parameter inputs cannot be empty string
+    // EFFECTS: make a flashcard with a name, question, and answer
     public Flashcard(String name, String question, String answer) {
         this.name = name;
         this.question = question;

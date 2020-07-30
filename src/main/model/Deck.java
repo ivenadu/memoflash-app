@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+/**
+ * Represents a deck of flashcards with a title
+ */
 public class Deck {
 
     ArrayList<Flashcard> cardList;

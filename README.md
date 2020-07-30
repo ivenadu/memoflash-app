@@ -21,6 +21,8 @@ As a user, I want to be able to...
 - view all the cards in my deck
 - test myself with the flashcards (be quizzed, see answers to incorrect questions and total score)
 - remove flashcards from active deck
+- automatically save flashcards to deck before quitting
+- retrieve the saved data when I re-enter the program
 
 Additional Features: (possibly added at a later date)
 - create decks to organize flashcards

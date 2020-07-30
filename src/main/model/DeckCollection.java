@@ -4,10 +4,14 @@ import java.util.ArrayList;
 
 import static jdk.nashorn.internal.objects.NativeString.trim;
 
+/**
+ * Represents a list of decks
+ */
+
 public class DeckCollection {
     ArrayList<Deck> deckCollection;
 
-    // EFFECTS: makes a new Hashset of Decks
+    // EFFECTS: makes a new ArrayList of Decks
     public DeckCollection() {
         deckCollection = new ArrayList<>();
     }

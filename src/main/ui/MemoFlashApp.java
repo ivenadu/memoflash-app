@@ -9,6 +9,9 @@ import java.util.*;
 // https://github.students.cs.ubc.ca/CPSC210/TellerApp.git (ui menu and while loop designs)
 // https://beginnersbook.com/2017/08/java-break-statement/
 
+/**
+ * MemoFlash application
+ */
 
 public class MemoFlashApp {
     private Scanner scan = new Scanner(System.in);
@@ -38,10 +41,8 @@ public class MemoFlashApp {
             } else {
                 processMenu(input);
             }
-
         }
         System.out.println("Come back and study soon!");
-
     }
 
     // EFFECTS: displays main menu's options
