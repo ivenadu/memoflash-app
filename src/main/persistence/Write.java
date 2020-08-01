@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Deck;
 import model.DeckCollection;
+import model.Flashcard;
 import ui.MemoFlashApp;
 
 import java.util.HashMap;
@@ -19,7 +20,32 @@ import java.nio.file.Paths;
  */
 public abstract class Write {
 
-    public String mapObject(HashMap<Integer, Deck> hm) throws IOException {
+    String path;
+
+    public String setPath(String path) {
+        return this.path = path;
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public String mapDeckCollection(HashMap<Integer, Deck> hm) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString;
+
+        try {
+            mapper.writeValue(Paths.get(getPath()).toFile(), hm);
+            jsonString = mapper.writeValueAsString(hm);
+            return jsonString;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public String mapFlashcardDeck(HashMap<Integer, Flashcard> hm) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString;
 

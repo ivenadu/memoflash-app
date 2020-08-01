@@ -2,6 +2,7 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -78,5 +79,13 @@ public class Deck {
     // EFFECTS: removes Flashcard at given index
     public Flashcard removeCardWithIndex(int i) {
         return cardList.remove(i);
+    }
+
+    public HashMap<Integer, Flashcard> mapFlashcards() {
+        HashMap<Integer, Flashcard> cardHashMap = new HashMap<>();
+        for (int i = 0; i < cardList.size(); i++) {
+            cardHashMap.put(i, cardList.get(i));
+        }
+        return cardHashMap;
     }
 }

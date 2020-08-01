@@ -26,7 +26,7 @@ public class DeckCollectionTest {
         quickDeckAdder();
         deckSet.removeDeck("History");
         assertEquals(deckSet.size(), 2);
-        assertEquals(deckSet.viewDeckTitles(), "Deck: ABC's\nDeck: Animal Species\n");
+        assertEquals(deckSet.viewDeckTitles(), "0. ABC's\n1. Animal Species\n");
 
     }
 
@@ -35,7 +35,7 @@ public class DeckCollectionTest {
         quickDeckAdder();
         deckSet.removeDeck("You Can't Find This");
         assertEquals(deckSet.size(), 3);
-        assertEquals(deckSet.viewDeckTitles(), "Deck: History\nDeck: ABC's\nDeck: Animal Species\n");
+        assertEquals(deckSet.viewDeckTitles(), "0. History\n1. ABC's\n2. Animal Species\n");
     }
 
     @Test
@@ -47,7 +47,7 @@ public class DeckCollectionTest {
     @Test
     public void viewDeckTitles() {
         quickDeckAdder();
-        assertEquals(deckSet.viewDeckTitles(), "Deck: History\nDeck: ABC's\nDeck: Animal Species\n");
+        assertEquals(deckSet.viewDeckTitles(), "0. History\n1. ABC's\n2. Animal Species\n");
     }
 
     @Test

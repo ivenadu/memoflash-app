@@ -70,6 +70,12 @@ public class DeckTest {
         assertEquals(testingDeck.getCardFromIndex(0),testingDeck.cardList.get(0));
     }
 
+    @Test
+    public void testCardHashMap() {
+        quickAdd();
+        assertTrue(testingDeck.mapFlashcards().size() == 2);
+    }
+
 
     public void quickAdd() {
         Flashcard fact1 = new Flashcard("First", "FirstQ", "FirstA");

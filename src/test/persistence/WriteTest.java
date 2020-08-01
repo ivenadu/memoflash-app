@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class WriteTest {
-    private File testFile;
     private DeckCollection deckCollection;
-    HashMap<Integer, Deck> deck;
+    HashMap<Integer, Deck> deckHashMap;
+    String path;
 
     @BeforeEach
     void preTest() {
@@ -31,33 +31,32 @@ public class WriteTest {
         DeckCollection deckCollection = new DeckCollection();
         deckCollection.addDeck(testDeck1);
         deckCollection.addDeck(testDeck2);
-        File testFile = new File("./data/testFile.txt");
-        this.testFile = testFile;
+        path = "./data/testFile.txt";
+        deckCollection.setPath(path);
         this.deckCollection = deckCollection;
     }
 
     @Test
-    void testMapObject() {
-            this.deck = deckCollection.mapDecks();
-            try {
-                assertEquals("{\"0\":{\"title\":\"testDeck1\"},\"1\":{\"title\":\"testDeck2\"}}",
-                        deckCollection.mapObject(deck));
-            } catch (Exception ex) {
-                fail("Unexpected exception");
-            }
-
+    void testMapDeckCollection() {
+        this.deckHashMap = deckCollection.mapDecks();
+        try {
+            assertEquals("{\"0\":{\"title\":\"testDeck1\"},\"1\":{\"title\":\"testDeck2\"}}",
+                    deckCollection.mapDeckCollection(deckHashMap));
+        } catch (IOException ex) {
+            fail("Unexpected exception");
+        }
     }
 
     @Test
-    void testIOException() {
+    void testMapDeckCollectionException() {
+        this.deckCollection.setPath("");
         try {
-            assertEquals("{\"0\":{\"title\":\"testDeck1\"},\"1\":{\"title\":\"testDeck2\"}}",
-                    deckCollection.mapObject(deck));
-            fail("Should have thrown exception");
-        } catch (IOException ex) {
-            //good!
+            deckCollection.mapDeckCollection(deckHashMap);
+            fail("gone too far");
+        }catch (IOException ex) {
+            //good
         }
-
     }
+
 
 }

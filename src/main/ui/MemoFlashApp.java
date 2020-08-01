@@ -3,6 +3,7 @@ package ui;
 import model.DeckCollection;
 import model.Flashcard;
 import model.Deck;
+import persistence.Write;
 
 import java.io.IOException;
 import java.util.*;
@@ -15,7 +16,7 @@ import java.util.*;
  * MemoFlash application
  */
 
-public class MemoFlashApp {
+public class MemoFlashApp extends Write {
     private Scanner scan = new Scanner(System.in);
     Deck userDeck;
     private int count;
@@ -45,9 +46,10 @@ public class MemoFlashApp {
             input = getInput();
 
             if (input.equalsIgnoreCase("q")) {
+                setPath("./data/myFile.txt");
                 HashMap<Integer, Deck> deckMap = (deckCollection.mapDecks());
                 try {
-                    deckCollection.mapObject(deckMap);
+                    deckCollection.mapDeckCollection(deckMap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -254,7 +256,12 @@ public class MemoFlashApp {
     // MODIFIES: this
     // EFFECTS: creates deck with a title
     private void deckCreator() {
-        System.out.println("WIP");
+        System.out.println("Please enter a title for your deck: ");
+        String in = getInput();
+        Deck newDeck = new Deck(in);
+        deckCollection.addDeck(newDeck);
+        this.userDeck = newDeck;
+        System.out.println("Your deck " + userDeck.getTitle() + " has been created and set to your active deck.");
         goToMenu();
     }
 
@@ -273,7 +280,8 @@ public class MemoFlashApp {
 
     // EFFECTS: displays all decks
     private void decksViewer() {
-        System.out.println("WIP");
+        System.out.println("You have " + deckCollection.size() + " decks in your collection.");
+        System.out.println(deckCollection.viewDeckTitles());
         goToMenu();
     }
 
@@ -332,6 +340,8 @@ public class MemoFlashApp {
                 System.out.println("Incorrect. The answer is: " + "\"" + card.getAnswer() + "\"");
             }
         }
+
+
     }
 }
 

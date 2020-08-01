@@ -51,15 +51,16 @@ public class DeckCollection extends Write {
         if (deckCollection.size() == 0) {
             return "There are no decks.";
         }
-        for (Deck d : deckCollection) {
-            String title = "Deck: " + d.getTitle() + "\n";
+        for (int i = 0; i < deckCollection.size(); i++) {
+            String title = i + ". " + deckCollection.get(i).getTitle() + "\n";
+            deckCollection.get(i);
             appendedResult += title;
         }
         return appendedResult;
     }
 
     public HashMap<Integer, Deck> mapDecks() {
-        HashMap<Integer, Deck> deckHashMap = new HashMap<Integer, Deck>();
+        HashMap<Integer, Deck> deckHashMap = new HashMap<>();
         for (int i = 0; i < deckCollection.size(); i++) {
             deckHashMap.put(i, deckCollection.get(i));
         }
