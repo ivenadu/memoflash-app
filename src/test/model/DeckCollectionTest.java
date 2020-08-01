@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeckCollectionTest {
     DeckCollection deckSet;
@@ -52,6 +53,12 @@ public class DeckCollectionTest {
     @Test
     public void viewDeckTitlesNone() {
         assertEquals(deckSet.viewDeckTitles(), "There are no decks.");
+    }
+
+    @Test
+    public void testMapDeck() {
+        quickDeckAdder();
+        assertTrue(deckSet.mapDecks().size() == 3);
     }
 
     public void quickDeckAdder() {

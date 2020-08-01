@@ -1,5 +1,6 @@
 package ui;
 
+import model.DeckCollection;
 import model.Flashcard;
 import model.Deck;
 
@@ -17,6 +18,7 @@ public class MemoFlashApp {
     private Scanner scan = new Scanner(System.in);
     Deck userDeck;
     private int count;
+    DeckCollection deckCollection;
 
 
     //EFFECTS: Runs MemoFlash application
@@ -29,6 +31,11 @@ public class MemoFlashApp {
 
         String input;
         userDeck = new Deck("Default");
+        Deck deck1 = new Deck("Random");
+        deckCollection = new DeckCollection();
+        deckCollection.addDeck(userDeck);
+        deckCollection.addDeck(deck1);
+
         boolean status = true;
 
         mainMenu();
@@ -37,6 +44,8 @@ public class MemoFlashApp {
             input = getInput();
 
             if (input.equalsIgnoreCase("q")) {
+                HashMap<Integer, Deck> deckMap = (deckCollection.mapDecks());
+                deckCollection.mapObject(deckMap);
                 status = false;
             } else {
                 processMenu(input);

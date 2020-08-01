@@ -1,6 +1,11 @@
 package model;
 
+
+import persistence.Write;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static jdk.nashorn.internal.objects.NativeString.trim;
 
@@ -8,7 +13,7 @@ import static jdk.nashorn.internal.objects.NativeString.trim;
  * Represents a list of decks
  */
 
-public class DeckCollection {
+public class DeckCollection extends Write {
     ArrayList<Deck> deckCollection;
 
     // EFFECTS: makes a new ArrayList of Decks
@@ -27,13 +32,12 @@ public class DeckCollection {
     // EFFECTS: If there is a Deck whose Title matches input, removes it and returns true. Otherwise return false.
     public boolean removeDeck(String deckTitle) {
         trim(deckTitle);
-        for (Deck d: deckCollection) {
+        for (Deck d : deckCollection) {
             if (d.getTitle().equals(deckTitle)) {
                 return deckCollection.remove(d);
             }
         }
         return false;
-
     }
 
     // EFFECTS: Returns size of DeckCollection.
@@ -54,5 +58,14 @@ public class DeckCollection {
         return appendedResult;
     }
 
-
+    public HashMap<Integer, Deck> mapDecks() {
+        HashMap<Integer, Deck> deckHashMap = new HashMap<Integer, Deck>();
+        for (int i = 0; i < deckCollection.size(); i++) {
+            deckHashMap.put(i, deckCollection.get(i));
+        }
+        return deckHashMap;
+    }
 }
+
+
+
