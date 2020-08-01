@@ -29,5 +29,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="jackson-databind-2.11.0.wso2v1" level="project" />
+    <orderEntry type="library" exported="" name="jackson-core-2.11.1" level="project" />
+    <orderEntry type="library" exported="" name="jackson-annotations-2.11.1" level="project" />
   </component>
 </module>
