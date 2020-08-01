@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,6 +45,18 @@ public class WriteTest {
             } catch (Exception ex) {
                 fail("Unexpected exception");
             }
+
+    }
+
+    @Test
+    void testIOException() {
+        try {
+            assertEquals("{\"0\":{\"title\":\"testDeck1\"},\"1\":{\"title\":\"testDeck2\"}}",
+                    deckCollection.mapObject(deck));
+            fail("Should have thrown exception");
+        } catch (IOException ex) {
+            //good!
+        }
 
     }
 
