@@ -4,6 +4,7 @@ import model.DeckCollection;
 import model.Flashcard;
 import model.Deck;
 
+import java.io.IOException;
 import java.util.*;
 
 //Sources referred to:
@@ -45,7 +46,11 @@ public class MemoFlashApp {
 
             if (input.equalsIgnoreCase("q")) {
                 HashMap<Integer, Deck> deckMap = (deckCollection.mapDecks());
-                deckCollection.mapObject(deckMap);
+                try {
+                    deckCollection.mapObject(deckMap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 status = false;
             } else {
                 processMenu(input);

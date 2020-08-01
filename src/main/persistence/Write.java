@@ -19,7 +19,7 @@ import java.nio.file.Paths;
  */
 public abstract class Write {
 
-    public String mapObject(HashMap<Integer, Deck> hm) {
+    public String mapObject(HashMap<Integer, Deck> hm) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString;
 
@@ -30,7 +30,7 @@ public abstract class Write {
 
         } catch (IOException e) {
             e.printStackTrace();
+            throw e;
         }
-        return "";
     }
 }
