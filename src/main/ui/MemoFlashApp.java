@@ -28,7 +28,13 @@ public class MemoFlashApp extends Load {
 
     // EFFECTS:
     public void runApp() throws IOException {
-        deckCollection = Load.loadFile("./data/myFile.txt");
+        try {
+            deckCollection = Load.loadFile("./data/myFile.txt");
+        } catch (Exception ex) {
+            deckCollection = new DeckCollection();
+            deckCollection.addDeck(new Deck("Default"));
+        }
+
         String input;
 
         boolean status = true;

@@ -61,6 +61,27 @@ public class DeckCollectionTest {
         assertTrue(deckSet.mapDecks().size() == 3);
     }
 
+    @Test
+    public void testSetActiveDeck() {
+        Deck d0 = new Deck("Everything");
+        Deck d1 = new Deck("Nothing");
+
+        deckSet.addDeck(d0);
+        deckSet.addDeck(d1);
+        deckSet.setActiveDeck(d0);
+        assertEquals("Everything", deckSet.getActiveDeck().getTitle());
+    }
+
+    @Test
+    public void testGetActiveDeck() {
+        Deck d0 = new Deck("Everything");
+        Deck d1 = new Deck("Nothing");
+        deckSet.addDeck(d0);
+        deckSet.addDeck(d1);
+        deckSet.setActiveDeck(null);
+        assertEquals(d0, deckSet.getActiveDeck());
+    }
+
     public void quickDeckAdder() {
         Deck deck1 = new Deck("History");
         Deck deck2 = new Deck("ABC's");

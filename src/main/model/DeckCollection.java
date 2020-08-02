@@ -14,8 +14,8 @@ import static jdk.nashorn.internal.objects.NativeString.trim;
  */
 
 public class DeckCollection extends Write {
-    private int activeIndex = 0; //TODO: add deck switch feature
-    private Deck activeDeck = null;
+    private int activeIndex = -1; //TODO: add deck switch feature
+
     public ArrayList<Deck> deckCollection;
 
     // EFFECTS: makes a new ArrayList of Decks
@@ -23,15 +23,19 @@ public class DeckCollection extends Write {
         deckCollection = new ArrayList<>();
     }
 
+
     public Deck getActiveDeck() {
-        if (this.activeDeck == null) {
-            this.activeDeck = deckCollection.get(activeIndex);
+        if (this.activeIndex == -1) {
+            this.activeIndex = 0;
         }
-        return this.activeDeck;
+        if (deckCollection.isEmpty()) {
+            throw new RuntimeException("no deck!");
+        }
+        return this.deckCollection.get(activeIndex);
     }
 
-    public void setActiveDeck(Deck newDeck) {
-        this.activeDeck = newDeck;
+    public void setActiveDeck(Deck curDeck) {
+        this.activeIndex = this.deckCollection.indexOf(curDeck);
     }
 
     // REQUIRES: cannot add duplicate Deck
@@ -39,7 +43,7 @@ public class DeckCollection extends Write {
     // EFFECTS: adds Deck to the DeckCollection
     public void addDeck(Deck d) {
         deckCollection.add(d);
-        activeDeck = d;
+        setActiveDeck(d);
     }
 
     // MODIFIES: this

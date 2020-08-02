@@ -25,10 +25,9 @@ As a user, I want to be able to...
 - retrieve the saved data when I re-enter the program
 
 Additional Features: (possibly added at a later date)
-- create decks to organize flashcards
-- rename cards and decks
+- create decks to organize flashcards (COMPLETE)
 - remove decks I no longer need
-- view all of my decks
+- view all of my decks (COMPLETE)
 - select deck to use for flashcard testing 
 
 
