@@ -3,15 +3,23 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckCollectionTest {
     DeckCollection deckSet;
+    private Deck d1;
+    private Deck d2;
+    private Deck d3;
 
     @BeforeEach
     public void preTest() {
         deckSet = new DeckCollection();
+    }
+
+    @Test
+    public void getActiveIndexTest() {
+        quickDeckAdder();
+        assertEquals(2, deckSet.getActiveIndex());
     }
 
     @Test
@@ -26,7 +34,9 @@ public class DeckCollectionTest {
         quickDeckAdder();
         deckSet.removeDeck(0);
         assertEquals(deckSet.size(), 2);
-        assertEquals(deckSet.viewDeckTitles(), "0. ABC's\n1. Animal Species\n");
+        assertFalse(deckSet.deckCollection.contains(d1)); // does not contain removed deck
+        assertTrue(deckSet.deckCollection.contains(d2)); // but still contains others
+        assertTrue(deckSet.deckCollection.contains(d3));
 
     }
 
@@ -34,7 +44,7 @@ public class DeckCollectionTest {
     public void removeDeckNoExist(){
         quickDeckAdder();
         try {
-            deckSet.removeDeck(4);
+            deckSet.removeDeck(4); // there is no index number 4, so should throw
         } catch (IndexOutOfBoundsException ex) {
             //good
         }
@@ -45,7 +55,7 @@ public class DeckCollectionTest {
     @Test
     public void removeDeckNoDecks(){
         try {
-            deckSet.removeDeck(1);
+            deckSet.removeDeck(1); // no decks were added beforehand
         } catch (IndexOutOfBoundsException ex) {
             //good
         }
@@ -63,37 +73,45 @@ public class DeckCollectionTest {
         assertEquals(deckSet.viewDeckTitles(), "There are no decks.");
     }
 
+    @Test
+    public void testGetActiveDeck() {
+        deckSet.addDeck(d1);
+        deckSet.addDeck(d2);
+        assertEquals(d2, deckSet.getActiveDeck());
+    }
+
+    @Test
+    public void testGetActiveDeckNone() {
+        try {
+            deckSet.getActiveDeck();
+            fail("should have thrown");
+        } catch (RuntimeException ex) {
+            //good
+        }
+    }
 
     @Test
     public void testSetActiveDeck() {
-        Deck d0 = new Deck("Everything");
-        Deck d1 = new Deck("Nothing");
-
-        deckSet.addDeck(d0);
-        deckSet.addDeck(d1);
-        deckSet.setActiveDeck(d0);
-        assertEquals("Everything", deckSet.getActiveDeck().getTitle());
+        quickDeckAdder();
+        assertEquals(d3, deckSet.getActiveDeck()); // verify active deck
+        deckSet.setActiveIndex(d2); // switch active deck
+        assertEquals(d2, deckSet.getActiveDeck()); // verify deck has been switched
     }
 
     @Test
-    public void testGetActiveDeck() {
-        Deck d0 = new Deck("Everything");
-        Deck d1 = new Deck("Nothing");
-        deckSet.addDeck(d0);
-        deckSet.addDeck(d1);
-        assertEquals(d1, deckSet.getActiveDeck()); // verify active deck
-        deckSet.setActiveDeck(d0); // switch active deck
-        assertEquals(d0, deckSet.getActiveDeck()); //verify deck has been switched
+    public void retrieveDeckFromIndexTest() {
+        quickDeckAdder();
+        assertEquals(d1, deckSet.retrieveDeckWithIndex(0));
+        assertEquals(d2, deckSet.retrieveDeckWithIndex(1));
+        assertEquals(d3, deckSet.retrieveDeckWithIndex(2));
     }
 
-
-
     public void quickDeckAdder() {
-        Deck deck1 = new Deck("History");
-        Deck deck2 = new Deck("ABC's");
-        Deck deck3 = new Deck("Animal Species");
-        deckSet.addDeck(deck1);
-        deckSet.addDeck(deck2);
-        deckSet.addDeck(deck3);
+        d1 = new Deck("History");
+        d2 = new Deck("ABC's");
+        d3 = new Deck("Animal Species");
+        deckSet.addDeck(d1);
+        deckSet.addDeck(d2);
+        deckSet.addDeck(d3);
     }
 }

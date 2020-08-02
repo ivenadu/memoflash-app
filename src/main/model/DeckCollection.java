@@ -4,18 +4,13 @@ package model;
 import persistence.Write;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import static jdk.nashorn.internal.objects.NativeString.trim;
-import static jdk.nashorn.internal.runtime.ScriptObject.PROTO_PROPERTY_NAME;
 
 /**
  * Represents a list of decks
  */
 
 public class DeckCollection extends Write {
-    private int activeIndex;//TODO: add deck switch feature
+    private int activeIndex;
 
     public ArrayList<Deck> deckCollection;
 
@@ -24,21 +19,23 @@ public class DeckCollection extends Write {
         deckCollection = new ArrayList<>();
     }
 
+    // EFFECTS: retrieves active index
     public int getActiveIndex() {
         return activeIndex;
     }
 
+    // EFFECTS: returns the active deck
     public Deck getActiveDeck() {
-//        if (this.activeIndex == -1) {
-//            this.activeIndex = 0;
-//        }
+
         if (deckCollection.isEmpty()) {
             throw new RuntimeException("no deck!");
         }
         return this.deckCollection.get(getActiveIndex());
     }
 
-    public void setActiveDeck(Deck deck) {
+    // MODIFIES: this
+    // EFFECTS: sets active index corresponding to input deck
+    public void setActiveIndex(Deck deck) {
 
         for (int i = 0; i < deckCollection.size(); i++) {
             if (deckCollection.get(i) == deck) {
@@ -52,7 +49,7 @@ public class DeckCollection extends Write {
     // EFFECTS: adds Deck to the DeckCollection
     public void addDeck(Deck d) {
         deckCollection.add(d);
-        setActiveDeck(d);
+        setActiveIndex(d);
     }
 
     // EFFECTS: Returns size of DeckCollection.
@@ -62,16 +59,15 @@ public class DeckCollection extends Write {
 
     // EFFECTS: Returns the titles of the Decks in Deck Collection, from least to most recently added
     public String viewDeckTitles() {
-        String appendedResult = new String();
+        StringBuilder appendedResult = new StringBuilder();
         if (deckCollection.size() == 0) {
             return "There are no decks.";
         }
         for (int i = 0; i < deckCollection.size(); i++) {
             String title = i + ". " + deckCollection.get(i).getTitle() + "\n";
-            deckCollection.get(i);
-            appendedResult += title;
+            appendedResult.append(title);
         }
-        return appendedResult;
+        return appendedResult.toString();
     }
 
     // MODIFIES: this
@@ -84,8 +80,6 @@ public class DeckCollection extends Write {
     public Deck retrieveDeckWithIndex(int index) {
         return deckCollection.get(index);
     }
-
-
 }
 
 

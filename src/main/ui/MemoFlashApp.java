@@ -27,7 +27,7 @@ public class MemoFlashApp extends Load {
     }
 
     // EFFECTS:
-    public void runApp() throws IOException {
+    public void runApp() {
         try {
             deckCollection = Load.loadFile("./data/myFile.txt");
         } catch (Exception ex) {
@@ -61,8 +61,8 @@ public class MemoFlashApp extends Load {
         System.out.println("Welcome to the main menu. Your active deck is: \"" + getUserDeck().getTitle()
                 + "\" \nWhat would you like to do?");
         System.out.println();
-        System.out.println("Go to flashcard menu: Press f");//TODO: not all features done yet
-        System.out.println("Go to deck menu: Press d [WIP]"); //TODO: not done yet
+        System.out.println("Go to flashcard menu: Press f");
+        System.out.println("Go to deck menu: Press d");
         System.out.println("Begin test: Press t");
         System.out.println("End Program: Press q\n");
 
@@ -88,7 +88,6 @@ public class MemoFlashApp extends Load {
                 || in.equalsIgnoreCase("v") || in.equalsIgnoreCase("d")
                 || in.equalsIgnoreCase("m"))) {
             System.out.println("Create a new flashcard: Press n");
-            System.out.println("Edit an existing flashcard: Press e [WIP]"); //TODO: not done yet
             System.out.println("View all flashcards: Press v");
             System.out.println("Delete a flashcard: Press d");
             System.out.println("Go to main menu: Press m");
@@ -121,11 +120,11 @@ public class MemoFlashApp extends Load {
                 || in.equalsIgnoreCase("v") || in.equalsIgnoreCase("g")
                 || in.equalsIgnoreCase("s") || in.equalsIgnoreCase("d")
                 || in.equalsIgnoreCase("m"))) {
-            System.out.println("Create a new deck: Press n"); //TODO: WIP
-            System.out.println("View flashcards in current deck: Press v"); //TODO: WIP
-            System.out.println("View all decks: Press g"); //TODO: WIP
-            System.out.println("Switch active deck: Press s"); //TODO: WIP
-            System.out.println("Delete a deck: Press d"); //TODO: WIP
+            System.out.println("Create a new deck: Press n");
+            System.out.println("View flashcards in current deck: Press v");
+            System.out.println("View all decks: Press g");
+            System.out.println("Switch active deck: Press s");
+            System.out.println("Delete a deck: Press d");
             System.out.println("Go to main menu: Press m");
             in = getInput();
         }
@@ -221,8 +220,9 @@ public class MemoFlashApp extends Load {
             intIn = tryNumFormExcept(number, getUserDeck().size());
             if (intIn != -1) {
                 break;
+            } else {
+                System.out.println("Please enter integer within range.");
             }
-            System.out.println("Please enter integer within range.");
         }
         getUserDeck().removeCardWithIndex(intIn);
         System.out.println("Card removed from \"" + getUserDeck().getTitle() + "\"" + "deck.");
@@ -283,7 +283,7 @@ public class MemoFlashApp extends Load {
             }
             System.out.println("Please enter integer within range.");
         }
-        deckCollection.setActiveDeck(deckCollection.retrieveDeckWithIndex(intIn));
+        deckCollection.setActiveIndex(deckCollection.retrieveDeckWithIndex(intIn));
         System.out.println("Active deck switched to " + deckCollection.getActiveDeck().getTitle() + ".");
         goToMenu();
     }
