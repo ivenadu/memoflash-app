@@ -7,6 +7,8 @@ import model.DeckCollection;
 import model.Flashcard;
 import ui.MemoFlashApp;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,21 +22,12 @@ import java.nio.file.Paths;
  */
 public abstract class Write {
 
-    Deck deck;
-
-    public String mapDeckCollection(HashMap<Integer, Deck> hm) throws IOException {
+    public String save(DeckCollection dc, String path) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        String jsonString;
-
-        try {
-            mapper.writeValue(Paths.get("./data/myFiles.txt").toFile(), hm);
-            jsonString = mapper.writeValueAsString(hm);
-            return jsonString;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
+        String jsonString = mapper.writeValueAsString(dc);
+        FileWriter fw = (new FileWriter(new File(path)));
+        fw.write(jsonString);
+        fw.close();
+        return jsonString;
     }
-
 }

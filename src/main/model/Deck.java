@@ -12,9 +12,11 @@ import java.util.HashSet;
  */
 public class Deck extends Write {
 
-    ArrayList<Flashcard> cardList;
-    String title;
+    private ArrayList<Flashcard> cardList;
+    private String title;
 
+    public Deck() {
+    }
 
     // EFFECTS: makes a new Deck with title
     public Deck(String title) {
@@ -55,6 +57,8 @@ public class Deck extends Write {
         return (this.title.equals(d.title));
     }
 
+
+
     // EFFECTS: return size of deck
     public int size() {
         return cardList.size();
@@ -63,6 +67,14 @@ public class Deck extends Write {
     // EFFECTS: return title of the Deck
     public String getTitle() {
         return title;
+    }
+
+    public ArrayList<Flashcard> getCardList() {
+        return cardList;
+    }
+
+    public void setCardList(ArrayList<Flashcard> cardList) {
+        this.cardList = cardList;
     }
 
     // MODIFIES: this

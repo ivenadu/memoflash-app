@@ -67,7 +67,7 @@ public class DeckTest {
     @Test
     public void getCardFromIndexTest() {
         quickAdd();
-        assertEquals(testingDeck.getCardFromIndex(0),testingDeck.cardList.get(0));
+        assertEquals(testingDeck.getCardFromIndex(0),testingDeck.getCardList().get(0));
     }
 
     @Test

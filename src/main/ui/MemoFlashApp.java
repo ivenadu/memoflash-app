@@ -3,7 +3,7 @@ package ui;
 import model.DeckCollection;
 import model.Flashcard;
 import model.Deck;
-import persistence.Write;
+import persistence.Load;
 
 import java.io.IOException;
 import java.util.*;
@@ -16,35 +16,29 @@ import java.util.*;
  * MemoFlash application
  */
 
-public class MemoFlashApp {
+public class MemoFlashApp extends Load {
+    private DeckCollection deckCollection = null;
     private Scanner scan = new Scanner(System.in);
-    Deck userDeck;
+
     private int count;
-    DeckCollection deckCollection;
 
-
-    //EFFECTS: Runs MemoFlash application
-    public MemoFlashApp() {
-        runApp();
+    private Deck getUserDeck() {
+        return deckCollection.getActiveDeck();
     }
 
     // EFFECTS:
-    private void runApp() {
+    public void runApp() throws IOException {
+        deckCollection = Load.loadFile("./data/myFile.txt");
         String input;
-        userDeck = new Deck("Default");
-        Deck deck1 = new Deck("Random");
-        deckCollection = new DeckCollection();
-        deckCollection.addDeck(userDeck);
-        deckCollection.addDeck(deck1);
+
         boolean status = true;
         mainMenu();
+
         while (status) {
             input = getInput();
             if (input.equalsIgnoreCase("q")) {
-//                deckCollection.setPath("./data/myFile.txt");
-                HashMap<Integer, Deck> deckMap = (deckCollection.mapDecks());
                 try {
-                    deckCollection.mapDeckCollection(deckMap);
+                    deckCollection.save(deckCollection, "./data/myFile.txt");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -157,6 +151,7 @@ public class MemoFlashApp {
         }
     }
 
+
     // MODIFIES: this
     // EFFECTS: adds a new card to the deck
     private void cardMaker() {
@@ -167,9 +162,10 @@ public class MemoFlashApp {
         System.out.println("Enter answer: ");
         String in3 = getInput();
         Flashcard card = new Flashcard(in, in2, in3);
-        userDeck.addCard(card);
+        getUserDeck().addCard(card);
+
         System.out.println("Your flashcard- \tname: " + card.getName() + "\t" + card.getQA()
-                + "\t has been created and " + "added to your current deck: " + userDeck.getTitle());
+                + "\t has been created and " + "added to your current deck: " + getUserDeck().getTitle());
         flashcardMenu();
 
     }
@@ -192,8 +188,8 @@ public class MemoFlashApp {
 
     // EFFECTS: displays cards in deck and available options
     private void cardViewer() {
-        System.out.println("You have " + userDeck.size() + " cards in the deck.\n");
-        System.out.println(userDeck.viewCards());
+        System.out.println("You have " + getUserDeck().size() + " cards in the deck.\n");
+        System.out.println(getUserDeck().viewCards());
         System.out.println();
         goToMenu();
     }
@@ -203,7 +199,7 @@ public class MemoFlashApp {
     // EFFECTS: If there are no cards in deck, will display message and go to flashcard menu.
     // Otherwise, displays indexed card names, then deletes the card corresponding to index of user's input number.
     private void cardDeleter() {
-        if (userDeck.size() == 0) {
+        if (getUserDeck().size() == 0) {
             System.out.println("You have no cards in this deck.");
             flashcardMenu();
         }
@@ -213,8 +209,8 @@ public class MemoFlashApp {
     // MODIFIES: this
     // EFFECTS: Displays indexed card names, then deletes the card corresponding to index of user's input number.
     private void loopCardDelete() {
-        for (int i = 0; i < userDeck.size(); i++) {
-            String name = userDeck.getCardFromIndex(i).getName();
+        for (int i = 0; i < getUserDeck().size(); i++) {
+            String name = getUserDeck().getCardFromIndex(i).getName();
             System.out.println(i + ". " + name);
         }
         System.out.println("Press the number corresponding to the card that you wish to remove from deck.");
@@ -229,7 +225,7 @@ public class MemoFlashApp {
             }
             System.out.println("Please enter integer within range.");
         }
-        userDeck.removeCardWithIndex(intIn);
+        getUserDeck().removeCardWithIndex(intIn);
         System.out.println("Card removed.");
         goToMenu();
     }
@@ -239,7 +235,7 @@ public class MemoFlashApp {
     private int tryNumFormExcept(String in) {
         try {
             int i = Integer.parseInt(in);
-            if (i >= 0 && i < userDeck.size()) {
+            if (i >= 0 && i < getUserDeck().size()) {
                 return i;
             }
         } catch (NumberFormatException e) {
@@ -255,8 +251,7 @@ public class MemoFlashApp {
         String in = getInput();
         Deck newDeck = new Deck(in);
         deckCollection.addDeck(newDeck);
-        this.userDeck = newDeck;
-        System.out.println("Your deck " + userDeck.getTitle() + " has been created and set to your active deck.");
+        System.out.println("Your deck " + getUserDeck().getTitle() + " has been created and set to your active deck.");
         goToMenu();
     }
 
@@ -269,7 +264,7 @@ public class MemoFlashApp {
 
     // EFFECTS: view card titles in current deck
     private void deckCardsViewer() {
-        System.out.println(userDeck.viewCards());
+        System.out.println(getUserDeck().viewCards());
         goToMenu();
     }
 
@@ -296,12 +291,12 @@ public class MemoFlashApp {
 
     // EFFECTS: If deck empty, goes back to menu. Otherwise, tests user and displays score at the end.
     private void testMode() {
-        if (userDeck.size() == 0) {
+        if (getUserDeck().size() == 0) {
             System.out.println("Cannot start test. You have no cards in this deck. \n");
             goToMenu();
         } else {
             doTest();
-            System.out.println("\nFinished! Your score: " + this.count + "/" + userDeck.size());
+            System.out.println("\nFinished! Your score: " + this.count + "/" + getUserDeck().size());
             goToMenu();
         }
     }
@@ -321,8 +316,8 @@ public class MemoFlashApp {
     // 1. Otherwise, will display correct answer and count does not increment.
     private void doTest() {
         int count = 0;
-        for (int i = 0; i < userDeck.size(); i++) {
-            Flashcard card = userDeck.getCardFromIndex(i);
+        for (int i = 0; i < getUserDeck().size(); i++) {
+            Flashcard card = getUserDeck().getCardFromIndex(i);
             String question = card.getQuestion();
             System.out.println(question);
             String in = getInput();

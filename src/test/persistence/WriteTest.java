@@ -6,7 +6,6 @@ import model.Flashcard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -37,21 +36,15 @@ public class WriteTest {
     }
 
     @Test
-    void testMapDeckCollection() {
-        this.deckHashMap = deckCollection.mapDecks();
-        try {
-            assertEquals("{\"0\":{\"title\":\"testDeck1\"},\"1\":{\"title\":\"testDeck2\"}}",
-                    deckCollection.mapDeckCollection(deckHashMap));
-        } catch (IOException ex) {
-            fail("Unexpected exception");
-        }
+    void testMapDeckCollection() throws IOException {
+        deckCollection.save(this.deckCollection, "./data/myTest.txt");
     }
 
 //    @Test
 //    void testMapDeckCollectionException() {
 //        this.deckCollection.setPath("");
 //        try {
-//            deckCollection.mapDeckCollection(deckHashMap);
+//            deckCollection.save(deckHashMap);
 //            fail("gone too far");
 //        }catch (IOException ex) {
 //            //good

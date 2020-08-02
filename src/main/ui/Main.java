@@ -4,7 +4,13 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        new MemoFlashApp();
+        try {
+            MemoFlashApp app = new MemoFlashApp();
+            app.runApp();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
 }

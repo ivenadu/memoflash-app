@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.lang.String;
 
 /**
@@ -11,6 +13,9 @@ public class Flashcard {
     private String question;
     private String answer;
 
+    public Flashcard() {
+    }
+
     //REQUIRES: parameter inputs cannot be empty string
     // EFFECTS: make a flashcard with a name, question, and answer
     public Flashcard(String name, String question, String answer) {
@@ -20,6 +25,7 @@ public class Flashcard {
     }
 
     // EFFECTS: returns the question and answer of the flashcard
+    @JsonIgnore
     public String getQA() {
         return "Question: " + getQuestion() + "\tAnswer: " + getAnswer();
     }
