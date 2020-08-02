@@ -42,11 +42,14 @@ public class WriteTest {
     void testMapDeckCollection() throws IOException {
         deckCollection.save(this.deckCollection, "./data/myTest.txt");
         String testString = new String(Files.readAllBytes(Paths.get("./data/myTest.txt")));
-        String str_expected = "{\"deckCollection\":[{\"cardList\":[{\"name\":\"Name1\",\"question\":\"Q1\",\"answer\""
+        String expectedString = "{\"activeIndex\":1,\"deckCollection\":[{\"cardList\":[{\"name\":\"Name1\",\"question\":\"Q1\",\"answer\""
                 + ":\"A1\"}],\"title\":\"testDeck1\"},{\"cardList\":[{\"name\":\"Name2\",\"question\":\"Q2\",\""
                 + "answer\":\"A2\"},{\"name\":\"Name2\",\"question\":\"Q2\",\"answer\":\"Q3\"}],\"title\":\"testDeck2"
                 + "\"}],\"activeDeck\":{\"cardList\":[{\"name\":\"Name2\",\"question\":\"Q2\",\"answer\":\"A2\"},"
                 + "{\"name\":\"Name2\",\"question\":\"Q2\",\"answer\":\"Q3\"}],\"title\":\"testDeck2\"}}";
+        assertEquals(expectedString, testString);
+        assertEquals(1, deckCollection.getActiveIndex());
+        assertEquals(deckCollection.retrieveDeckWithIndex(1), deckCollection.getActiveDeck());
     }
 
     @Test

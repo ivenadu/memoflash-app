@@ -17,17 +17,19 @@ public class LoadTest {
 
     @Test
     void testLoad() {
-        DeckCollection dc = null;
+        DeckCollection dc;
         try {
             dc = Load.loadFile("./data/myTest0.txt");
+            assertEquals(2, dc.size());
+            Deck dk0 = dc.deckCollection.get(0);
+            assertEquals(0, dk0.size());
+            Deck dk1 = dc.deckCollection.get(1);
+            assertEquals(2, dk1.size());
+            assertEquals(dk1, dc.getActiveDeck());
         } catch (IOException e) {
             e.printStackTrace();
+            fail("unexpected exception");
         }
-        assertEquals(2, dc.size());
-        Deck dk0 = dc.deckCollection.get(0);
-        assertEquals(0, dk0.size());
-        Deck dk1 = dc.deckCollection.get(1);
-        assertEquals(2, dk1.size());
     }
 
     @Test

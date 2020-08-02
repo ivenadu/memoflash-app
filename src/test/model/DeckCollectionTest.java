@@ -24,23 +24,31 @@ public class DeckCollectionTest {
     @Test
     public void removeDeckTest() {
         quickDeckAdder();
-        deckSet.removeDeck("History");
+        deckSet.removeDeck(0);
         assertEquals(deckSet.size(), 2);
         assertEquals(deckSet.viewDeckTitles(), "0. ABC's\n1. Animal Species\n");
 
     }
 
     @Test
-    public void removeDeckNoExist() {
+    public void removeDeckNoExist(){
         quickDeckAdder();
-        deckSet.removeDeck("You Can't Find This");
+        try {
+            deckSet.removeDeck(4);
+        } catch (IndexOutOfBoundsException ex) {
+            //good
+        }
         assertEquals(deckSet.size(), 3);
         assertEquals(deckSet.viewDeckTitles(), "0. History\n1. ABC's\n2. Animal Species\n");
     }
 
     @Test
-    public void removeDeckNoDecks() {
-        deckSet.removeDeck("Deck Title");
+    public void removeDeckNoDecks(){
+        try {
+            deckSet.removeDeck(1);
+        } catch (IndexOutOfBoundsException ex) {
+            //good
+        }
         assertEquals(deckSet.size(), 0);
     }
 
@@ -55,11 +63,6 @@ public class DeckCollectionTest {
         assertEquals(deckSet.viewDeckTitles(), "There are no decks.");
     }
 
-    @Test
-    public void testMapDeck() {
-        quickDeckAdder();
-        assertTrue(deckSet.mapDecks().size() == 3);
-    }
 
     @Test
     public void testSetActiveDeck() {
@@ -78,9 +81,12 @@ public class DeckCollectionTest {
         Deck d1 = new Deck("Nothing");
         deckSet.addDeck(d0);
         deckSet.addDeck(d1);
-        deckSet.setActiveDeck(null);
-        assertEquals(d0, deckSet.getActiveDeck());
+        assertEquals(d1, deckSet.getActiveDeck()); // verify active deck
+        deckSet.setActiveDeck(d0); // switch active deck
+        assertEquals(d0, deckSet.getActiveDeck()); //verify deck has been switched
     }
+
+
 
     public void quickDeckAdder() {
         Deck deck1 = new Deck("History");

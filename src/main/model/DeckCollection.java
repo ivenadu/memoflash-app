@@ -8,13 +8,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static jdk.nashorn.internal.objects.NativeString.trim;
+import static jdk.nashorn.internal.runtime.ScriptObject.PROTO_PROPERTY_NAME;
 
 /**
  * Represents a list of decks
  */
 
 public class DeckCollection extends Write {
-    private int activeIndex = -1; //TODO: add deck switch feature
+    private int activeIndex;//TODO: add deck switch feature
 
     public ArrayList<Deck> deckCollection;
 
@@ -23,19 +24,27 @@ public class DeckCollection extends Write {
         deckCollection = new ArrayList<>();
     }
 
+    public int getActiveIndex() {
+        return activeIndex;
+    }
 
     public Deck getActiveDeck() {
-        if (this.activeIndex == -1) {
-            this.activeIndex = 0;
-        }
+//        if (this.activeIndex == -1) {
+//            this.activeIndex = 0;
+//        }
         if (deckCollection.isEmpty()) {
             throw new RuntimeException("no deck!");
         }
-        return this.deckCollection.get(activeIndex);
+        return this.deckCollection.get(getActiveIndex());
     }
 
-    public void setActiveDeck(Deck curDeck) {
-        this.activeIndex = this.deckCollection.indexOf(curDeck);
+    public void setActiveDeck(Deck deck) {
+
+        for (int i = 0; i < deckCollection.size(); i++) {
+            if (deckCollection.get(i) == deck) {
+                this.activeIndex = i;
+            }
+        }
     }
 
     // REQUIRES: cannot add duplicate Deck
@@ -44,18 +53,6 @@ public class DeckCollection extends Write {
     public void addDeck(Deck d) {
         deckCollection.add(d);
         setActiveDeck(d);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: If there is a Deck whose Title matches input, removes it and returns true. Otherwise return false.
-    public boolean removeDeck(String deckTitle) {
-        trim(deckTitle);
-        for (Deck d : deckCollection) {
-            if (d.getTitle().equals(deckTitle)) {
-                return deckCollection.remove(d);
-            }
-        }
-        return false;
     }
 
     // EFFECTS: Returns size of DeckCollection.
@@ -77,13 +74,18 @@ public class DeckCollection extends Write {
         return appendedResult;
     }
 
-    public HashMap<Integer, Deck> mapDecks() {
-        HashMap<Integer, Deck> deckHashMap = new HashMap<>();
-        for (int i = 0; i < deckCollection.size(); i++) {
-            deckHashMap.put(i, deckCollection.get(i));
-        }
-        return deckHashMap;
+    // MODIFIES: this
+    // EFFECTS: removes the deck at given index
+    public void removeDeck(int index) {
+        deckCollection.remove(index);
     }
+
+    // EFFECTS: retrieve deck at index
+    public Deck retrieveDeckWithIndex(int index) {
+        return deckCollection.get(index);
+    }
+
+
 }
 
 

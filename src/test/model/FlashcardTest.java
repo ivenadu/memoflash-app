@@ -19,6 +19,12 @@ class FlashcardTest {
         assertEquals(card.getQA(),"Question: Question\tAnswer: Answer");
     }
 
+    @Test //TODO: how to test?
+    public void constructFlashcard() {
+        Flashcard card = new Flashcard();
+
+    }
+
     @Test
     public void setQATest(){
         card.setQA("edited Q", "edited A");

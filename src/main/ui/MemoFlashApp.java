@@ -58,7 +58,8 @@ public class MemoFlashApp extends Load {
 
     // EFFECTS: displays main menu's options
     private void mainMenu() {
-        System.out.println("Welcome to the main menu. What would you like to do?");
+        System.out.println("Welcome to the main menu. Your active deck is: \"" + getUserDeck().getTitle()
+                + "\" \nWhat would you like to do?");
         System.out.println();
         System.out.println("Go to flashcard menu: Press f");//TODO: not all features done yet
         System.out.println("Go to deck menu: Press d [WIP]"); //TODO: not done yet
@@ -101,8 +102,6 @@ public class MemoFlashApp extends Load {
     public void processFMenu(String in) {
         if (in.equalsIgnoreCase("n")) {
             cardMaker();
-        } else if (in.equalsIgnoreCase("e")) {
-            cardEditor();
         } else if (in.equalsIgnoreCase("v")) {
             cardViewer();
         } else if (in.equalsIgnoreCase("d")) {
@@ -123,7 +122,6 @@ public class MemoFlashApp extends Load {
                 || in.equalsIgnoreCase("s") || in.equalsIgnoreCase("d")
                 || in.equalsIgnoreCase("m"))) {
             System.out.println("Create a new deck: Press n"); //TODO: WIP
-            System.out.println("Edit active deck: Press e"); //TODO: WIP
             System.out.println("View flashcards in current deck: Press v"); //TODO: WIP
             System.out.println("View all decks: Press g"); //TODO: WIP
             System.out.println("Switch active deck: Press s"); //TODO: WIP
@@ -142,8 +140,6 @@ public class MemoFlashApp extends Load {
 
         if (in.equalsIgnoreCase("n")) {
             deckCreator();
-        } else if (in.equalsIgnoreCase("e")) {
-            deckEditor();
         } else if (in.equalsIgnoreCase("v")) {
             deckCardsViewer();
         } else if (in.equalsIgnoreCase("g")) {
@@ -187,14 +183,10 @@ public class MemoFlashApp extends Load {
         return str;
     }
 
-    private void cardEditor() {
-        System.out.println("WIP");
-        mainMenu();
-    }
-
     // EFFECTS: displays cards in deck and available options
     private void cardViewer() {
-        System.out.println("You have " + getUserDeck().size() + " cards in the deck.\n");
+        System.out.println("You have " + getUserDeck().size() + " card(s) in your active deck:"
+                + getUserDeck().getTitle() + "\n");
         System.out.println(getUserDeck().viewCards());
         System.out.println();
         goToMenu();
@@ -206,7 +198,7 @@ public class MemoFlashApp extends Load {
     // Otherwise, displays indexed card names, then deletes the card corresponding to index of user's input number.
     private void cardDeleter() {
         if (getUserDeck().size() == 0) {
-            System.out.println("You have no cards in this deck.");
+            System.out.println("You have no cards in your active deck: " + getUserDeck().getTitle());
             flashcardMenu();
         }
         loopCardDelete();
@@ -219,29 +211,30 @@ public class MemoFlashApp extends Load {
             String name = getUserDeck().getCardFromIndex(i).getName();
             System.out.println(i + ". " + name);
         }
-        System.out.println("Press the number corresponding to the card that you wish to remove from deck.");
+        System.out.println("Press the number corresponding to the card that you wish to remove from your active deck: "
+                + getUserDeck().getTitle());
 
         int intIn;
 
         while (true) {
             String number = getInput();
-            intIn = tryNumFormExcept(number);
+            intIn = tryNumFormExcept(number, getUserDeck().size());
             if (intIn != -1) {
                 break;
             }
             System.out.println("Please enter integer within range.");
         }
         getUserDeck().removeCardWithIndex(intIn);
-        System.out.println("Card removed.");
+        System.out.println("Card removed from \"" + getUserDeck().getTitle() + "\"" + "deck.");
         goToMenu();
     }
 
     // EFFECTS: Returns user input if it is a valid index integer. If not an integer, catches exception.
     // Otherwise return -1 and keeps user in loop.
-    private int tryNumFormExcept(String in) {
+    private int tryNumFormExcept(String in, int size) {
         try {
             int i = Integer.parseInt(in);
-            if (i >= 0 && i < getUserDeck().size()) {
+            if (i >= 0 && i < size) {
                 return i;
             }
         } catch (NumberFormatException e) {
@@ -257,26 +250,21 @@ public class MemoFlashApp extends Load {
         String in = getInput();
         Deck newDeck = new Deck(in);
         deckCollection.addDeck(newDeck);
-        System.out.println("Your deck " + getUserDeck().getTitle() + " has been created and set to your active deck.");
-        goToMenu();
-    }
-
-    // MODIFIES: this
-    // EFFECTS: edits current deck
-    private void deckEditor() {
-        System.out.println("WIP");
+        System.out.println("Your deck " + getUserDeck().getTitle() + " has been created and set as your active deck.");
         goToMenu();
     }
 
     // EFFECTS: view card titles in current deck
     private void deckCardsViewer() {
+        System.out.println("Active deck: " + deckCollection.getActiveDeck().getTitle());
         System.out.println(getUserDeck().viewCards());
         goToMenu();
     }
 
     // EFFECTS: displays all decks
     private void decksViewer() {
-        System.out.println("You have " + deckCollection.size() + " decks in your collection.");
+        System.out.println("Active deck: " + deckCollection.getActiveDeck().getTitle());
+        System.out.println("You have " + deckCollection.size() + " deck(s) in your collection.");
         System.out.println(deckCollection.viewDeckTitles());
         goToMenu();
     }
@@ -284,15 +272,44 @@ public class MemoFlashApp extends Load {
     // MODIFIES: this
     // EFFECTS: switches current deck to another deck
     private void deckSwitcher() {
-        System.out.println("WIP");
+        System.out.println("Press the number corresponding to the deck that you wish to switch to.");
+        System.out.println(deckCollection.viewDeckTitles());
+        int intIn;
+        while (true) {
+            String number = getInput();
+            intIn = tryNumFormExcept(number, deckCollection.size());
+            if (intIn != -1) {
+                break;
+            }
+            System.out.println("Please enter integer within range.");
+        }
+        deckCollection.setActiveDeck(deckCollection.retrieveDeckWithIndex(intIn));
+        System.out.println("Active deck switched to " + deckCollection.getActiveDeck().getTitle() + ".");
         goToMenu();
     }
 
     // MODIFIES: this
     // EFFECTS: deletes deck according to index in list
     private void deckDeleter() {
-        System.out.println("WIP");
-        goToMenu();
+        if (deckCollection.size() == 1) {
+            System.out.println("You only have 1 deck, cannot delete.\n");
+            deckMenu();
+        } else {
+            System.out.println("Press the number corresponding to the deck that you wish to remove.");
+            System.out.println(deckCollection.viewDeckTitles());
+            int intIn;
+            while (true) {
+                String number = getInput();
+                intIn = tryNumFormExcept(number, deckCollection.size());
+                if (intIn != -1) {
+                    break;
+                }
+                System.out.println("Please enter integer within range.");
+            }
+            deckCollection.removeDeck(intIn);
+            System.out.println("Deck removed.");
+            goToMenu();
+        }
     }
 
     // EFFECTS: If deck empty, goes back to menu. Otherwise, tests user and displays score at the end.
