@@ -1,6 +1,8 @@
 package model;
 
 
+import persistence.Write;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,7 +10,7 @@ import java.util.HashSet;
 /**
  * Represents a deck of flashcards with a title
  */
-public class Deck {
+public class Deck extends Write {
 
     ArrayList<Flashcard> cardList;
     String title;

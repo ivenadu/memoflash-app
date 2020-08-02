@@ -16,7 +16,7 @@ import java.util.*;
  * MemoFlash application
  */
 
-public class MemoFlashApp extends Write {
+public class MemoFlashApp {
     private Scanner scan = new Scanner(System.in);
     Deck userDeck;
     private int count;
@@ -30,23 +30,18 @@ public class MemoFlashApp extends Write {
 
     // EFFECTS:
     private void runApp() {
-
         String input;
         userDeck = new Deck("Default");
         Deck deck1 = new Deck("Random");
         deckCollection = new DeckCollection();
         deckCollection.addDeck(userDeck);
         deckCollection.addDeck(deck1);
-
         boolean status = true;
-
         mainMenu();
-
         while (status) {
             input = getInput();
-
             if (input.equalsIgnoreCase("q")) {
-                setPath("./data/myFile.txt");
+//                deckCollection.setPath("./data/myFile.txt");
                 HashMap<Integer, Deck> deckMap = (deckCollection.mapDecks());
                 try {
                     deckCollection.mapDeckCollection(deckMap);

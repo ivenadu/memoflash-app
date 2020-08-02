@@ -31,8 +31,8 @@ public class WriteTest {
         DeckCollection deckCollection = new DeckCollection();
         deckCollection.addDeck(testDeck1);
         deckCollection.addDeck(testDeck2);
-        path = "./data/testFile.txt";
-        deckCollection.setPath(path);
+//        path = "./data/testFile.txt";
+//        deckCollection.setPath(path);
         this.deckCollection = deckCollection;
     }
 
@@ -47,16 +47,16 @@ public class WriteTest {
         }
     }
 
-    @Test
-    void testMapDeckCollectionException() {
-        this.deckCollection.setPath("");
-        try {
-            deckCollection.mapDeckCollection(deckHashMap);
-            fail("gone too far");
-        }catch (IOException ex) {
-            //good
-        }
-    }
+//    @Test
+//    void testMapDeckCollectionException() {
+//        this.deckCollection.setPath("");
+//        try {
+//            deckCollection.mapDeckCollection(deckHashMap);
+//            fail("gone too far");
+//        }catch (IOException ex) {
+//            //good
+//        }
+//    }
 
 
 }

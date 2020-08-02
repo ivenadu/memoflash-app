@@ -20,22 +20,14 @@ import java.nio.file.Paths;
  */
 public abstract class Write {
 
-    String path;
-
-    public String setPath(String path) {
-        return this.path = path;
-    }
-
-    public String getPath() {
-        return this.path;
-    }
+    Deck deck;
 
     public String mapDeckCollection(HashMap<Integer, Deck> hm) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString;
 
         try {
-            mapper.writeValue(Paths.get(getPath()).toFile(), hm);
+            mapper.writeValue(Paths.get("./data/myFiles.txt").toFile(), hm);
             jsonString = mapper.writeValueAsString(hm);
             return jsonString;
 
@@ -45,18 +37,4 @@ public abstract class Write {
         }
     }
 
-    public String mapFlashcardDeck(HashMap<Integer, Flashcard> hm) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString;
-
-        try {
-            mapper.writeValue(Paths.get("./data/myFile.txt").toFile(), hm);
-            jsonString = mapper.writeValueAsString(hm);
-            return jsonString;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
 }
