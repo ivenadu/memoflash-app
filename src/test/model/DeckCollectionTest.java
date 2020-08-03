@@ -31,7 +31,7 @@ public class DeckCollectionTest {
     }
 
     @Test
-    public void addDeckException() {
+    public void addDeckExceptionNull() {
         try {
             deckSet.addDeck(null);
             fail("gone too far");
@@ -48,7 +48,6 @@ public class DeckCollectionTest {
         assertFalse(deckSet.deckCollection.contains(d1)); // does not contain removed deck
         assertTrue(deckSet.deckCollection.contains(d2)); // but still contains others
         assertTrue(deckSet.deckCollection.contains(d3));
-
     }
 
     @Test

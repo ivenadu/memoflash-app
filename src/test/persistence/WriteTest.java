@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class WriteTest {
     private DeckCollection deckCollection;
-    HashMap<Integer, Deck> deckHashMap;
-    String path;
 
     @BeforeEach
     void preTest() {
@@ -33,8 +31,6 @@ public class WriteTest {
         DeckCollection deckCollection = new DeckCollection();
         deckCollection.addDeck(testDeck1);
         deckCollection.addDeck(testDeck2);
-//        path = "./data/testFile.txt";
-//        deckCollection.setPath(path);
         this.deckCollection = deckCollection;
     }
 

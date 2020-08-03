@@ -47,9 +47,10 @@ public class DeckCollection extends Write {
     // MODIFIES: this
     // EFFECTS: adds Deck to the DeckCollection
     public void addDeck(Deck d) {
-        if (!deckCollection.add(d) || d == null) {
-            throw new RuntimeException("Deck not added successfully.");
+        if (d == null) {
+            throw new RuntimeException("Cannot be null");
         }
+        deckCollection.add(d);
         setActiveDeck(d);
     }
 
