@@ -51,6 +51,21 @@ public class DeckCollectionTest {
     }
 
     @Test
+    public void removeDeckIndexLessThanSize() {
+        quickDeckAdder();
+        deckSet.setActiveDeck(d1);
+        assertEquals(0, deckSet.getActiveIndex()); // verify the index is < the number of decks present
+        deckSet.removeDeck(0);
+        assertFalse(deckSet.deckCollection.contains(d1));
+        assertTrue(deckSet.deckCollection.contains(d2));
+        assertTrue(deckSet.deckCollection.contains(d3));
+        assertTrue(deckSet.deckCollection.get(0) == d2);
+        assertTrue(deckSet.deckCollection.get(1) == d3);
+
+
+    }
+
+    @Test
     public void removeDeckException() {
         Deck d = new Deck("A deck.");
         try {
