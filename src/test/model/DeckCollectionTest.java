@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.security.InvalidParameterException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckCollectionTest {
@@ -26,7 +28,16 @@ public class DeckCollectionTest {
     public void addDeckTest() {
         quickDeckAdder();
         assertEquals(deckSet.size(), 3);
+    }
 
+    @Test
+    public void addDeckException() {
+        try {
+            deckSet.addDeck(null);
+            fail("gone too far");
+        } catch (RuntimeException ex) {
+            //good
+        }
     }
 
     @Test
@@ -37,6 +48,21 @@ public class DeckCollectionTest {
         assertFalse(deckSet.deckCollection.contains(d1)); // does not contain removed deck
         assertTrue(deckSet.deckCollection.contains(d2)); // but still contains others
         assertTrue(deckSet.deckCollection.contains(d3));
+
+    }
+
+    @Test
+    public void removeDeckException() {
+        Deck d = new Deck("A deck.");
+        try {
+            deckSet.addDeck(d);
+            assertTrue(deckSet.size() == 1);
+            deckSet.removeDeck(0);
+            fail("gone too far");
+        } catch (RuntimeException ex) {
+            //good
+        }
+        assertTrue(deckSet.size() == 1);
 
     }
 
@@ -75,9 +101,8 @@ public class DeckCollectionTest {
 
     @Test
     public void testGetActiveDeck() {
-        deckSet.addDeck(d1);
-        deckSet.addDeck(d2);
-        assertEquals(d2, deckSet.getActiveDeck());
+        quickDeckAdder();
+        assertEquals(d3, deckSet.getActiveDeck());
     }
 
     @Test

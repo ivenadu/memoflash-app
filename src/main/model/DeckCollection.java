@@ -40,15 +40,9 @@ public class DeckCollection extends Write {
     // EFFECTS: sets active index corresponding to input deck
     @JsonIgnore
     public void setActiveDeck(Deck deck) {
-//        for (int i = 0; i < deckCollection.size(); i++) {
-//            if (deckCollection.get(i) == deck) {
-//                this.activeIndex = i;
-//                return;
-//            }
-//        }
         int i = deckCollection.indexOf(deck);
         if (i == -1) {
-            throw new InvalidParameterException("deck not found");
+            throw new RuntimeException("Deck not found");
         }
         this.activeIndex = i;
     }
@@ -57,8 +51,8 @@ public class DeckCollection extends Write {
     // MODIFIES: this
     // EFFECTS: adds Deck to the DeckCollection
     public void addDeck(Deck d) {
-        if (!deckCollection.add(d)) {
-            throw new RuntimeException("deck not added successfully");
+        if (!deckCollection.add(d) || d.equals(null)) {
+            throw new RuntimeException("Deck not added successfully.");
         }
         setActiveDeck(d);
     }
@@ -85,7 +79,7 @@ public class DeckCollection extends Write {
     // EFFECTS: removes the deck at given index
     public void removeDeck(int index) {
         if (this.deckCollection.size() == 1) {
-            throw new InvalidParameterException("last deck cannot be deleted");
+            throw new RuntimeException("Last deck cannot be deleted");
         }
         deckCollection.remove(index);
         if (this.activeIndex >= this.deckCollection.size()) {

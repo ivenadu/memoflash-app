@@ -13,8 +13,8 @@ public class Flashcard {
     private String question;
     private String answer;
 
-    public Flashcard() {
-    }
+    //EFFECTS: an empty Flashcard constructor
+    public Flashcard() {}
 
     //REQUIRES: parameter inputs cannot be empty string
     // EFFECTS: make a flashcard with a name, question, and answer

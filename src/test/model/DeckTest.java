@@ -36,7 +36,6 @@ public class DeckTest {
         quickAdd();
         assertEquals(testingDeck.viewCards(), "Card Name: First\nQuestion: FirstQ\tAnswer: FirstA" +
                 "\n\nCard Name: Second\nQuestion: SecondQ\tAnswer: SecondA\n\n" );
-
     }
 
     @Test

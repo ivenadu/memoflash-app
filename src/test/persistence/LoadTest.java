@@ -16,6 +16,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LoadTest {
 
     @Test
+    void constructorForBot() {
+        new Load();
+    }
+
+    @Test
     void testLoad() {
         DeckCollection dc;
         try {
@@ -24,7 +29,7 @@ public class LoadTest {
             Deck dk0 = dc.deckCollection.get(0);
             assertEquals(0, dk0.size());
             Deck dk1 = dc.deckCollection.get(1);
-            assertEquals(2, dk1.size());
+            assertEquals(1, dk1.size());
             assertEquals(dk1, dc.getActiveDeck());
         } catch (IOException e) {
             e.printStackTrace();

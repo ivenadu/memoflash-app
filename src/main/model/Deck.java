@@ -57,8 +57,6 @@ public class Deck extends Write {
         return (this.title.equals(d.title));
     }
 
-
-
     // EFFECTS: return size of deck
     public int size() {
         return cardList.size();
