@@ -1,8 +1,10 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import persistence.Write;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +27,7 @@ public class DeckCollection extends Write {
     }
 
     // EFFECTS: returns the active deck
+    @JsonIgnore
     public Deck getActiveDeck() {
 
         if (deckCollection.isEmpty()) {
@@ -35,21 +38,29 @@ public class DeckCollection extends Write {
 
     // MODIFIES: this
     // EFFECTS: sets active index corresponding to input deck
-    public void setActiveIndex(Deck deck) {
-
-        for (int i = 0; i < deckCollection.size(); i++) {
-            if (deckCollection.get(i) == deck) {
-                this.activeIndex = i;
-            }
+    @JsonIgnore
+    public void setActiveDeck(Deck deck) {
+//        for (int i = 0; i < deckCollection.size(); i++) {
+//            if (deckCollection.get(i) == deck) {
+//                this.activeIndex = i;
+//                return;
+//            }
+//        }
+        int i = deckCollection.indexOf(deck);
+        if (i == -1) {
+            throw new InvalidParameterException("deck not found");
         }
+        this.activeIndex = i;
     }
 
     // REQUIRES: cannot add duplicate Deck
     // MODIFIES: this
     // EFFECTS: adds Deck to the DeckCollection
     public void addDeck(Deck d) {
-        deckCollection.add(d);
-        setActiveIndex(d);
+        if (!deckCollection.add(d)) {
+            throw new RuntimeException("deck not added successfully");
+        }
+        setActiveDeck(d);
     }
 
     // EFFECTS: Returns size of DeckCollection.
@@ -73,7 +84,13 @@ public class DeckCollection extends Write {
     // MODIFIES: this
     // EFFECTS: removes the deck at given index
     public void removeDeck(int index) {
+        if (this.deckCollection.size() == 1) {
+            throw new InvalidParameterException("last deck cannot be deleted");
+        }
         deckCollection.remove(index);
+        if (this.activeIndex >= this.deckCollection.size()) {
+            this.activeIndex = this.deckCollection.size() - 1;
+        }
     }
 
     // EFFECTS: retrieve deck at index

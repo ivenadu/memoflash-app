@@ -283,7 +283,7 @@ public class MemoFlashApp extends Load {
             }
             System.out.println("Please enter integer within range.");
         }
-        deckCollection.setActiveIndex(deckCollection.retrieveDeckWithIndex(intIn));
+        deckCollection.setActiveDeck(deckCollection.retrieveDeckWithIndex(intIn));
         System.out.println("Active deck switched to " + deckCollection.getActiveDeck().getTitle() + ".");
         goToMenu();
     }

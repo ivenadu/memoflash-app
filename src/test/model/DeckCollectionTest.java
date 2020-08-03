@@ -94,7 +94,7 @@ public class DeckCollectionTest {
     public void testSetActiveDeck() {
         quickDeckAdder();
         assertEquals(d3, deckSet.getActiveDeck()); // verify active deck
-        deckSet.setActiveIndex(d2); // switch active deck
+        deckSet.setActiveDeck(d2); // switch active deck
         assertEquals(d2, deckSet.getActiveDeck()); // verify deck has been switched
     }
 
