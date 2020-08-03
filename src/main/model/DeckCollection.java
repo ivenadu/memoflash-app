@@ -40,18 +40,14 @@ public class DeckCollection extends Write {
     // EFFECTS: sets active index corresponding to input deck
     @JsonIgnore
     public void setActiveDeck(Deck deck) {
-        int i = deckCollection.indexOf(deck);
-        if (i == -1) {
-            throw new RuntimeException("Deck not found");
-        }
-        this.activeIndex = i;
+        this.activeIndex = deckCollection.indexOf(deck);
     }
 
     // REQUIRES: cannot add duplicate Deck
     // MODIFIES: this
     // EFFECTS: adds Deck to the DeckCollection
     public void addDeck(Deck d) {
-        if (!deckCollection.add(d) || d.equals(null)) {
+        if (!deckCollection.add(d) || d == null) {
             throw new RuntimeException("Deck not added successfully.");
         }
         setActiveDeck(d);

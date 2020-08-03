@@ -31,20 +31,18 @@ public class Deck extends Write {
         cardList.add(card);
     }
 
-
     // EFFECTS: returns, from least to most recently added, each Flashcard's name, question, and answer in the Deck
     public String viewCards() {
-        String appendedResult = new String();
+        StringBuilder appendedResult = new StringBuilder();
         if (cardList.size() == 0) {
             return "There are no cards in the deck.";
         }
         for (Flashcard c : cardList) {
             String x = "Card Name: " + c.getName() + "\n" + c.getQA() + "\n\n";
-            appendedResult += x;
+            appendedResult.append(x);
         }
-        return appendedResult;
+        return appendedResult.toString();
     }
-
 
     // MODIFIES: this
     // EFFECTS: removes all of the cards in the deck
