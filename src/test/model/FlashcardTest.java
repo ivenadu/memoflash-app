@@ -48,11 +48,9 @@ class FlashcardTest {
         assertTrue(card.correctAnswer("aNsWeR"));
     }
 
-
     @Test
     public void wrongAnswer(){
         assertFalse(card.correctAnswer("Answe r"));
     }
-
 
 }

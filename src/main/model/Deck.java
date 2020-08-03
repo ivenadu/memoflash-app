@@ -4,8 +4,6 @@ package model;
 import persistence.Write;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * Represents a deck of flashcards with a title
@@ -91,11 +89,4 @@ public class Deck extends Write {
         return cardList.remove(i);
     }
 
-    public HashMap<Integer, Flashcard> mapFlashcards() {
-        HashMap<Integer, Flashcard> cardHashMap = new HashMap<>();
-        for (int i = 0; i < cardList.size(); i++) {
-            cardHashMap.put(i, cardList.get(i));
-        }
-        return cardHashMap;
-    }
 }

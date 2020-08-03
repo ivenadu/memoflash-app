@@ -69,21 +69,10 @@ public class DeckTest {
         assertEquals(testingDeck.getCardFromIndex(0),testingDeck.getCardList().get(0));
     }
 
-    @Test
-    public void testCardHashMap() {
-        quickAdd();
-        assertTrue(testingDeck.mapFlashcards().size() == 2);
-    }
-
-
     public void quickAdd() {
         Flashcard fact1 = new Flashcard("First", "FirstQ", "FirstA");
         Flashcard fact2 = new Flashcard("Second", "SecondQ", "SecondA");
         testingDeck.addCard(fact1);
         testingDeck.addCard(fact2);
     }
-
-
-
-
 }

@@ -19,8 +19,17 @@ import java.util.*;
 public class MemoFlashApp extends Load {
     private DeckCollection deckCollection = null;
     private Scanner scan = new Scanner(System.in);
-
     private int count;
+    private static final String NEW = "n";
+    private static final String VIEW_CARDS = "v";
+    private static final String VIEW_DECKS = "g";
+    private static final String DELETE = "x";
+    private static final String MAIN_MENU = "m";
+    private static final String CARD_MENU = "f";
+    private static final String DECK_MENU = "d";
+    private static final String TEST = "t";
+    private static final String SWITCH = "s";
+    private static final String QUIT = "q";
 
     private Deck getUserDeck() {
         return deckCollection.getActiveDeck();
@@ -42,7 +51,7 @@ public class MemoFlashApp extends Load {
 
         while (status) {
             input = getInput();
-            if (input.equalsIgnoreCase("q")) {
+            if (input.equalsIgnoreCase(QUIT)) {
                 try {
                     deckCollection.save(deckCollection, "./data/myFile.txt");
                 } catch (IOException e) {
@@ -71,11 +80,11 @@ public class MemoFlashApp extends Load {
     // MODIFIES: this
     // EFFECTS: processes user input at main menu
     private void processMenu(String in) {
-        if (in.equalsIgnoreCase("f")) {
+        if (in.equalsIgnoreCase(CARD_MENU)) {
             flashcardMenu();
-        } else if (in.equalsIgnoreCase("d")) {
+        } else if (in.equalsIgnoreCase(DECK_MENU)) {
             deckMenu();
-        } else if (in.equalsIgnoreCase("t")) {
+        } else if (in.equalsIgnoreCase(TEST)) {
             testMode();
         }
     }
@@ -84,12 +93,11 @@ public class MemoFlashApp extends Load {
     // EFFECTS: displays flashcard menu, takes in user input to evaluate next actions
     private void flashcardMenu() {
         String in = "";
-        while (!(in.equalsIgnoreCase("n") || in.equalsIgnoreCase("e")
-                || in.equalsIgnoreCase("v") || in.equalsIgnoreCase("d")
-                || in.equalsIgnoreCase("m"))) {
+        while (!(in.equalsIgnoreCase(NEW) || in.equalsIgnoreCase(VIEW_CARDS)
+                || in.equalsIgnoreCase(DELETE) || in.equalsIgnoreCase(MAIN_MENU))) {
             System.out.println("Create a new flashcard: Press n");
             System.out.println("View all flashcards: Press v");
-            System.out.println("Delete a flashcard: Press d");
+            System.out.println("Delete a flashcard: Press x");
             System.out.println("Go to main menu: Press m");
             in = getInput();
         }
@@ -99,13 +107,13 @@ public class MemoFlashApp extends Load {
     // MODIFIES: this
     // EFFECTS: process user's input at Flashcard menu
     public void processFMenu(String in) {
-        if (in.equalsIgnoreCase("n")) {
+        if (in.equalsIgnoreCase(NEW)) {
             cardMaker();
-        } else if (in.equalsIgnoreCase("v")) {
+        } else if (in.equalsIgnoreCase(VIEW_CARDS)) {
             cardViewer();
-        } else if (in.equalsIgnoreCase("d")) {
+        } else if (in.equalsIgnoreCase(DELETE)) {
             cardDeleter();
-        } else if (in.equalsIgnoreCase("m")) {
+        } else if (in.equalsIgnoreCase(MAIN_MENU)) {
             mainMenu();
         }
     }
@@ -116,15 +124,13 @@ public class MemoFlashApp extends Load {
     private void deckMenu() {
         String in = "";
 
-        while (!(in.equalsIgnoreCase("n") || in.equalsIgnoreCase("e")
-                || in.equalsIgnoreCase("v") || in.equalsIgnoreCase("g")
-                || in.equalsIgnoreCase("s") || in.equalsIgnoreCase("d")
-                || in.equalsIgnoreCase("m"))) {
+        while (!(in.equalsIgnoreCase(NEW) || in.equalsIgnoreCase(VIEW_CARDS) || in.equalsIgnoreCase(VIEW_DECKS)
+                || in.equalsIgnoreCase(SWITCH) || in.equalsIgnoreCase(DELETE) || in.equalsIgnoreCase(MAIN_MENU))) {
             System.out.println("Create a new deck: Press n");
             System.out.println("View flashcards in current deck: Press v");
             System.out.println("View all decks: Press g");
             System.out.println("Switch active deck: Press s");
-            System.out.println("Delete a deck: Press d");
+            System.out.println("Delete a deck: Press x");
             System.out.println("Go to main menu: Press m");
             in = getInput();
         }
@@ -137,17 +143,17 @@ public class MemoFlashApp extends Load {
     // EFFECTS: process user's input keys at deck menu
     public void processDMenu(String in) {
 
-        if (in.equalsIgnoreCase("n")) {
+        if (in.equalsIgnoreCase(NEW)) {
             deckCreator();
-        } else if (in.equalsIgnoreCase("v")) {
+        } else if (in.equalsIgnoreCase(VIEW_CARDS)) {
             deckCardsViewer();
-        } else if (in.equalsIgnoreCase("g")) {
+        } else if (in.equalsIgnoreCase(VIEW_DECKS)) {
             decksViewer();
-        } else if (in.equalsIgnoreCase("s")) {
+        } else if (in.equalsIgnoreCase(SWITCH)) {
             deckSwitcher();
-        } else if (in.equalsIgnoreCase("d")) {
+        } else if (in.equalsIgnoreCase(DELETE)) {
             deckDeleter();
-        } else if (in.equalsIgnoreCase("m")) {
+        } else if (in.equalsIgnoreCase(MAIN_MENU)) {
             mainMenu();
         }
     }
@@ -316,18 +322,17 @@ public class MemoFlashApp extends Load {
     private void testMode() {
         if (getUserDeck().size() == 0) {
             System.out.println("Cannot start test. You have no cards in this deck. \n");
-            goToMenu();
         } else {
             doTest();
             System.out.println("\nFinished! Your score: " + this.count + "/" + getUserDeck().size());
-            goToMenu();
         }
+        goToMenu();
     }
 
     // EFFECTS: goes to main menu once user presses 'm'
     private void goToMenu() {
         String in = "";
-        while (!in.equalsIgnoreCase("m")) {
+        while (!in.equalsIgnoreCase(MAIN_MENU)) {
             System.out.println("Go back to main menu: Press m");
             in = getInput();
         }
@@ -353,8 +358,6 @@ public class MemoFlashApp extends Load {
                 System.out.println("Incorrect. The answer is: " + "\"" + card.getAnswer() + "\"");
             }
         }
-
-
     }
 }
 

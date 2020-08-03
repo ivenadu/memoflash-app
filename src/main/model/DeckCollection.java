@@ -4,7 +4,6 @@ package model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import persistence.Write;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 /**
@@ -14,11 +13,11 @@ import java.util.ArrayList;
 public class DeckCollection extends Write {
     private int activeIndex;
 
-    public ArrayList<Deck> deckCollection;
+    public ArrayList<Deck> decks;
 
     // EFFECTS: makes a new ArrayList of Decks
     public DeckCollection() {
-        deckCollection = new ArrayList<>();
+        decks = new ArrayList<>();
     }
 
     // EFFECTS: retrieves active index
@@ -30,17 +29,17 @@ public class DeckCollection extends Write {
     @JsonIgnore
     public Deck getActiveDeck() {
 
-        if (deckCollection.isEmpty()) {
+        if (decks.isEmpty()) {
             throw new RuntimeException("no deck!");
         }
-        return this.deckCollection.get(getActiveIndex());
+        return this.decks.get(getActiveIndex());
     }
 
     // MODIFIES: this
     // EFFECTS: sets active index corresponding to input deck
     @JsonIgnore
     public void setActiveDeck(Deck deck) {
-        this.activeIndex = deckCollection.indexOf(deck);
+        this.activeIndex = decks.indexOf(deck);
     }
 
     // REQUIRES: cannot add duplicate Deck
@@ -50,23 +49,23 @@ public class DeckCollection extends Write {
         if (d == null) {
             throw new RuntimeException("Cannot be null");
         }
-        deckCollection.add(d);
+        decks.add(d);
         setActiveDeck(d);
     }
 
     // EFFECTS: Returns size of DeckCollection.
     public int size() {
-        return deckCollection.size();
+        return decks.size();
     }
 
     // EFFECTS: Returns the titles of the Decks in Deck Collection, from least to most recently added
     public String viewDeckTitles() {
         StringBuilder appendedResult = new StringBuilder();
-        if (deckCollection.size() == 0) {
+        if (decks.size() == 0) {
             return "There are no decks.";
         }
-        for (int i = 0; i < deckCollection.size(); i++) {
-            String title = i + ". " + deckCollection.get(i).getTitle() + "\n";
+        for (int i = 0; i < decks.size(); i++) {
+            String title = i + ". " + decks.get(i).getTitle() + "\n";
             appendedResult.append(title);
         }
         return appendedResult.toString();
@@ -75,18 +74,18 @@ public class DeckCollection extends Write {
     // MODIFIES: this
     // EFFECTS: removes the deck at given index
     public void removeDeck(int index) {
-        if (this.deckCollection.size() == 1) {
+        if (this.decks.size() == 1) {
             throw new RuntimeException("Last deck cannot be deleted");
         }
-        deckCollection.remove(index);
-        if (this.activeIndex >= this.deckCollection.size()) {
-            this.activeIndex = this.deckCollection.size() - 1;
+        decks.remove(index);
+        if (this.activeIndex >= this.decks.size()) {
+            this.activeIndex = this.decks.size() - 1;
         }
     }
 
     // EFFECTS: retrieve deck at index
     public Deck retrieveDeckWithIndex(int index) {
-        return deckCollection.get(index);
+        return decks.get(index);
     }
 }
 

@@ -1,1 +1,1 @@
-{"activeIndex":1,"deckCollection":[{"cardList":[],"title":"Default"}, {"cardList":[{"name":"emd","question":"mef","answer":"le,f"}],"title":"ok"}]}
+{"activeIndex":1,"decks":[{"cardList":[],"title":"Default"}, {"cardList":[{"name":"emd","question":"mef","answer":"le,f"}],"title":"ok"}]}
