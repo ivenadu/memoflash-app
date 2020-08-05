@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Represents a list of decks
  */
 
-public class DeckCollection extends Write {
+public class DeckCollection {
     private int activeIndex;
 
     public ArrayList<Deck> decks;

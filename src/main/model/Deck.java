@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Represents a deck of flashcards with a title
  */
-public class Deck extends Write {
+public class Deck {
 
     private ArrayList<Flashcard> cardList;
     private String title;

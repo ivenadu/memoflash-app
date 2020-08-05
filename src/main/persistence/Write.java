@@ -22,9 +22,9 @@ import java.nio.file.Paths;
 /**
  * A class with a method that can write to file
  */
-public abstract class Write {
+public class Write {
     // EFFECTS: write instance to file; throws IOException
-    public void save(DeckCollection dc, String path) throws IOException {
+    public static void save(DeckCollection dc, String path) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File(path), dc);
     }

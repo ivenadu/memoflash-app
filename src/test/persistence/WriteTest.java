@@ -36,7 +36,7 @@ public class WriteTest {
 
     @Test
     void testMapDeckCollection() throws IOException {
-        deckCollection.save(this.deckCollection, "./data/myTest.txt");
+        Write.save(this.deckCollection, "./data/myTest.txt");
         String testString = new String(Files.readAllBytes(Paths.get("./data/myTest.txt")));
         String expectedString = "{\"activeIndex\":1,\"decks\":[{\"cardList\":[{\"name\":\"Name1\",\"question\":\"Q1\",\"answer\""
                 + ":\"A1\"}],\"title\":\"testDeck1\"},{\"cardList\":[{\"name\":\"Name2\",\"question\":\"Q2\",\""
@@ -50,7 +50,7 @@ public class WriteTest {
     @Test
     void testMapDeckCollectionException() {
         try {
-            deckCollection.save(this.deckCollection, "");
+            Write.save(this.deckCollection, "");
             fail("gone too far");
         }catch (IOException ex) {
             //good

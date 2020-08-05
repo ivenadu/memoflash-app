@@ -4,6 +4,7 @@ import model.DeckCollection;
 import model.Flashcard;
 import model.Deck;
 import persistence.Load;
+import persistence.Write;
 
 import java.io.IOException;
 import java.util.*;
@@ -53,7 +54,7 @@ public class MemoFlashApp extends Load {
             input = getInput();
             if (input.equalsIgnoreCase(QUIT)) {
                 try {
-                    deckCollection.save(deckCollection, "./data/myFile.txt");
+                    Write.save(deckCollection, "./data/myFile.txt");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -190,7 +191,7 @@ public class MemoFlashApp extends Load {
 
     // EFFECTS: displays cards in deck and available options
     private void cardViewer() {
-        System.out.println("You have " + getUserDeck().size() + " card(s) in your active deck:"
+        System.out.println("You have " + getUserDeck().size() + " card(s) in your active deck: "
                 + getUserDeck().getTitle() + "\n");
         System.out.println(getUserDeck().viewCards());
         System.out.println();
@@ -262,9 +263,7 @@ public class MemoFlashApp extends Load {
 
     // EFFECTS: view card titles in current deck
     private void deckCardsViewer() {
-        System.out.println("Active deck: " + deckCollection.getActiveDeck().getTitle());
-        System.out.println(getUserDeck().viewCards());
-        goToMenu();
+        cardViewer();
     }
 
     // EFFECTS: displays all decks
