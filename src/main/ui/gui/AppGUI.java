@@ -29,10 +29,20 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     private static final String removeString = "REMOVE CARD";
     private static final String addString = "ADD CARD";
     private static final String saveString = "SAVE";
+
+    private JButton saveButton;
+    private JButton addCardButton;
     private JButton removeButton;
+
     private JTextField nameField;
     private JTextArea questionField;
     private JTextField answerField;
+
+    SaveListener saveListener;
+    AddCardListener addCardListener;
+    RemoveListener removeListener;
+
+    JScrollPane scrollPane;
 
     public static void main(String[] args) {
         try {
@@ -45,6 +55,12 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public AppGUI() throws IOException {
         super(new BorderLayout());
         makeList();
+        makeSaveButton();
+        makeAddCardButton();
+        makeRemoveButtonMaker();
+        makeFields();
+        makePanel();
+        new JFrame("Displaying your active deck: " + deckCollection.getActiveDeck().getTitle());
     }
 
     public void makeList() {
@@ -56,26 +72,76 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         flashcardJList.setSelectedIndex(0);
         flashcardJList.addListSelectionListener(this);
         flashcardJList.setVisibleRowCount(20);
-        JScrollPane scrollPane = new JScrollPane(flashcardJList);
+        scrollPane = new JScrollPane(flashcardJList);
+
+    }
+
+    public void makeSaveButton() {
 
         JButton saveButton = new JButton(saveString);
-        SaveListener saveListener = new SaveListener(saveButton);
+        saveListener = new SaveListener(saveButton);
         saveButton.setActionCommand(saveString);
         saveButton.addActionListener(saveListener);
         saveButton.setEnabled(false);
+    }
 
+    public void makeAddCardButton() {
+
+        addCardButton = new JButton(addString);
+        addCardListener = new AddCardListener();
+        addCardButton.setActionCommand(addString);
+        addCardButton.addActionListener(addCardListener);
+        addCardButton.setEnabled(false);
 
     }
 
+    public void makeRemoveButtonMaker() {
+
+        removeButton = new JButton(removeString);
+        removeListener = new RemoveListener(removeButton);
+        removeButton.setActionCommand(removeString);
+        removeButton.addActionListener(removeListener);
+        removeButton.setEnabled(false);
+
+    }
+
+    public void makeFields() {
+
+        nameField = new JTextField(5);
+        nameField.addActionListener(addCardListener);
+        nameField.getDocument().addDocumentListener(addCardListener);
+
+        questionField = new JTextArea(3, 15);
+
+        answerField = new JTextField(5);
+    }
+
+    public void makePanel() {
+
+        JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.LINE_AXIS));
+
+        optionsPanel.add(saveButton);
+        optionsPanel.add(Box.createHorizontalStrut(5));
+        optionsPanel.add(new JSeparator(SwingConstants.VERTICAL));
+        add(Box.createHorizontalStrut(5));
+        optionsPanel.add(addCardButton);
+        optionsPanel.add(removeButton);
+        optionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        add(scrollPane, BorderLayout.CENTER);
+        add(optionsPanel, BorderLayout.PAGE_END);
+    }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-
+        if (e.getValueIsAdjusting() == false) {
+            if (flashcardJList.getSelectedIndex() == -1) {
+                removeButton.setEnabled(false);
+            } else {
+                flashcardJList.setEnabled(true);
+            }
+        }
     }
 
-    public void runGUI() throws IOException {
-
-        JFrame frame = new JFrame("Displaying your active deck: " + deckCollection.getActiveDeck().getTitle());
-
-    }
 }
