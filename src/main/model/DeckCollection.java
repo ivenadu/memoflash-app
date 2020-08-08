@@ -2,7 +2,6 @@ package model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import persistence.Write;
 
 import java.util.ArrayList;
 

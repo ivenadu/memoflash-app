@@ -39,7 +39,7 @@ public class MemoFlashApp extends Load {
     // EFFECTS:
     public void runApp() {
         try {
-            deckCollection = Load.loadFile("./data/myFile.txt");
+            deckCollection = Load.loadFile("./data/myFile.json");
         } catch (Exception ex) {
             deckCollection = new DeckCollection();
             deckCollection.addDeck(new Deck("Default"));
@@ -54,7 +54,7 @@ public class MemoFlashApp extends Load {
             input = getInput();
             if (input.equalsIgnoreCase(QUIT)) {
                 try {
-                    Write.save(deckCollection, "./data/myFile.txt");
+                    Write.save(deckCollection, "./data/myFile.json");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

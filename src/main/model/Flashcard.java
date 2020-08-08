@@ -50,7 +50,6 @@ public class Flashcard {
     public void setQA(String editQ, String editA) {
         this.question = editQ;
         this.answer = editA;
-
     }
 
     // MODIFIES: this

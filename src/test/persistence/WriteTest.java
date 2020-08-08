@@ -41,8 +41,8 @@ public class WriteTest {
 
     @Test
     void testMapDeckCollection() throws IOException {
-        Write.save(this.deckCollection, "./data/myTest.txt");
-        String testString = new String(Files.readAllBytes(Paths.get("./data/myTest.txt")));
+        Write.save(this.deckCollection, "./data/myTest.json");
+        String testString = new String(Files.readAllBytes(Paths.get("./data/myTest.json")));
         String expectedString = "{\"activeIndex\":1,\"decks\":[{\"cardList\":[{\"name\":\"Name1\",\"question\":\"Q1\",\"answer\""
                 + ":\"A1\"}],\"title\":\"testDeck1\"},{\"cardList\":[{\"name\":\"Name2\",\"question\":\"Q2\",\""
                 + "answer\":\"A2\"},{\"name\":\"Name2\",\"question\":\"Q2\",\"answer\":\"Q3\"}],\"title\":\"testDeck2"

@@ -1,8 +1,5 @@
 package model;
 
-
-import persistence.Write;
-
 import java.util.ArrayList;
 
 /**

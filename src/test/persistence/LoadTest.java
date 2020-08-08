@@ -20,7 +20,7 @@ public class LoadTest {
     void testLoad() {
         DeckCollection dc;
         try {
-            dc = Load.loadFile("./data/myTest0.txt");
+            dc = Load.loadFile("./data/myTest0.json");
             assertEquals(2, dc.size());
             Deck dk0 = dc.decks.get(0);
             assertEquals(0, dk0.size());
