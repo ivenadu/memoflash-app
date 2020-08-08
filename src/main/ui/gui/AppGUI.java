@@ -24,9 +24,11 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     private DefaultListModel flashcardListModel;
 
     private DeckCollection deckCollection = Load.loadFile("./data/myFile.json");
+    private Deck activeDeck = deckCollection.getActiveDeck();
 
-    private static final String remove = "Remove";
-    private static final String add = "Add";
+    private static final String removeString = "REMOVE CARD";
+    private static final String addString = "ADD CARD";
+    private static final String saveString = "SAVE";
     private JButton removeButton;
     private JTextField nameField;
     private JTextArea questionField;
@@ -42,12 +44,29 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     public AppGUI() throws IOException {
         super(new BorderLayout());
+        makeList();
+    }
+
+    public void makeList() {
 
         flashcardListModel = new DefaultListModel();
-        flashcardJList = new JList((loadFile("./data/myFile.json").decks.toArray()));
-        System.out.println(flashcardJList);
-        runGUI();
+        flashcardJList = new JList(activeDeck.getCardList().toArray());
+
+        flashcardJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        flashcardJList.setSelectedIndex(0);
+        flashcardJList.addListSelectionListener(this);
+        flashcardJList.setVisibleRowCount(20);
+        JScrollPane scrollPane = new JScrollPane(flashcardJList);
+
+        JButton saveButton = new JButton(saveString);
+        SaveListener saveListener = new SaveListener(saveButton);
+        saveButton.setActionCommand(saveString);
+        saveButton.addActionListener(saveListener);
+        saveButton.setEnabled(false);
+
+
     }
+
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
