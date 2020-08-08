@@ -3,6 +3,7 @@ package ui.gui;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import model.Deck;
 import model.DeckCollection;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 //Sources cited: https://docs.oracle.com/javase/tutorial/uiswing/components/list.html (ListDemo.java)
 
 public class AppGUI extends JPanel implements ListSelectionListener {
+
+    Object[][] info;
     private ArrayList<String> cardsInfo = new ArrayList<>();
     private JList<Flashcard> flashcardJList;
     private DefaultListModel flashcardListModel;
@@ -49,7 +52,10 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     JScrollPane scrollPane;
 
     public AppGUI() throws IOException {
-        super(new BorderLayout());
+        super(new GridLayout(1, 0));
+        final String[] columns = {"Name", "Question", "Answer"};
+
+
         makeList();
         makeSaveButton();
         makeAddCardButton();
@@ -74,7 +80,19 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void makeTable() {
         String[] tableColumns = {"Name", "Question", "Answer"};
 
-        DefaultTableModel deckTableModel = new DefaultTableModel(tableColumns, 0);
+        JTable deckTableModel = new JTable(info, tableColumns);
+
+
+    }
+
+    public void fillTable(ArrayList<Flashcard> cards) {
+        for (Flashcard f : cards) {
+//            Object[] info= {
+//
+//
+//            }
+
+        }
     }
 
     public ArrayList<String> convertToStringArray(ArrayList<Flashcard> cards) {
