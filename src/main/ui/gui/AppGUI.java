@@ -159,7 +159,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
                 answerField);
         addCardButton.setActionCommand(addString);
         addCardButton.addActionListener(addCardListener);
-        addCardButton.setEnabled(false);
+       // addCardButton.setEnabled(false);
     }
 
     //TODO: belong in removeCard class

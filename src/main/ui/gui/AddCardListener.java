@@ -42,7 +42,6 @@ public class AddCardListener implements ActionListener, DocumentListener {
                     activeDeck.addCard(newCard);
                     flashcardListModel.addElement(combineString(nameField.getText().trim(),
                             questionField.getText().trim(), answerField.getText().trim()));
-
                     setUp(nameField);
                     setUp(questionField);
                     setUp(answerField);
