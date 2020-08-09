@@ -14,9 +14,9 @@ public class AddCardListener implements ActionListener, DocumentListener {
     private JButton addCardButton;
     private DefaultListModel<String> flashcardListModel;
     private Deck activeDeck;
-    private JTextField nameField;
-    private JTextField questionField;
-    private JTextField answerField;
+    private JTextField nameField = new JTextField();
+    private JTextField questionField = new JTextField();
+    private JTextField answerField = new JTextField();
 
     public AddCardListener(JButton addCardButton, DefaultListModel<String> flashcardListModel, Deck activeDeck,
                            JTextField nameField, JTextField questionField, JTextField answerField) {
@@ -32,6 +32,7 @@ public class AddCardListener implements ActionListener, DocumentListener {
     public void actionPerformed(ActionEvent e) {
         try {
             if (!(checkEmpty(nameField) || checkEmpty(questionField) || checkEmpty(answerField))) {
+
                 Flashcard newCard = new Flashcard(nameField.getText().trim(),
                         questionField.getText().trim(), answerField.getText().trim());
                 if (activeDeck.getCardList().contains(newCard)) {
@@ -54,10 +55,6 @@ public class AddCardListener implements ActionListener, DocumentListener {
         }
     }
 
-    public String convertFieldToString(JTextField field) {
-        return field.toString().trim();
-    }
-
     public String combineString(String name, String question, String answer) {
         return "NAME: " + name + "   QUESTION: " + question + "   ANSWER: " + answer;
     }
@@ -69,36 +66,21 @@ public class AddCardListener implements ActionListener, DocumentListener {
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        enabler();
+        seeStatus();
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        seeStatus(e);
+        seeStatus();
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        if (!seeStatus(e)) {
-            enabler();
-        }
+        seeStatus();
     }
 
-    public boolean seeStatus(DocumentEvent e) {
-        if (e.getDocument().getLength() <= 0) {
-       // if (!checkEmpty(nameField) && !checkEmpty(questionField)
-         //       && !checkEmpty(answerField)) {
-            enabled = true;
-        } else {
-            enabled = false;
-        }
-        return enabled;
-    }
-
-    public void enabler() {
-        if (!enabled) {
-            addCardButton.setEnabled(true);
-        }
+    public void seeStatus() {
+        addCardButton.setEnabled(!checkEmpty(nameField) && !checkEmpty(questionField) && !checkEmpty(answerField));
     }
 
     public boolean checkEmpty(JTextField field) {

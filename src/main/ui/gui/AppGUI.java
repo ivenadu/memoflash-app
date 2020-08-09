@@ -62,14 +62,19 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     JScrollPane scrollPane;
 
     public AppGUI() {
-        super(new BorderLayout());
 
+        super(new BorderLayout());
+        nameField = new JTextField(5);
+        questionField = new JTextField(10);
+        answerField = new JTextField(5);
         makeList();
         makeSaveButton();
         makeAddCardButton();
         makeRemoveButtonMaker();
         makeFields();
         makePanel();
+
+
 
 
     }
@@ -104,6 +109,38 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     public JTextField getAnswerField() {
         return answerField;
+    }
+
+    public void setCardsInfo(ArrayList<String> cardsInfo) {
+        this.cardsInfo = cardsInfo;
+    }
+
+    public void setFlashcardJList(JList<Flashcard> flashcardJList) {
+        this.flashcardJList = flashcardJList;
+    }
+
+    public void setFlashcardListModel(DefaultListModel flashcardListModel) {
+        this.flashcardListModel = flashcardListModel;
+    }
+
+    public void setDeckCollection(DeckCollection deckCollection) {
+        this.deckCollection = deckCollection;
+    }
+
+    public void setActiveDeck(Deck activeDeck) {
+        this.activeDeck = activeDeck;
+    }
+
+    public void setNameField(JTextField nameField) {
+        this.nameField = nameField;
+    }
+
+    public void setQuestionField(JTextField questionField) {
+        this.questionField = questionField;
+    }
+
+    public void setAnswerField(JTextField answerField) {
+        this.answerField = answerField;
     }
 
     public void makeList() {
@@ -159,7 +196,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
                 answerField);
         addCardButton.setActionCommand(addString);
         addCardButton.addActionListener(addCardListener);
-       // addCardButton.setEnabled(false);
+        addCardButton.setEnabled(false);
     }
 
     //TODO: belong in removeCard class
@@ -176,9 +213,15 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     public void makeFields() {
 
-        nameField = new JTextField(5);
-        questionField = new JTextField(15);
-        answerField = new JTextField(5);
+      //  nameField = new JTextField(5);
+        nameField.addActionListener(addCardListener);
+        nameField.getDocument().addDocumentListener(addCardListener);
+//        questionField = new JTextField(15);
+        questionField.addActionListener(addCardListener);
+        questionField.getDocument().addDocumentListener(addCardListener);
+     //   answerField = new JTextField(5);
+        answerField.addActionListener(addCardListener);
+        answerField.getDocument().addDocumentListener(addCardListener);
 
     }
 
