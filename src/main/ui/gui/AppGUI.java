@@ -7,8 +7,11 @@ import model.Deck;
 import model.DeckCollection;
 import model.Flashcard;
 import persistence.Load;
+import persistence.Write;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 
 public class AppGUI extends JPanel implements ListSelectionListener {
 
-   // Object[][] info;
+    // Object[][] info;
     private ArrayList<String> cardsInfo = new ArrayList<>();
     private JList<Flashcard> flashcardJList;
     private DefaultListModel flashcardListModel;
@@ -34,7 +37,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         }
     }
 
-  //  final String[] columns = {"Name", "Question", "Answer"};
+    //  final String[] columns = {"Name", "Question", "Answer"};
 
     private Deck activeDeck = deckCollection.getActiveDeck();
 
@@ -114,7 +117,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     }
 
     public void addToListModel(ArrayList<String> strings) {
-        for (String s: strings) {
+        for (String s : strings) {
             flashcardListModel.addElement(s);
         }
     }
@@ -153,7 +156,6 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     }
 
 
-
     public void makeSaveButton() {
 
         saveButton = new JButton(saveString);
@@ -166,6 +168,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void makeAddCardButton() {
 
         addCardButton = new JButton(addString);
+        addCardListener = new AddCardListener();
         addCardButton.setActionCommand(addString);
         addCardButton.addActionListener(addCardListener);
         addCardButton.setEnabled(false);
@@ -175,8 +178,8 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void makeRemoveButtonMaker() {
 
         removeButton = new JButton(removeString);
-        removeButton.setActionCommand(removeString);
         removeListener = new RemoveListener();
+        removeButton.setActionCommand(removeString);
         removeButton.addActionListener(removeListener);
         removeButton.setEnabled(true);
 
@@ -216,5 +219,78 @@ public class AppGUI extends JPanel implements ListSelectionListener {
                 flashcardJList.setEnabled(true);
             }
         }
+    }
+
+    public class SaveListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                Write.save(deckCollection, ".data/myFile.json");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+    }
+
+    public class AddCardListener implements ActionListener, DocumentListener {
+        JButton button;
+        JTextField fieldName;
+        JTextField fieldQuestion;
+        JTextField fieldAnswer;
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (checkEmpty(nameField) || checkEmpty(questionField)
+                    || checkEmpty(answerField)) {
+                return;
+            } else {
+                activeDeck.addCard(new Flashcard(nameField.toString(),
+                        getQuestionField().toString(), getAnswerField().toString()));
+                flashcardListModel.addElement(combineString(getNameField().toString(),
+                        getQuestionField().toString(), getAnswerField().toString()));
+            }
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+
+        }
+    }
+
+    private boolean checkEmpty(JTextField field) {
+        return field.toString().trim().isEmpty();
+    }
+
+    public class RemoveListener implements ActionListener {
+        JButton button = removeButton;
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int index = flashcardJList.getSelectedIndex();
+            activeDeck.removeCardWithIndex(index);
+            if (flashcardListModel.isEmpty()) {
+                button.setEnabled(false);
+            } else {
+                if (index == getFlashcardListModel().size()) {
+                    index--;
+                } else {
+                    flashcardListModel.remove(index);
+                }
+            }
+            flashcardJList.setSelectedIndex(index);
+            flashcardJList.ensureIndexIsVisible(index);
+        }
+
     }
 }
