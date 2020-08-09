@@ -10,18 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class SaveOption implements ActionListener {
+public class SaveListener implements ActionListener {
 
-    public DeckCollection deckCollection;
+    private DeckCollection deckCollection;
 
-    {
-        try {
-            deckCollection = Load.loadFile("./data/myFile.json");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public SaveListener(DeckCollection deckCollection) {
+        this.deckCollection = deckCollection;
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

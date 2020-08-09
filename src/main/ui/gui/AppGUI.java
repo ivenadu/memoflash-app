@@ -163,7 +163,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void makeSaveButton() {
 
         saveButton = new JButton(saveString);
-        saveListener = new SaveListener();
+        saveListener = new SaveListener(this.deckCollection);
         saveButton.setActionCommand(saveString);
         saveButton.addActionListener(saveListener);
         saveButton.setEnabled(true);
@@ -186,7 +186,8 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void makeRemoveButtonMaker() {
 
         removeButton = new JButton(removeString);
-        removeListener = new RemoveListener();
+        removeListener = new RemoveListener(this.flashcardJList, this.flashcardListModel,
+                this.activeDeck);
         removeButton.setActionCommand(removeString);
         removeButton.addActionListener(removeListener);
         removeButton.setEnabled(false); //TODO: hmm is it automatically enabled to true if I don't put this line?
@@ -234,18 +235,18 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     }
 
     //TODO: SEPARATE
-
-    public class SaveListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                Write.save(deckCollection, "./data/myFile.json");
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-    }
+//
+//    public class SaveListener implements ActionListener {
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            try {
+//                Write.save(deckCollection, "./data/myFile.json");
+//            } catch (IOException ioException) {
+//                ioException.printStackTrace();
+//            }
+//        }
+//    }
 
     //TODO: SEPARATE
     public class AddCardListener implements ActionListener, DocumentListener {
@@ -310,27 +311,27 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
 
     //TODO: SEPARATE
-
-    public class RemoveListener implements ActionListener {
-        //JButton button = removeButton;
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int index = flashcardJList.getSelectedIndex();
-            activeDeck.removeCardWithIndex(index);
-            if (flashcardListModel.isEmpty()) {
-                return;
-            } else {
-                if (index == getFlashcardListModel().size()) {
-                    index--;
-                } else {
-                    flashcardListModel.remove(index);
-                    // }
-                }
-                flashcardJList.setSelectedIndex(index);
-                flashcardJList.ensureIndexIsVisible(index);
-            }
-        }
-    }
+//
+//    public class RemoveListener implements ActionListener {
+//        //JButton button = removeButton;
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            int index = flashcardJList.getSelectedIndex();
+//            activeDeck.removeCardWithIndex(index);
+//            if (flashcardListModel.isEmpty()) {
+//                return;
+//            } else {
+//                if (index == getFlashcardListModel().size()) {
+//                    index--;
+//                } else {
+//                    flashcardListModel.remove(index);
+//                    // }
+//                }
+//                flashcardJList.setSelectedIndex(index);
+//                flashcardJList.ensureIndexIsVisible(index);
+//            }
+//        }
+//    }
 }
 
