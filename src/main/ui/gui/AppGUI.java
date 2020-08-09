@@ -76,19 +76,42 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     }
 
+    public Deck getActiveDeck() {
+        return activeDeck;
+    }
+
+    public DeckCollection getDeckCollection() {
+        return deckCollection;
+    }
+
+    public DefaultListModel getFlashcardListModel() {
+        return flashcardListModel;
+    }
+
     public JList<Flashcard> getFlashcardJList() {
         return flashcardJList;
+    }
+
+    public JButton getRemoveButton() {
+        return removeButton;
     }
 
     public void makeList() {
 
         flashcardListModel = new DefaultListModel();
-        flashcardJList = new JList(convertToStringArray(activeDeck.getCardList()).toArray());
+        addToListModel(convertToStringArray(activeDeck.getCardList()));
+        flashcardJList = new JList(flashcardListModel);
         flashcardJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         flashcardJList.setSelectedIndex(0);
         flashcardJList.addListSelectionListener(this);
         flashcardJList.setVisibleRowCount(20);
         scrollPane = new JScrollPane(flashcardJList);
+    }
+
+    public void addToListModel(ArrayList<String> strings) {
+        for (String s: strings) {
+            flashcardListModel.addElement(s);
+        }
     }
 
 //    public void makeTable() {
@@ -113,7 +136,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     public ArrayList<String> convertToStringArray(ArrayList<Flashcard> cards) {
         for (Flashcard f : cards) {
-            String combine = f.getName() + "   " + f.getQuestion() + "   " + f.getAnswer();
+            String combine = "NAME: " + f.getName() + "   QUESTION: " + f.getQuestion() + "   ANSWER: " + f.getAnswer();
             cardsInfo.add(combine);
         }
         return cardsInfo;
@@ -143,7 +166,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         removeButton = new JButton(removeString);
         removeButton.setActionCommand(removeString);
         removeButton.addActionListener(removeListener);
-        removeButton.setEnabled(false);
+        removeButton.setEnabled(true);
 
     }
 
