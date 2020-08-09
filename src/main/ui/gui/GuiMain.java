@@ -7,6 +7,8 @@ import model.Deck;
 import model.DeckCollection;
 import persistence.Load;
 
+import static javax.swing.SwingUtilities.invokeLater;
+
 public class GuiMain {
     private static String deckName;
 
@@ -19,6 +21,16 @@ public class GuiMain {
     }
 
     public static void main(String[] args) {
+        invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                makeGUI();
+            }
+        });
+
+    }
+
+    public static void makeGUI() {
         JFrame frame = new JFrame("Displaying your active deck: " + deckName);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -28,7 +40,6 @@ public class GuiMain {
 
         frame.pack();
         frame.setVisible(true);
-
 
     }
 

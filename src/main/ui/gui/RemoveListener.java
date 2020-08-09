@@ -34,9 +34,7 @@ public class RemoveListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         int index = flashList.getSelectedIndex();
         activeDeck.removeCardWithIndex(index);
-        if (flashcardListModel.isEmpty()) {
-            return;
-        } else {
+        if (!flashcardListModel.isEmpty()) {
             if (index == flashcardListModel.size()) {
                 index--;
             } else {

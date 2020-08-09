@@ -159,7 +159,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
                 answerField);
         addCardButton.setActionCommand(addString);
         addCardButton.addActionListener(addCardListener);
-        addCardButton.setEnabled(false);
+       // addCardButton.setEnabled(false);
     }
 
     //TODO: belong in removeCard class
@@ -171,9 +171,8 @@ public class AppGUI extends JPanel implements ListSelectionListener {
                 this.activeDeck);
         removeButton.setActionCommand(removeString);
         removeButton.addActionListener(removeListener);
-        removeButton.setEnabled(false); //TODO: hmm is it automatically enabled to true if I don't put this line?
+      //  removeButton.setEnabled(false); //TODO: hmm is it automatically enabled to true if I don't put this line?
     }
-//TODO: these belong in the AddCard class
 
     public void makeFields() {
 
@@ -209,7 +208,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
             if (flashcardJList.getSelectedIndex() == -1) {
                 removeButton.setEnabled(false);
             } else {
-                flashcardJList.setEnabled(true);
+                removeButton.setEnabled(true);
             }
         }
     }

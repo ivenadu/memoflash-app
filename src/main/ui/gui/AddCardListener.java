@@ -2,14 +2,12 @@ package ui.gui;
 
 import model.Deck;
 import model.Flashcard;
-import ui.gui.AppGUI;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class AddCardListener implements ActionListener, DocumentListener {
     private boolean enabled = false;
@@ -32,21 +30,22 @@ public class AddCardListener implements ActionListener, DocumentListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Flashcard newCard = new Flashcard(convertFieldToString(nameField),
-                convertFieldToString(questionField), convertFieldToString(answerField));
-        if (activeDeck.getCardList().contains(newCard)) {
-            setUp(nameField);
-            setUp(questionField);
-            setUp(answerField);
-        } else {
-            activeDeck.addCard(new Flashcard(nameField.toString().trim(),
-                    questionField.toString().trim(), answerField.toString().trim()));
-            flashcardListModel.addElement(combineString(convertFieldToString(nameField),
-                    convertFieldToString(questionField), convertFieldToString(answerField)));
+        if (!(checkEmpty(nameField) || checkEmpty(questionField) || checkEmpty(answerField))) {
+            Flashcard newCard = new Flashcard(nameField.getText().trim(),
+                    questionField.getText().trim(), answerField.getText().trim());
+            if (activeDeck.getCardList().contains(newCard)) {
+                setUp(nameField);
+                setUp(questionField);
+                setUp(answerField);
+            } else {
+                activeDeck.addCard(newCard);
+                flashcardListModel.addElement(combineString(nameField.getText().trim(),
+                        questionField.getText().trim(), answerField.getText().trim()));
 
-            setUp(nameField);
-            setUp(questionField);
-            setUp(answerField);
+                setUp(nameField);
+                setUp(questionField);
+                setUp(answerField);
+            }
         }
     }
 
@@ -65,31 +64,37 @@ public class AddCardListener implements ActionListener, DocumentListener {
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        beUpdated();
-
+        enabler();
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        beUpdated();
+        seeStatus(e);
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        beUpdated();
-
+        seeStatus(e);
     }
 
-    public void beUpdated() {
-        if (!checkEmpty(nameField) && !checkEmpty(questionField)
-                && !checkEmpty(answerField)) {
-            addCardButton.setEnabled(true);
+    public boolean seeStatus(DocumentEvent e) {
+        if (e.getDocument().getLength() <= 0) {
+       // if (!checkEmpty(nameField) && !checkEmpty(questionField)
+         //       && !checkEmpty(answerField)) {
+            enabled = true;
         } else {
-            addCardButton.setEnabled(false);
+            enabled = false;
+        }
+        return enabled;
+    }
+
+    public void enabler() {
+        if (!enabled) {
+            addCardButton.setEnabled(true);
         }
     }
 
     public boolean checkEmpty(JTextField field) {
-        return convertFieldToString(field).isEmpty();
+        return field.getText().trim().isEmpty();
     }
 }
