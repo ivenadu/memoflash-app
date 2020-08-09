@@ -177,7 +177,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         addCardListener = new AddCardListener();
         addCardButton.setActionCommand(addString);
         addCardButton.addActionListener(addCardListener);
-        addCardButton.setEnabled(true);
+        addCardButton.setEnabled(false);
 
     }
 
@@ -189,7 +189,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         removeListener = new RemoveListener();
         removeButton.setActionCommand(removeString);
         removeButton.addActionListener(removeListener);
-        removeButton.setEnabled(true); //TODO: hmm is it automatically enabled to true if I don't put this line?
+        removeButton.setEnabled(false); //TODO: hmm is it automatically enabled to true if I don't put this line?
 
     }
 //TODO: these belong in the AddCard class
@@ -258,6 +258,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         public void actionPerformed(ActionEvent e) {
             if (!checkEmpty(nameField) && !checkEmpty(questionField)
                     && !checkEmpty(answerField)) {
+                addCardButton.setEnabled(true);
                 activeDeck.addCard(new Flashcard(nameField.toString().trim(),
                         questionField.toString().trim(), answerField.toString().trim()));
                 flashcardListModel.addElement(combineString(nameField.toString().trim(),
@@ -269,29 +270,43 @@ public class AppGUI extends JPanel implements ListSelectionListener {
                 fieldQuestion.setText("");
                 fieldAnswer.requestFocusInWindow();
                 fieldAnswer.setText("");
+            } else {
+                addCardButton.setEnabled(false);
             }
         }
 
         @Override
         public void insertUpdate(DocumentEvent e) {
+            beUpdated();
 
         }
 
         @Override
         public void removeUpdate(DocumentEvent e) {
-
-
+            beUpdated();
         }
 
         @Override
         public void changedUpdate(DocumentEvent e) {
+            beUpdated();
 
+        }
+
+        public void beUpdated() {
+            if (!checkEmpty(nameField) && !checkEmpty(questionField)
+                    && !checkEmpty(answerField)) {
+                addCardButton.setEnabled(true);
+            } else {
+                addCardButton.setEnabled(false);
+            }
+        }
+
+        public boolean checkEmpty(JTextField field) {
+            return field.toString().trim().isEmpty();
         }
     }
 
-    private boolean checkEmpty(JTextField field) {
-        return field.toString().trim().isEmpty();
-    }
+
 
 
     //TODO: SEPARATE
