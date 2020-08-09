@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class AddCardListener implements ActionListener, DocumentListener {
-
+    private boolean enabled = false;
     private JButton addCardButton;
     private DefaultListModel<String> flashcardListModel;
     private Deck activeDeck;
@@ -32,13 +32,13 @@ public class AddCardListener implements ActionListener, DocumentListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (!checkEmpty(nameField) && !checkEmpty(questionField)
-                && !checkEmpty(answerField)) {
-            addCardButton.setEnabled(true);
-
-            Flashcard newCard = new Flashcard(convertFieldToString(nameField),
-                    convertFieldToString(questionField), convertFieldToString(answerField));
-
+        Flashcard newCard = new Flashcard(convertFieldToString(nameField),
+                convertFieldToString(questionField), convertFieldToString(answerField));
+        if (activeDeck.getCardList().contains(newCard)) {
+            setUp(nameField);
+            setUp(questionField);
+            setUp(answerField);
+        } else {
             activeDeck.addCard(new Flashcard(nameField.toString().trim(),
                     questionField.toString().trim(), answerField.toString().trim()));
             flashcardListModel.addElement(combineString(convertFieldToString(nameField),
@@ -47,9 +47,6 @@ public class AddCardListener implements ActionListener, DocumentListener {
             setUp(nameField);
             setUp(questionField);
             setUp(answerField);
-
-        } else {
-            addCardButton.setEnabled(false);
         }
     }
 
@@ -93,6 +90,6 @@ public class AddCardListener implements ActionListener, DocumentListener {
     }
 
     public boolean checkEmpty(JTextField field) {
-        return field.toString().trim().isEmpty();
+        return convertFieldToString(field).isEmpty();
     }
 }

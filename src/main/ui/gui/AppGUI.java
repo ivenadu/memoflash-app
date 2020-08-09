@@ -174,11 +174,11 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void makeAddCardButton() {
 
         addCardButton = new JButton(addString);
-        addCardListener = new AddCardListener();
+        addCardListener = new AddCardListener(addCardButton, flashcardListModel, activeDeck, nameField, questionField,
+                answerField);
         addCardButton.setActionCommand(addString);
         addCardButton.addActionListener(addCardListener);
         addCardButton.setEnabled(false);
-
     }
 
     //TODO: belong in removeCard class
@@ -191,7 +191,6 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         removeButton.setActionCommand(removeString);
         removeButton.addActionListener(removeListener);
         removeButton.setEnabled(false); //TODO: hmm is it automatically enabled to true if I don't put this line?
-
     }
 //TODO: these belong in the AddCard class
 
@@ -235,7 +234,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     }
 
     //TODO: SEPARATE
-//
+
 //    public class SaveListener implements ActionListener {
 //
 //        @Override
@@ -249,63 +248,63 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 //    }
 
     //TODO: SEPARATE
-    public class AddCardListener implements ActionListener, DocumentListener {
-        JButton button;
-        JTextField fieldName = getNameField();
-        JTextField fieldQuestion = getQuestionField();
-        JTextField fieldAnswer = getAnswerField();
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (!checkEmpty(nameField) && !checkEmpty(questionField)
-                    && !checkEmpty(answerField)) {
-                addCardButton.setEnabled(true);
-                activeDeck.addCard(new Flashcard(nameField.toString().trim(),
-                        questionField.toString().trim(), answerField.toString().trim()));
-                flashcardListModel.addElement(combineString(nameField.toString().trim(),
-                        questionField.toString().trim(), answerField.toString().trim()));
-
-                fieldName.requestFocusInWindow();
-                fieldName.setText("");
-                fieldQuestion.requestFocusInWindow();
-                fieldQuestion.setText("");
-                fieldAnswer.requestFocusInWindow();
-                fieldAnswer.setText("");
-            } else {
-                addCardButton.setEnabled(false);
-            }
-        }
-
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-            beUpdated();
-
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-            beUpdated();
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-            beUpdated();
-
-        }
-
-        public void beUpdated() {
-            if (!checkEmpty(nameField) && !checkEmpty(questionField)
-                    && !checkEmpty(answerField)) {
-                addCardButton.setEnabled(true);
-            } else {
-                addCardButton.setEnabled(false);
-            }
-        }
-
-        public boolean checkEmpty(JTextField field) {
-            return field.toString().trim().isEmpty();
-        }
-    }
+//    public class AddCardListener implements ActionListener, DocumentListener {
+//        JButton button;
+//        JTextField fieldName = getNameField();
+//        JTextField fieldQuestion = getQuestionField();
+//        JTextField fieldAnswer = getAnswerField();
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            if (!checkEmpty(nameField) && !checkEmpty(questionField)
+//                    && !checkEmpty(answerField)) {
+//                addCardButton.setEnabled(true);
+//                activeDeck.addCard(new Flashcard(nameField.toString().trim(),
+//                        questionField.toString().trim(), answerField.toString().trim()));
+//                flashcardListModel.addElement(combineString(nameField.toString().trim(),
+//                        questionField.toString().trim(), answerField.toString().trim()));
+//
+//                fieldName.requestFocusInWindow();
+//                fieldName.setText("");
+//                fieldQuestion.requestFocusInWindow();
+//                fieldQuestion.setText("");
+//                fieldAnswer.requestFocusInWindow();
+//                fieldAnswer.setText("");
+//            } else {
+//                addCardButton.setEnabled(false);
+//            }
+//        }
+//
+//        @Override
+//        public void insertUpdate(DocumentEvent e) {
+//            beUpdated();
+//
+//        }
+//
+//        @Override
+//        public void removeUpdate(DocumentEvent e) {
+//            beUpdated();
+//        }
+//
+//        @Override
+//        public void changedUpdate(DocumentEvent e) {
+//            beUpdated();
+//
+//        }
+//
+//        public void beUpdated() {
+//            if (!checkEmpty(nameField) && !checkEmpty(questionField)
+//                    && !checkEmpty(answerField)) {
+//                addCardButton.setEnabled(true);
+//            } else {
+//                addCardButton.setEnabled(false);
+//            }
+//        }
+//
+//        public boolean checkEmpty(JTextField field) {
+//            return field.toString().trim().isEmpty();
+//        }
+//    }
 
 
 
