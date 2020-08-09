@@ -1,8 +1,10 @@
 package ui.gui;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import model.Deck;
@@ -25,12 +27,22 @@ import java.util.ArrayList;
 
 public class AppGUI extends JPanel implements ListSelectionListener {
 
-    Object[][] info;
+   // Object[][] info;
     private ArrayList<String> cardsInfo = new ArrayList<>();
     private JList<Flashcard> flashcardJList;
     private DefaultListModel flashcardListModel;
 
-    private DeckCollection deckCollection = Load.loadFile("./data/myFile.json");
+    private DeckCollection deckCollection;
+
+    {
+        try {
+            deckCollection = Load.loadFile("./data/myFile.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+  //  final String[] columns = {"Name", "Question", "Answer"};
+
     private Deck activeDeck = deckCollection.getActiveDeck();
 
     private static final String removeString = "REMOVE CARD";
@@ -51,10 +63,8 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     JScrollPane scrollPane;
 
-    public AppGUI() throws IOException {
-        super(new GridLayout(1, 0));
-        final String[] columns = {"Name", "Question", "Answer"};
-
+    public AppGUI() {
+        super(new BorderLayout());
 
         makeList();
         makeSaveButton();
@@ -64,6 +74,10 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         makePanel();
 
 
+    }
+
+    public JList<Flashcard> getFlashcardJList() {
+        return flashcardJList;
     }
 
     public void makeList() {
@@ -77,20 +91,22 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         scrollPane = new JScrollPane(flashcardJList);
     }
 
-    public void makeTable() {
-        String[] tableColumns = {"Name", "Question", "Answer"};
-
-        JTable deckTableModel = new JTable(info, tableColumns);
-
-
-    }
-
-    public void fillTable(ArrayList<Flashcard> cards) {
-        for (Flashcard f : cards) {
-//            Object[] info= {
+//    public void makeTable() {
+//        String[] tableColumns = {"Name", "Question", "Answer"};
+//        JTable deckTableModel = new JTable(info, tableColumns);
+//        deckTableModel.setPreferredScrollableViewportSize(new Dimension(800, 80));
+//        deckTableModel.getColumnModel().getColumn(1).setPreferredWidth(300);
+//        deckTableModel.setFillsViewportHeight(true);
+//        scrollPane = new JScrollPane(deckTableModel);
+//        add(scrollPane);
+//        fillTable(activeDeck);
 //
 //
-//            }
+//    }
+
+    public void fillTable(Deck cards) {
+        for (int i = 0; i < cards.size(); i++) {
+
 
         }
     }
@@ -125,7 +141,6 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void makeRemoveButtonMaker() {
 
         removeButton = new JButton(removeString);
-        removeListener = new RemoveListener(removeButton);
         removeButton.setActionCommand(removeString);
         removeButton.addActionListener(removeListener);
         removeButton.setEnabled(false);

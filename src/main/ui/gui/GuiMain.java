@@ -19,19 +19,17 @@ public class GuiMain {
     }
 
     public static void main(String[] args) {
-        try {
-            JFrame frame = new JFrame("Displaying your active deck: " + deckName);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame frame = new JFrame("Displaying your active deck: " + deckName);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            JComponent contentPane = new AppGUI();
-            contentPane.setOpaque(true); //content panes must be opaque
-            frame.setContentPane(contentPane);
+        JComponent contentPane = new AppGUI();
+        contentPane.setOpaque(true); //content panes must be opaque
+        frame.setContentPane(contentPane);
 
-            frame.pack();
-            frame.setVisible(true);
+        frame.pack();
+        frame.setVisible(true);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
+
 }
