@@ -30,22 +30,28 @@ public class AddCardListener implements ActionListener, DocumentListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (!(checkEmpty(nameField) || checkEmpty(questionField) || checkEmpty(answerField))) {
-            Flashcard newCard = new Flashcard(nameField.getText().trim(),
-                    questionField.getText().trim(), answerField.getText().trim());
-            if (activeDeck.getCardList().contains(newCard)) {
-                setUp(nameField);
-                setUp(questionField);
-                setUp(answerField);
-            } else {
-                activeDeck.addCard(newCard);
-                flashcardListModel.addElement(combineString(nameField.getText().trim(),
-                        questionField.getText().trim(), answerField.getText().trim()));
+        try {
+            if (!(checkEmpty(nameField) || checkEmpty(questionField) || checkEmpty(answerField))) {
+                Flashcard newCard = new Flashcard(nameField.getText().trim(),
+                        questionField.getText().trim(), answerField.getText().trim());
+                if (activeDeck.getCardList().contains(newCard)) {
+                    setUp(nameField);
+                    setUp(questionField);
+                    setUp(answerField);
+                } else {
+                    activeDeck.addCard(newCard);
+                    flashcardListModel.addElement(combineString(nameField.getText().trim(),
+                            questionField.getText().trim(), answerField.getText().trim()));
 
-                setUp(nameField);
-                setUp(questionField);
-                setUp(answerField);
+                    setUp(nameField);
+                    setUp(questionField);
+                    setUp(answerField);
+                }
             }
+        } catch (RuntimeException ex) {
+            this.nameField.setText("");
+            this.questionField.setText("");
+            this.answerField.setText("");
         }
     }
 
@@ -74,7 +80,9 @@ public class AddCardListener implements ActionListener, DocumentListener {
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        seeStatus(e);
+        if (!seeStatus(e)) {
+            enabler();
+        }
     }
 
     public boolean seeStatus(DocumentEvent e) {
