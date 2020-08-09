@@ -11,6 +11,7 @@ public class RemoveListener extends AppGUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int index = this.getFlashcardJList().getSelectedIndex();
+        this.getActiveDeck().removeCardWithIndex(index);
         if (this.getFlashcardListModel().isEmpty()) {
             button.setEnabled(false);
         } else {
@@ -18,8 +19,6 @@ public class RemoveListener extends AppGUI implements ActionListener {
                 index--;
             } else {
                 this.getFlashcardListModel().remove(index);
-                this.getFlashcardJList().remove(index);
-                this.getActiveDeck().removeCardWithIndex(index);
             }
         }
         this.getFlashcardJList().setSelectedIndex(index);

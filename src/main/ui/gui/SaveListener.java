@@ -9,11 +9,6 @@ import java.io.IOException;
 
 
 public class SaveListener extends AppGUI implements ActionListener {
-    JButton button;
-
-    public SaveListener(JButton button) {
-        this.button = button;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

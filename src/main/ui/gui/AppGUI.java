@@ -1,22 +1,14 @@
 package ui.gui;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 
 import model.Deck;
 import model.DeckCollection;
 import model.Flashcard;
 import persistence.Load;
 
-import ui.gui.*;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -41,6 +33,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
             e.printStackTrace();
         }
     }
+
   //  final String[] columns = {"Name", "Question", "Answer"};
 
     private Deck activeDeck = deckCollection.getActiveDeck();
@@ -54,7 +47,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     private JButton removeButton;
 
     private JTextField nameField;
-    private JTextField questionArea;
+    private JTextField questionField;
     private JTextField answerField;
 
     SaveListener saveListener;
@@ -96,6 +89,18 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         return removeButton;
     }
 
+    public JTextField getNameField() {
+        return nameField;
+    }
+
+    public JTextField getQuestionField() {
+        return questionField;
+    }
+
+    public JTextField getAnswerField() {
+        return answerField;
+    }
+
     public void makeList() {
 
         flashcardListModel = new DefaultListModel();
@@ -134,19 +139,25 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         }
     }
 
-    public ArrayList<String> convertToStringArray(ArrayList<Flashcard> cards) {
+    private ArrayList<String> convertToStringArray(ArrayList<Flashcard> cards) {
         for (Flashcard f : cards) {
-            String combine = "NAME: " + f.getName() + "   QUESTION: " + f.getQuestion() + "   ANSWER: " + f.getAnswer();
-            cardsInfo.add(combine);
+            String combo = combineString(f.getName(), f.getQuestion(), f.getAnswer());
+            cardsInfo.add(combo);
         }
         return cardsInfo;
     }
+
+    public String combineString(String name, String question, String answer) {
+        String combined = "NAME: " + name + "   QUESTION: " + question + "   ANSWER: " + answer;
+        return combined;
+    }
+
 
 
     public void makeSaveButton() {
 
         saveButton = new JButton(saveString);
-        saveListener = new SaveListener(saveButton);
+        saveListener = new SaveListener();
         saveButton.setActionCommand(saveString);
         saveButton.addActionListener(saveListener);
         saveButton.setEnabled(false);
@@ -165,6 +176,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
         removeButton = new JButton(removeString);
         removeButton.setActionCommand(removeString);
+        removeListener = new RemoveListener();
         removeButton.addActionListener(removeListener);
         removeButton.setEnabled(true);
 
@@ -173,7 +185,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void makeFields() {
 
         nameField = new JTextField(5);
-        questionArea = new JTextField(15);
+        questionField = new JTextField(15);
         answerField = new JTextField(5);
 
     }
