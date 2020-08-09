@@ -41,6 +41,8 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     private Deck activeDeck = deckCollection.getActiveDeck();
 
+    //TODO: organize into their respective places
+
     private static final String removeString = "REMOVE CARD";
     private static final String addString = "ADD CARD";
     private static final String saveString = "SAVE";
@@ -141,6 +143,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
         }
     }
+    //TODO: parts of it belong in the addCard class.
 
     private ArrayList<String> convertToStringArray(ArrayList<Flashcard> cards) {
         for (Flashcard f : cards) {
@@ -155,6 +158,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         return combined;
     }
 
+    //TODO: belong in the Save class
 
     public void makeSaveButton() {
 
@@ -162,8 +166,10 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         saveListener = new SaveListener();
         saveButton.setActionCommand(saveString);
         saveButton.addActionListener(saveListener);
-        saveButton.setEnabled(false);
+        saveButton.setEnabled(true);
     }
+
+    //TODO: belong in the addCard class
 
     public void makeAddCardButton() {
 
@@ -171,9 +177,11 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         addCardListener = new AddCardListener();
         addCardButton.setActionCommand(addString);
         addCardButton.addActionListener(addCardListener);
-        addCardButton.setEnabled(false);
+        addCardButton.setEnabled(true);
 
     }
+
+    //TODO: belong in removeCard class
 
     public void makeRemoveButtonMaker() {
 
@@ -181,9 +189,10 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         removeListener = new RemoveListener();
         removeButton.setActionCommand(removeString);
         removeButton.addActionListener(removeListener);
-        removeButton.setEnabled(true);
+        removeButton.setEnabled(true); //TODO: hmm is it automatically enabled to true if I don't put this line?
 
     }
+//TODO: these belong in the AddCard class
 
     public void makeFields() {
 
@@ -221,18 +230,21 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         }
     }
 
+    //TODO: SEPARATE
+
     public class SaveListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                Write.save(deckCollection, ".data/myFile.json");
+                Write.save(deckCollection, "./data/myFile.json");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         }
     }
 
+    //TODO: SEPARATE
     public class AddCardListener implements ActionListener, DocumentListener {
         JButton button;
         JTextField fieldName;
@@ -272,6 +284,9 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         return field.toString().trim().isEmpty();
     }
 
+
+    //TODO: SEPARATE
+
     public class RemoveListener implements ActionListener {
         JButton button = removeButton;
 
@@ -291,6 +306,5 @@ public class AppGUI extends JPanel implements ListSelectionListener {
             flashcardJList.setSelectedIndex(index);
             flashcardJList.ensureIndexIsVisible(index);
         }
-
     }
 }
