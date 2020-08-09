@@ -210,7 +210,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         optionsPanel.add(saveButton);
         optionsPanel.add(Box.createHorizontalStrut(5));
         optionsPanel.add(new JSeparator(SwingConstants.VERTICAL));
-        add(Box.createHorizontalStrut(5));
+        add(Box.createHorizontalStrut(10));
         optionsPanel.add(nameField);
         optionsPanel.add(questionField);
         optionsPanel.add(answerField);
@@ -224,7 +224,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (e.getValueIsAdjusting() == false) {
+        if (!e.getValueIsAdjusting()) {
             if (flashcardJList.getSelectedIndex() == -1) {
                 removeButton.setEnabled(false);
             } else {

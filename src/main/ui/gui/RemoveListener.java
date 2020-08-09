@@ -6,21 +6,20 @@ import model.Flashcard;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class RemoveListener implements ActionListener {
-    private JList<Flashcard> flashcardJList;
+    private JList<Flashcard> flashList;
     private DefaultListModel<String> flashcardListModel;
     private Deck activeDeck;
 
-    public RemoveListener(JList<Flashcard> flashcardJList, DefaultListModel<String> flashcardListModel, Deck activeDeck) {
-        this.flashcardJList = flashcardJList;
+    public RemoveListener(JList<Flashcard> flashList, DefaultListModel<String> flashcardListModel, Deck activeDeck) {
+        this.flashList = flashList;
         this.flashcardListModel = flashcardListModel;
         this.activeDeck = activeDeck;
     }
 
-    public JList<Flashcard> getFlashcardJList() {
-        return flashcardJList;
+    public JList<Flashcard> getFlashList() {
+        return flashList;
     }
 
     public DefaultListModel<String> getFlashcardListModel() {
@@ -33,7 +32,7 @@ public class RemoveListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int index = flashcardJList.getSelectedIndex();
+        int index = flashList.getSelectedIndex();
         activeDeck.removeCardWithIndex(index);
         if (flashcardListModel.isEmpty()) {
             return;
@@ -42,10 +41,9 @@ public class RemoveListener implements ActionListener {
                 index--;
             } else {
                 flashcardListModel.remove(index);
-                // }
             }
-            flashcardJList.setSelectedIndex(index);
-            flashcardJList.ensureIndexIsVisible(index);
+            flashList.setSelectedIndex(index);
+            flashList.ensureIndexIsVisible(index);
         }
     }
 }
