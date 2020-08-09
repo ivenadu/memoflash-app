@@ -211,6 +211,9 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         optionsPanel.add(Box.createHorizontalStrut(5));
         optionsPanel.add(new JSeparator(SwingConstants.VERTICAL));
         add(Box.createHorizontalStrut(5));
+        optionsPanel.add(nameField);
+        optionsPanel.add(questionField);
+        optionsPanel.add(answerField);
         optionsPanel.add(addCardButton);
         optionsPanel.add(removeButton);
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -247,20 +250,25 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     //TODO: SEPARATE
     public class AddCardListener implements ActionListener, DocumentListener {
         JButton button;
-        JTextField fieldName;
-        JTextField fieldQuestion;
-        JTextField fieldAnswer;
+        JTextField fieldName = getNameField();
+        JTextField fieldQuestion = getQuestionField();
+        JTextField fieldAnswer = getAnswerField();
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (checkEmpty(nameField) || checkEmpty(questionField)
-                    || checkEmpty(answerField)) {
-                return;
-            } else {
-                activeDeck.addCard(new Flashcard(nameField.toString(),
-                        getQuestionField().toString(), getAnswerField().toString()));
-                flashcardListModel.addElement(combineString(getNameField().toString(),
-                        getQuestionField().toString(), getAnswerField().toString()));
+            if (!checkEmpty(nameField) && !checkEmpty(questionField)
+                    && !checkEmpty(answerField)) {
+                activeDeck.addCard(new Flashcard(nameField.toString().trim(),
+                        questionField.toString().trim(), answerField.toString().trim()));
+                flashcardListModel.addElement(combineString(nameField.toString().trim(),
+                        questionField.toString().trim(), answerField.toString().trim()));
+
+                fieldName.requestFocusInWindow();
+                fieldName.setText("");
+                fieldQuestion.requestFocusInWindow();
+                fieldQuestion.setText("");
+                fieldAnswer.requestFocusInWindow();
+                fieldAnswer.setText("");
             }
         }
 
@@ -271,6 +279,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
         @Override
         public void removeUpdate(DocumentEvent e) {
+
 
         }
 
@@ -288,23 +297,25 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     //TODO: SEPARATE
 
     public class RemoveListener implements ActionListener {
-        JButton button = removeButton;
+        //JButton button = removeButton;
 
         @Override
         public void actionPerformed(ActionEvent e) {
             int index = flashcardJList.getSelectedIndex();
             activeDeck.removeCardWithIndex(index);
             if (flashcardListModel.isEmpty()) {
-                button.setEnabled(false);
+                return;
             } else {
                 if (index == getFlashcardListModel().size()) {
                     index--;
                 } else {
                     flashcardListModel.remove(index);
+                    // }
                 }
+                flashcardJList.setSelectedIndex(index);
+                flashcardJList.ensureIndexIsVisible(index);
             }
-            flashcardJList.setSelectedIndex(index);
-            flashcardJList.ensureIndexIsVisible(index);
         }
     }
 }
+
