@@ -6,6 +6,7 @@ import model.Flashcard;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
@@ -37,10 +38,13 @@ public class AddCardListener implements ActionListener, DocumentListener {
                 Flashcard newCard = new Flashcard(nameField.getText().trim(),
                         questionField.getText().trim(), answerField.getText().trim());
                 if (activeDeck.getCardList().contains(newCard)) {
+                    Toolkit.getDefaultToolkit().beep();
                     setUp(nameField);
                     setUp(questionField);
                     setUp(answerField);
                 } else {
+                    SoundPlayer sound = new SoundPlayer();
+                    sound.playSound("./data/light.wav");
                     activeDeck.addCard(newCard);
                     flashcardListModel.addElement(combineString(nameField.getText().trim(),
                             questionField.getText().trim(), answerField.getText().trim()));

@@ -38,6 +38,8 @@ public class RemoveListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         int index = flashList.getSelectedIndex();
+        SoundPlayer sound = new SoundPlayer();
+        sound.playSound("./data/remove.wav");
         flashcardListModel.remove(index);
         activeDeck.removeCardWithIndex(index);
         if (!flashcardListModel.isEmpty()) {
