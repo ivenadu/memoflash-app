@@ -62,12 +62,26 @@ class FlashcardTest {
 
     @Test
     public void testEqualsQ() {
-        assertTrue(card.getQuestion().equals("Question"));
+        Flashcard f = new Flashcard(card.getName(), "Wrong", card.getAnswer());
+        assertFalse(equals(f));
+        assertFalse(card.getQuestion().equals(f.getQuestion()));
+    }
+
+    @Test
+    public void testInstance() {
+        assertFalse(equals(null));
+        assertFalse((null instanceof Flashcard));
     }
 
     @Test
     public void testHashCode() {
         Flashcard f = new Flashcard(card.getName(), card.getQuestion(), card.getAnswer());
-        assertEquals(f, card);
+        assertEquals(card.hashCode(), f.hashCode());
+    }
+
+    @Test
+    public void testHashCodeFalse() {
+        Flashcard f = new Flashcard("a", "b", "c");
+        assertFalse(card.hashCode() == f.hashCode());
     }
 }
