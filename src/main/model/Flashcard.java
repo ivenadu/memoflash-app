@@ -70,13 +70,10 @@ public class Flashcard {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Flashcard)) {
-            return false;
-        }
         Flashcard flashcard = (Flashcard) o;
-        return Objects.equals(getName(), flashcard.getName())
-                && Objects.equals(getQuestion(), flashcard.getQuestion())
-                && Objects.equals(getAnswer(), flashcard.getAnswer());
+        return ((this.name == flashcard.name)
+                && (this.question == flashcard.question)
+                && (this.answer == flashcard.answer));
     }
 
     @Override

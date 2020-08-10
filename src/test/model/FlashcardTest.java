@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,10 +19,10 @@ class FlashcardTest {
 
     @Test
     public void getQATest() {
-        assertEquals(card.getQA(), "Question: Question\tAnswer: Answer");
+        assertEquals("Question: Question\tAnswer: Answer", card.getQA());
     }
 
-    @Test //TODO: how to test?
+    @Test
     public void constructFlashcard() {
         Flashcard card = new Flashcard();
 
@@ -30,14 +31,14 @@ class FlashcardTest {
     @Test
     public void setQATest() {
         card.setQA("edited Q", "edited A");
-        assertEquals(card.getQuestion(), "edited Q");
-        assertEquals(card.getAnswer(), "edited A");
+        assertEquals("edited Q", card.getQuestion());
+        assertEquals("edited A", card.getAnswer());
     }
 
     @Test
     public void setCardName() {
         card.setName("New Name");
-        assertEquals(card.getName(), "New Name");
+        assertEquals("New Name", card.getName());
     }
 
     @Test
@@ -56,21 +57,24 @@ class FlashcardTest {
     }
 
     @Test
-    public void testEquals() {
-        assertFalse(equals("ABC"));
-    }
-
-    @Test
     public void testEqualsQ() {
         Flashcard f = new Flashcard(card.getName(), "Wrong", card.getAnswer());
         assertFalse(equals(f));
         assertFalse(card.getQuestion().equals(f.getQuestion()));
+        Flashcard g = new Flashcard("ABC", card.getQuestion(), "Not the answer");
+        assertEquals(card.getQuestion(), g.getQuestion());
     }
 
     @Test
-    public void testInstance() {
-        assertFalse(equals(null));
-        assertFalse((null instanceof Flashcard));
+    public void testEqualsAllFalse() {
+        Flashcard f = new Flashcard("A", "B", "C");
+        assertFalse(card.equals(f));
+    }
+
+    @Test
+    public void testEqualsAllMatch() {
+        Flashcard f = new Flashcard(card.getName(), card.getQuestion(), card.getAnswer());
+        assertTrue(card.equals(f));
     }
 
     @Test
@@ -78,7 +82,6 @@ class FlashcardTest {
         Flashcard f = new Flashcard(card.getName(), card.getQuestion(), card.getAnswer());
         assertEquals(card.hashCode(), f.hashCode());
     }
-
     @Test
     public void testHashCodeFalse() {
         Flashcard f = new Flashcard("a", "b", "c");
