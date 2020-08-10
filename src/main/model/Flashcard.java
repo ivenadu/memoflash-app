@@ -15,7 +15,8 @@ public class Flashcard {
     private String answer;
 
     //EFFECTS: an empty Flashcard constructor
-    public Flashcard() {}
+    public Flashcard() {
+    }
 
     //REQUIRES: parameter inputs cannot be empty string
     // EFFECTS: make a flashcard with a name, question, and answer
@@ -66,12 +67,16 @@ public class Flashcard {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Flashcard)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Flashcard)) {
+            return false;
+        }
         Flashcard flashcard = (Flashcard) o;
-        return Objects.equals(getName(), flashcard.getName()) &&
-                Objects.equals(getQuestion(), flashcard.getQuestion()) &&
-                Objects.equals(getAnswer(), flashcard.getAnswer());
+        return Objects.equals(getName(), flashcard.getName())
+                && Objects.equals(getQuestion(), flashcard.getQuestion())
+                && Objects.equals(getAnswer(), flashcard.getAnswer());
     }
 
     @Override
