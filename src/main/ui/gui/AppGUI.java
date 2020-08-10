@@ -43,9 +43,9 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     //TODO: organize into their respective places
 
-    private static final String removeString = "REMOVE CARD";
+    private static final String removeString = "REMOVE SELECTED CARD";
     private static final String addString = "ADD CARD";
-    private static final String saveString = "SAVE";
+    private static final String saveString = "SAVE DECK";
 
     private JButton saveButton;
     private JButton addCardButton;
@@ -55,11 +55,22 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     private JTextField questionField;
     private JTextField answerField;
 
-    SaveListener saveListener;
-    AddCardListener addCardListener;
-    RemoveListener removeListener;
+    private SaveListener saveListener;
+    private AddCardListener addCardListener;
+    private RemoveListener removeListener;
 
-    JScrollPane scrollPane;
+    private JScrollPane scrollPane;
+
+    private JLabel nameLabel;
+    private JLabel questionLabel;
+    private JLabel answerLabel;
+
+    private static final String NAME_LABEL = "Name: ";
+    private static final String QUESTION_LABEL = "Question: ";
+    private static final String ANSWER_LABEL = "Answer: ";
+
+    private static final int FIXED_WIDTH = 10;
+    private static final int FIXED_HEIGHT = 0;
 
     public AppGUI() {
 
@@ -74,73 +85,6 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         makeFields();
         makePanel();
 
-
-
-
-    }
-
-    public Deck getActiveDeck() {
-        return activeDeck;
-    }
-
-    public DeckCollection getDeckCollection() {
-        return deckCollection;
-    }
-
-    public DefaultListModel getFlashcardListModel() {
-        return flashcardListModel;
-    }
-
-    public JList<Flashcard> getFlashcardJList() {
-        return flashcardJList;
-    }
-
-    public JButton getRemoveButton() {
-        return removeButton;
-    }
-
-    public JTextField getNameField() {
-        return nameField;
-    }
-
-    public JTextField getQuestionField() {
-        return questionField;
-    }
-
-    public JTextField getAnswerField() {
-        return answerField;
-    }
-
-    public void setCardsInfo(ArrayList<String> cardsInfo) {
-        this.cardsInfo = cardsInfo;
-    }
-
-    public void setFlashcardJList(JList<Flashcard> flashcardJList) {
-        this.flashcardJList = flashcardJList;
-    }
-
-    public void setFlashcardListModel(DefaultListModel flashcardListModel) {
-        this.flashcardListModel = flashcardListModel;
-    }
-
-    public void setDeckCollection(DeckCollection deckCollection) {
-        this.deckCollection = deckCollection;
-    }
-
-    public void setActiveDeck(Deck activeDeck) {
-        this.activeDeck = activeDeck;
-    }
-
-    public void setNameField(JTextField nameField) {
-        this.nameField = nameField;
-    }
-
-    public void setQuestionField(JTextField questionField) {
-        this.questionField = questionField;
-    }
-
-    public void setAnswerField(JTextField answerField) {
-        this.answerField = answerField;
     }
 
     public void makeList() {
@@ -160,8 +104,6 @@ public class AppGUI extends JPanel implements ListSelectionListener {
             flashcardListModel.addElement(s);
         }
     }
-
-    //TODO: parts of it belong in the addCard class.
 
     private ArrayList<String> convertToStringArray(ArrayList<Flashcard> cards) {
         for (Flashcard f : cards) {
@@ -187,8 +129,6 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         saveButton.setEnabled(true);
     }
 
-    //TODO: belong in the addCard class
-
     public void makeAddCardButton() {
 
         addCardButton = new JButton(addString);
@@ -198,8 +138,6 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         addCardButton.addActionListener(addCardListener);
         addCardButton.setEnabled(false);
     }
-
-    //TODO: belong in removeCard class
 
     public void makeRemoveButtonMaker() {
 
@@ -213,7 +151,6 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     public void makeFields() {
 
-
         nameField.addActionListener(addCardListener);
         nameField.getDocument().addDocumentListener(addCardListener);
         questionField.addActionListener(addCardListener);
@@ -226,18 +163,29 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void makePanel() {
 
         JPanel optionsPanel = new JPanel();
-        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.LINE_AXIS));
+        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.X_AXIS));
 
         optionsPanel.add(saveButton);
         optionsPanel.add(Box.createHorizontalStrut(5));
-        optionsPanel.add(new JSeparator(SwingConstants.VERTICAL));
+      //  optionsPanel.add(new JSeparator(SwingConstants.VERTICAL));
         add(Box.createHorizontalStrut(10));
+        optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
+        nameLabel = new JLabel(NAME_LABEL);
+        optionsPanel.add(nameLabel);
         optionsPanel.add(nameField);
+        optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
+        questionLabel = new JLabel(QUESTION_LABEL);
+        optionsPanel.add(questionLabel);
         optionsPanel.add(questionField);
+        optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
+        answerLabel = new JLabel(ANSWER_LABEL);
+        optionsPanel.add(answerLabel);
         optionsPanel.add(answerField);
+        optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
         optionsPanel.add(addCardButton);
+        optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
         optionsPanel.add(removeButton);
-        optionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        optionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         add(scrollPane, BorderLayout.CENTER);
         add(optionsPanel, BorderLayout.PAGE_END);
@@ -247,11 +195,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void valueChanged(ListSelectionEvent e) {
         emptyCase();
         if (!e.getValueIsAdjusting()) {
-            if (flashcardJList.getSelectedIndex() == -1) {
-                removeButton.setEnabled(false);
-            } else {
-                removeButton.setEnabled(true);
-            }
+            removeButton.setEnabled(flashcardJList.getSelectedIndex() != -1);
         }
     }
 
