@@ -87,5 +87,4 @@ public class Deck {
     public Flashcard removeCardWithIndex(int i) {
         return cardList.remove(i);
     }
-
 }

@@ -62,13 +62,12 @@ class FlashcardTest {
 
     @Test
     public void testEqualsQ() {
-        assertEquals("Question", card.getQuestion());
+        assertTrue(card.getQuestion().equals("Question"));
     }
 
     @Test
     public void testHashCode() {
         Flashcard f = new Flashcard(card.getName(), card.getQuestion(), card.getAnswer());
-        assertEquals(Objects.hash(f.getName(), f.getQuestion(), f.getAnswer()),
-                Objects.hash(card.getName(), card.getQuestion(), card.getAnswer()));
+        assertEquals(f, card);
     }
 }
