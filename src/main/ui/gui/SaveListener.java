@@ -20,16 +20,20 @@ import java.applet.*;
 import java.io.InputStream;
 import java.net.*;
 
+/**
+ * Represents a Listener that saves the current information of the Deck and its Flashcards
+ */
 
 public class SaveListener implements ActionListener {
 
     private DeckCollection deckCollection;
 
+    // EFFECTS: constructs a SaveListener
     public SaveListener(DeckCollection deckCollection) {
         this.deckCollection = deckCollection;
     }
 
-
+    // EFFECTS: writes current app data to file
     @Override
     public void actionPerformed(ActionEvent e) {
         try {

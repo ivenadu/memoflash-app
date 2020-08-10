@@ -13,8 +13,13 @@ import java.io.File;
 // https://notificationsounds.com/message-tones/filling-your-inbox-251
 // https://notificationsounds.com/notification-sounds/light-562
 
+/**
+ * Represents an audio player with a String field for its file path
+ */
 
 public class SoundPlayer {
+
+    // EFFECTS: plays audio from the file corresponding to the input path name
     public void playSound(String path) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(path));
@@ -25,6 +30,5 @@ public class SoundPlayer {
             ex.printStackTrace();
         }
     }
-
 }
 
