@@ -65,7 +65,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
         super(new BorderLayout());
         nameField = new JTextField(5);
-        questionField = new JTextField(10);
+        questionField = new JTextField(15);
         answerField = new JTextField(5);
         makeList();
         makeSaveButton();
@@ -213,13 +213,11 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     public void makeFields() {
 
-      //  nameField = new JTextField(5);
+
         nameField.addActionListener(addCardListener);
         nameField.getDocument().addDocumentListener(addCardListener);
-//        questionField = new JTextField(15);
         questionField.addActionListener(addCardListener);
         questionField.getDocument().addDocumentListener(addCardListener);
-     //   answerField = new JTextField(5);
         answerField.addActionListener(addCardListener);
         answerField.getDocument().addDocumentListener(addCardListener);
 

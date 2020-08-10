@@ -3,6 +3,7 @@ package model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.lang.String;
+import java.util.Objects;
 
 /**
  * Represents a Flashcard with a name, a question, and an answer.
@@ -63,5 +64,18 @@ public class Flashcard {
         return userAnswer.equalsIgnoreCase(this.answer);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Flashcard)) return false;
+        Flashcard flashcard = (Flashcard) o;
+        return Objects.equals(getName(), flashcard.getName()) &&
+                Objects.equals(getQuestion(), flashcard.getQuestion()) &&
+                Objects.equals(getAnswer(), flashcard.getAnswer());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getQuestion(), getAnswer());
+    }
 }

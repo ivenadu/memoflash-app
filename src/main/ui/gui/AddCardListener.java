@@ -8,6 +8,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class AddCardListener implements ActionListener, DocumentListener {
     private boolean enabled = false;
@@ -86,4 +87,6 @@ public class AddCardListener implements ActionListener, DocumentListener {
     public boolean checkEmpty(JTextField field) {
         return field.getText().trim().isEmpty();
     }
+
+
 }
