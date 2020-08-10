@@ -23,7 +23,9 @@ public class Deck {
     // MODIFIES: this
     // EFFECTS: adds flashcard to the deck
     public void addCard(Flashcard card) {
-        cardList.add(card);
+        if (!cardList.contains(card)) {
+            cardList.add(card);
+        }
     }
 
     // EFFECTS: returns, from least to most recently added, each Flashcard's name, question, and answer in the Deck

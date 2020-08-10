@@ -20,6 +20,12 @@ public class DeckTest {
     }
 
     @Test
+    public void addCardDupe() {
+        quickAdd();
+        testingDeck.addCard(new Flashcard("First", "FirstQ", "FirstA"));
+    }
+
+    @Test
     public void removeCardTest(){
         quickAdd();
         testingDeck.removeCardWithIndex(0);

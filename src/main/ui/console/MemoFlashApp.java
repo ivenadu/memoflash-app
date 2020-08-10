@@ -1,4 +1,4 @@
-package ui;
+package ui.console;
 
 import model.DeckCollection;
 import model.Flashcard;
@@ -170,10 +170,14 @@ public class MemoFlashApp extends Load {
         System.out.println("Enter answer: ");
         String in3 = getInput();
         Flashcard card = new Flashcard(in, in2, in3);
-        getUserDeck().addCard(card);
+        if (!getUserDeck().getCardList().contains(card)) {
+            getUserDeck().addCard(card);
 
-        System.out.println("Your flashcard- \tname: " + card.getName() + "\t" + card.getQA()
-                + "\t has been created and " + "added to your current deck: " + getUserDeck().getTitle());
+            System.out.println("Your flashcard- \tname: " + card.getName() + "\t" + card.getQA()
+                    + "\t has been created and " + "added to your current deck: " + getUserDeck().getTitle());
+        } else {
+            System.out.println("Add unsuccessful. There is already an identical card in your current deck.");
+        }
         flashcardMenu();
 
     }

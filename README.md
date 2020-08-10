@@ -24,10 +24,12 @@ As a user, I want to be able to...
 - automatically save flashcards to deck before quitting
 - retrieve the saved data when I re-enter the program
 
-Additional Features: (possibly added at a later date)
+Additional Features: 
 - create decks to organize flashcards (COMPLETE)
-- remove decks I no longer need
+- remove decks I no longer need (COMPLETE)
 - view all of my decks (COMPLETE)
-- select deck to use for flashcard testing 
+- switch between decks (COMPLETE)
+
+
 
 
