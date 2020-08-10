@@ -71,7 +71,7 @@ public class Flashcard {
             return true;
         }
         Flashcard flashcard = (Flashcard) o;
-        return ((this.name == (flashcard.name))
+        return ((this.name.equals(flashcard.name))
                 && (this.question.equals(flashcard.question))
                 && (this.answer.equals(flashcard.answer)));
     }
