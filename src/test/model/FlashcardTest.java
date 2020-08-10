@@ -78,6 +78,13 @@ class FlashcardTest {
     }
 
     @Test
+    public void testEqualsAnswerMatch() {
+        Flashcard f = new Flashcard(card.getName(), "Q", "A");
+        assertFalse(card.equals(f));
+        assertEquals(card.getName(), f.getName());
+    }
+
+    @Test
     public void testHashCode() {
         Flashcard f = new Flashcard(card.getName(), card.getQuestion(), card.getAnswer());
         assertEquals(card.hashCode(), f.hashCode());
