@@ -179,7 +179,6 @@ public class MemoFlashApp extends Load {
             System.out.println("Add unsuccessful. There is already an identical card in your current deck.");
         }
         flashcardMenu();
-
     }
 
     // EFFECTS: returns a non empty string

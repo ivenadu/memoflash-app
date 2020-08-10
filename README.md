@@ -30,6 +30,12 @@ Additional Features:
 - view all of my decks (COMPLETE)
 - switch between decks (COMPLETE)
 
-
-
+#### Instructions for Grader:
+- You can *add* a Flashcard to the Deck by clicking the "ADD CARD" button after inputting text into the text fields 
+corresponding to the Flashcard's name, question, and answer. Note that the Flashcards in the Deck must be distinct.
+- You can *remove* a Flashcard from the Deck by selecting the card with your cursor and clicking the "REMOVE SELECTED 
+CARD" button
+- You can locate my audio component by clicking any of the buttons for a sound effect.
+- You can save the state of my application by clicking the SAVE button.
+- This application loads data from file automatically.
 
