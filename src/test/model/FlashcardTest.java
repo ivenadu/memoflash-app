@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class FlashcardTest {
@@ -10,13 +12,13 @@ class FlashcardTest {
     private Flashcard card;
 
     @BeforeEach
-    public void preTest(){
-        card = new Flashcard("Name","Question", "Answer");
+    public void preTest() {
+        card = new Flashcard("Name", "Question", "Answer");
     }
 
     @Test
-    public void getQATest(){
-        assertEquals(card.getQA(),"Question: Question\tAnswer: Answer");
+    public void getQATest() {
+        assertEquals(card.getQA(), "Question: Question\tAnswer: Answer");
     }
 
     @Test //TODO: how to test?
@@ -26,9 +28,9 @@ class FlashcardTest {
     }
 
     @Test
-    public void setQATest(){
+    public void setQATest() {
         card.setQA("edited Q", "edited A");
-        assertEquals(card.getQuestion(),"edited Q");
+        assertEquals(card.getQuestion(), "edited Q");
         assertEquals(card.getAnswer(), "edited A");
     }
 
@@ -49,8 +51,24 @@ class FlashcardTest {
     }
 
     @Test
-    public void wrongAnswer(){
+    public void wrongAnswer() {
         assertFalse(card.correctAnswer("Answe r"));
     }
 
+    @Test
+    public void testEquals() {
+        assertFalse(equals("ABC"));
+    }
+
+    @Test
+    public void testEqualsQ() {
+        assertEquals("Question", card.getQuestion());
+    }
+
+    @Test
+    public void testHashCode() {
+        Flashcard f = new Flashcard(card.getName(), card.getQuestion(), card.getAnswer());
+        assertEquals(Objects.hash(f.getName(), f.getQuestion(), f.getAnswer()),
+                Objects.hash(card.getName(), card.getQuestion(), card.getAnswer()));
+    }
 }
