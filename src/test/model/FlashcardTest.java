@@ -102,4 +102,39 @@ class FlashcardTest {
         Flashcard f = new Flashcard("name", "question", "answer");
         assertFalse(card.hashCode() == f.hashCode());
     }
+
+    @Test
+    public void noThrow() throws BlankStringException { //will fail if thrown!
+        card = new Flashcard("N", " Q ", "A   ");
+    }
+
+    @Test
+    public void yesThrowName() {
+        try {
+            card = new Flashcard(" ", "Q", "A");
+            fail();
+        } catch (BlankStringException e) {
+            //good
+        }
+    }
+
+    @Test
+    public void yesThrowQ() {
+        try {
+            card = new Flashcard("N", "    ", "A");
+            fail();
+        } catch (BlankStringException ex) {
+            //good
+        }
+    }
+
+    @Test
+    public void yesThrowA() {
+        try {
+            card = new Flashcard("N", "Q", "");
+            fail();
+        } catch (BlankStringException ex) {
+            //good
+        }
+    }
 }

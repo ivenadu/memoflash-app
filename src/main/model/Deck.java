@@ -20,9 +20,9 @@ public class Deck {
         this.title = title;
     }
 
-    // REQUIRES: cannot add duplicate card to Deck
+
     // MODIFIES: this
-    // EFFECTS: adds flashcard to the deck
+    // EFFECTS: adds flashcard to the deck; throws exception if duplicate
     public void addCard(Flashcard card) throws NonDistinctException {
         if (!cardList.contains(card)) {
             cardList.add(card);
@@ -77,18 +77,15 @@ public class Deck {
 
     // REQUIRES: given integer is < deck size
     // EFFECTS: retrieves Flashcard at given index
-    public Flashcard getCardFromIndex(int i) throws IndexOutOfBoundsException {
+    public Flashcard getCardFromIndex(int i) {
         return cardList.get(i);
     }
 
+    // REQUIRES: given integer is < deck size
     // MODIFIES: this
     // EFFECTS: removes Flashcard at given index
     public void removeCardWithIndex(int i) {
-        try {
-            cardList.remove(i);
-        } catch (IndexOutOfBoundsException ex) {
-            return;
-        }
+        cardList.remove(i);
     }
 
     @Override
@@ -96,12 +93,10 @@ public class Deck {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Deck)) {
-            return false;
-        }
+
         Deck deck = (Deck) o;
-        return Objects.equals(cardList, deck.cardList)
-                && Objects.equals(title, deck.title);
+        return this.cardList.equals(deck.cardList)
+                && this.title.equalsIgnoreCase(deck.title);
     }
 
     @Override

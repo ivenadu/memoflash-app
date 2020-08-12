@@ -14,13 +14,13 @@ public class DeckTest {
     }
 
     @Test
-    public void addCardTest() {
+    public void addCardTest() throws NonDistinctException, BlankStringException {
         quickAdd();
         assertEquals(testingDeck.size(), 2);
     }
 
     @Test
-    public void addCardDupe() {
+    public void addCardDupe() throws NonDistinctException, BlankStringException {
         quickAdd();
         try {
             testingDeck.addCard(new Flashcard("First", "FirstQ", "FirstA"));
@@ -33,7 +33,7 @@ public class DeckTest {
     }
 
     @Test
-    public void removeCardTest() {
+    public void removeCardTest() throws NonDistinctException, BlankStringException {
         quickAdd();
         testingDeck.removeCardWithIndex(0);
         assertEquals(testingDeck.size(), 1);
@@ -45,14 +45,14 @@ public class DeckTest {
     }
 
     @Test
-    public void viewDeckCardsTest() {
+    public void viewDeckCardsTest() throws NonDistinctException, BlankStringException {
         quickAdd();
         assertEquals(testingDeck.viewCards(), "Card Name: First\nQuestion: FirstQ\tAnswer: FirstA" +
                 "\n\nCard Name: Second\nQuestion: SecondQ\tAnswer: SecondA\n\n");
     }
 
     @Test
-    public void clearDeckTest() {
+    public void clearDeckTest() throws NonDistinctException, BlankStringException {
         quickAdd();
         testingDeck.clearDeck();
         assertEquals(testingDeck.size(), 0);
@@ -77,22 +77,43 @@ public class DeckTest {
     }
 
     @Test
-    public void getCardFromIndexTest() {
+    public void getCardFromIndexTest() throws NonDistinctException, BlankStringException {
         quickAdd();
         assertEquals(testingDeck.getCardFromIndex(0), testingDeck.getCardList().get(0));
     }
 
-    public void quickAdd() {
-        try {
+    @Test
+    public void equalsAll() {
+        Deck compare = new Deck(testingDeck.getTitle());
+        assertTrue(compare.getTitle().equals(testingDeck.getTitle()));
+        assertTrue(compare.getCardList().equals(testingDeck.getCardList()));
+        assertTrue(testingDeck.equals(compare));
+        assertTrue(testingDeck.hashCode() == compare.hashCode());
+    }
+
+    @Test
+    public void equalsCardList() {
+        Deck compare = new Deck("X");
+        assertTrue(compare.getCardList().equals(testingDeck.getCardList()));
+        assertFalse(compare.getTitle().equals(testingDeck.getTitle()));
+        assertFalse(testingDeck.equals(compare));
+        assertFalse(testingDeck.hashCode() == compare.hashCode());
+    }
+
+    @Test
+    public void equalsTitle() throws NonDistinctException, BlankStringException {
+        quickAdd();
+        Deck compare = new Deck(testingDeck.getTitle());
+        assertTrue(compare.getTitle().equals(testingDeck.getTitle()));
+        assertFalse(compare.getCardList().equals(testingDeck.getCardList()));
+        assertFalse(testingDeck.equals(compare));
+        assertFalse(testingDeck.hashCode() == compare.hashCode());
+    }
+
+    public void quickAdd() throws BlankStringException, NonDistinctException { //method to avoid dupe code; not supposed to throw any exceptions
             Flashcard fact1 = new Flashcard("First", "FirstQ", "FirstA");
             Flashcard fact2 = new Flashcard("Second", "SecondQ", "SecondA");
             testingDeck.addCard(fact1);
             testingDeck.addCard(fact2);
-        } catch (BlankStringException ex) {
-            fail();
-        } catch (NonDistinctException ex) {
-            fail();
-        }
-
     }
 }
