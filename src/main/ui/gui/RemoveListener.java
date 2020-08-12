@@ -6,6 +6,7 @@ import model.Flashcard;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 
 /**
  * Represents a Listener that removes cards from the Deck

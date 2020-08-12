@@ -9,6 +9,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 
 /**
  * Represents a Listener that can add cards to Deck
@@ -50,7 +51,6 @@ public class AddCardListener implements ActionListener, DocumentListener {
                 activeDeck.addCard(newCard);
                 flashcardListModel.addElement(combineString(nameField.getText().trim(),
                         questionField.getText().trim(), answerField.getText().trim()));
-
             }
             setUp(nameField);
             setUp(questionField);
