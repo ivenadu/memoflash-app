@@ -1,8 +1,6 @@
 package ui.console;
 
-import model.DeckCollection;
-import model.Flashcard;
-import model.Deck;
+import model.*;
 import persistence.Load;
 import persistence.Write;
 
@@ -169,13 +167,17 @@ public class MemoFlashApp extends Load {
         String in2 = getInput(); // or set in2 = in to save input??
         System.out.println("Enter answer: ");
         String in3 = getInput();
-        Flashcard card = new Flashcard(in, in2, in3);
-        if (!getUserDeck().getCardList().contains(card)) {
+        Flashcard card = null;
+        try {
+            card = new Flashcard(in, in2, in3);
+        } catch (BlankStringException e) {
+            e.printStackTrace();
+        }
+        try {
             getUserDeck().addCard(card);
-
             System.out.println("Your flashcard- \tname: " + card.getName() + "\t" + card.getQA()
                     + "\t has been created and " + "added to your current deck: " + getUserDeck().getTitle());
-        } else {
+        } catch (NonDistinctException e) {
             System.out.println("Add unsuccessful. There is already an identical card in your current deck.");
         }
         flashcardMenu();

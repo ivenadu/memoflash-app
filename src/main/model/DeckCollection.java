@@ -83,7 +83,7 @@ public class DeckCollection {
     }
 
     // EFFECTS: retrieve deck at index
-    public Deck retrieveDeckWithIndex(int index) {
+    public Deck retrieveDeckWithIndex(int index) throws IndexOutOfBoundsException {
         return decks.get(index);
     }
 }

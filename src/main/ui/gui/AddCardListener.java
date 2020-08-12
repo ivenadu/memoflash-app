@@ -1,7 +1,9 @@
 package ui.gui;
 
+import model.BlankStringException;
 import model.Deck;
 import model.Flashcard;
+import model.NonDistinctException;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -41,20 +43,27 @@ public class AddCardListener implements ActionListener, DocumentListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!(checkEmpty(nameField) || checkEmpty(questionField) || checkEmpty(answerField))) {
-            Flashcard newCard = new Flashcard(nameField.getText().trim(),
-                    questionField.getText().trim(), answerField.getText().trim());
-            if (activeDeck.getCardList().contains(newCard)) {
-                Toolkit.getDefaultToolkit().beep();
-            } else {
-                SoundPlayer sound = new SoundPlayer();
-                sound.playSound("./data/light.wav");
-                activeDeck.addCard(newCard);
-                flashcardListModel.addElement(combineString(nameField.getText().trim(),
-                        questionField.getText().trim(), answerField.getText().trim()));
+            Flashcard newCard = null;
+            try {
+                newCard = new Flashcard(nameField.getText().trim(),
+                        questionField.getText().trim(), answerField.getText().trim());
+
+                if (activeDeck.getCardList().contains(newCard)) {
+                    Toolkit.getDefaultToolkit().beep();
+                } else {
+                    SoundPlayer sound = new SoundPlayer();
+                    sound.playSound("./data/light.wav");
+                    activeDeck.addCard(newCard);
+
+                    flashcardListModel.addElement(combineString(nameField.getText().trim(),
+                            questionField.getText().trim(), answerField.getText().trim()));
+                }
+                setUp(nameField);
+                setUp(questionField);
+                setUp(answerField);
+            } catch (BlankStringException | NonDistinctException blankStringException) {
+                System.out.println("Unsuccessful!");
             }
-            setUp(nameField);
-            setUp(questionField);
-            setUp(answerField);
         }
     }
 

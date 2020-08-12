@@ -9,12 +9,12 @@ public class DeckTest {
     private Deck testingDeck;
 
     @BeforeEach
-    public void preTest(){
+    public void preTest() {
         testingDeck = new Deck("Random Facts I know");
     }
 
     @Test
-    public void addCardTest(){
+    public void addCardTest() {
         quickAdd();
         assertEquals(testingDeck.size(), 2);
     }
@@ -22,30 +22,37 @@ public class DeckTest {
     @Test
     public void addCardDupe() {
         quickAdd();
-        testingDeck.addCard(new Flashcard("First", "FirstQ", "FirstA"));
+        try {
+            testingDeck.addCard(new Flashcard("First", "FirstQ", "FirstA"));
+            fail("they are duplicates!");
+        } catch (BlankStringException e) {
+            fail();
+        } catch (NonDistinctException e) {
+            //good
+        }
     }
 
     @Test
-    public void removeCardTest(){
+    public void removeCardTest() {
         quickAdd();
         testingDeck.removeCardWithIndex(0);
         assertEquals(testingDeck.size(), 1);
     }
 
     @Test
-    public void viewDeckCardsNone(){
+    public void viewDeckCardsNone() {
         assertEquals(testingDeck.viewCards(), "There are no cards in the deck.");
     }
 
     @Test
-    public void viewDeckCardsTest(){
+    public void viewDeckCardsTest() {
         quickAdd();
         assertEquals(testingDeck.viewCards(), "Card Name: First\nQuestion: FirstQ\tAnswer: FirstA" +
-                "\n\nCard Name: Second\nQuestion: SecondQ\tAnswer: SecondA\n\n" );
+                "\n\nCard Name: Second\nQuestion: SecondQ\tAnswer: SecondA\n\n");
     }
 
     @Test
-    public void clearDeckTest(){
+    public void clearDeckTest() {
         quickAdd();
         testingDeck.clearDeck();
         assertEquals(testingDeck.size(), 0);
@@ -72,13 +79,20 @@ public class DeckTest {
     @Test
     public void getCardFromIndexTest() {
         quickAdd();
-        assertEquals(testingDeck.getCardFromIndex(0),testingDeck.getCardList().get(0));
+        assertEquals(testingDeck.getCardFromIndex(0), testingDeck.getCardList().get(0));
     }
 
     public void quickAdd() {
-        Flashcard fact1 = new Flashcard("First", "FirstQ", "FirstA");
-        Flashcard fact2 = new Flashcard("Second", "SecondQ", "SecondA");
-        testingDeck.addCard(fact1);
-        testingDeck.addCard(fact2);
+        try {
+            Flashcard fact1 = new Flashcard("First", "FirstQ", "FirstA");
+            Flashcard fact2 = new Flashcard("Second", "SecondQ", "SecondA");
+            testingDeck.addCard(fact1);
+            testingDeck.addCard(fact2);
+        } catch (BlankStringException ex) {
+            fail();
+        } catch (NonDistinctException ex) {
+            fail();
+        }
+
     }
 }

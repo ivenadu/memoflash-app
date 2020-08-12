@@ -1,8 +1,6 @@
 package persistence;
 
-import model.Deck;
-import model.DeckCollection;
-import model.Flashcard;
+import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,15 +17,19 @@ public class WriteTest {
     private DeckCollection deckCollection;
 
     @BeforeEach
-    void preTest() {
+    void preTest() throws BlankStringException { //Will fail if BlankStringException is thrown
         Flashcard testCard1 = new Flashcard("Name1", "Q1", "A1");
         Flashcard testCard2 = new Flashcard("Name2", "Q2", "A2");
         Flashcard testCard3 = new Flashcard("Name2", "Q2", "Q3");
         Deck testDeck1 = new Deck("testDeck1");
         Deck testDeck2 = new Deck("testDeck2");
-        testDeck1.addCard(testCard1);
-        testDeck2.addCard(testCard2);
-        testDeck2.addCard(testCard3);
+        try {
+            testDeck1.addCard(testCard1);
+            testDeck2.addCard(testCard2);
+            testDeck2.addCard(testCard3);
+        } catch (NonDistinctException ex) {
+            fail("unexpected");
+        }
         DeckCollection deckCollection = new DeckCollection();
         deckCollection.addDeck(testDeck1);
         deckCollection.addDeck(testDeck2);

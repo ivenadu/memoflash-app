@@ -18,9 +18,11 @@ public class Flashcard {
     public Flashcard() {
     }
 
-    //REQUIRES: parameter inputs cannot be empty string
-    // EFFECTS: make a flashcard with a name, question, and answer
-    public Flashcard(String name, String question, String answer) {
+    // EFFECTS: make a flashcard with a name, question, and answer; prevents card with blank fields from being created
+    public Flashcard(String name, String question, String answer) throws BlankStringException {
+        if (name.trim().isEmpty() || question.trim().isEmpty() || answer.trim().isEmpty()) {
+            throw new BlankStringException();
+        }
         this.name = name;
         this.question = question;
         this.answer = answer;
@@ -71,9 +73,9 @@ public class Flashcard {
             return true;
         }
         Flashcard flashcard = (Flashcard) o;
-        return ((this.name.equals(flashcard.name))
-                && (this.question.equals(flashcard.question))
-                && (this.answer.equals(flashcard.answer)));
+        return ((this.name.equalsIgnoreCase(flashcard.name))
+                && (this.question.equalsIgnoreCase(flashcard.question))
+                && (this.answer.equalsIgnoreCase(flashcard.answer)));
     }
 
     @Override

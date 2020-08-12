@@ -13,7 +13,7 @@ class FlashcardTest {
     private Flashcard card;
 
     @BeforeEach
-    public void preTest() {
+    public void preTest() throws BlankStringException { //If BlankStringException is thrown, test fails
         card = new Flashcard("Name", "Question", "Answer");
     }
 
@@ -57,7 +57,7 @@ class FlashcardTest {
     }
 
     @Test
-    public void testEqualsQ() {
+    public void testEqualsQ() throws BlankStringException {
         Flashcard f = new Flashcard(card.getName(), "Wrong", card.getAnswer());
         assertFalse(equals(f));
         assertFalse(card.getQuestion().equals(f.getQuestion()));
@@ -65,33 +65,41 @@ class FlashcardTest {
         assertEquals(card.getQuestion(), g.getQuestion());
     }
 
+
     @Test
-    public void testEqualsAllFalse() {
+    public void testEqualsAllFalse() throws BlankStringException {
         Flashcard f = new Flashcard("A", "B", "C");
         assertFalse(card.equals(f));
     }
 
     @Test
-    public void testEqualsAllMatch() {
+    public void testEqualsAllMatch() throws BlankStringException {
         Flashcard f = new Flashcard(card.getName(), card.getQuestion(), card.getAnswer());
         assertTrue(card.equals(f));
     }
 
     @Test
-    public void testEqualsAnswerMatch() {
+    public void testEqualsAnswerMatch() throws BlankStringException {
         Flashcard f = new Flashcard(card.getName(), "Q", "A");
         assertFalse(card.equals(f));
         assertEquals(card.getName(), f.getName());
     }
 
     @Test
-    public void testHashCode() {
+    public void testHashCode() throws BlankStringException {
         Flashcard f = new Flashcard(card.getName(), card.getQuestion(), card.getAnswer());
         assertEquals(card.hashCode(), f.hashCode());
     }
+
     @Test
-    public void testHashCodeFalse() {
+    public void testHashCodeFalse() throws BlankStringException {
         Flashcard f = new Flashcard("a", "b", "c");
+        assertFalse(card.hashCode() == f.hashCode());
+    }
+
+    @Test
+    public void testHashCodeDupe() throws BlankStringException {
+        Flashcard f = new Flashcard("name", "question", "answer");
         assertFalse(card.hashCode() == f.hashCode());
     }
 }
