@@ -39,3 +39,6 @@ CARD" button
 - You can save the state of my application by clicking the SAVE button.
 - This application loads data from file automatically.
 
+#### Phase 4: Task 2
+The methods in the Flashcard class are robust. The checked exception, BlankStringException, is thrown for having blank string inputs when creating a Flashcard object.
+

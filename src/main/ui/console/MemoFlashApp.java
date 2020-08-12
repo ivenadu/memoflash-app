@@ -203,7 +203,7 @@ public class MemoFlashApp extends Load {
         goToMenu();
     }
 
-    // REQUIRES: must input an integer
+
     // MODIFIES: this
     // EFFECTS: If there are no cards in deck, will display message and go to flashcard menu.
     // Otherwise, displays indexed card names, then deletes the card corresponding to index of user's input number.

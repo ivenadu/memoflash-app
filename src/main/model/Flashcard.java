@@ -49,24 +49,6 @@ public class Flashcard {
         return name;
     }
 
-    // MODIFIES: this
-    // EFFECTS: edits the card's question and answer
-    public void setQA(String editQ, String editA) {
-        this.question = editQ;
-        this.answer = editA;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: changes the card's name
-    public void setName(String newName) {
-        this.name = newName;
-    }
-
-    // EFFECTS: returns true if the input string equals the answer, case insensitive. Otherwise, return false.
-    public boolean correctAnswer(String userAnswer) {
-        return userAnswer.equalsIgnoreCase(this.answer);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

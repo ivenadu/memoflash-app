@@ -18,42 +18,13 @@ class FlashcardTest {
     }
 
     @Test
+    public void constructFlashcard() {
+        new Flashcard();
+    }
+
+    @Test
     public void getQATest() {
         assertEquals("Question: Question\tAnswer: Answer", card.getQA());
-    }
-
-    @Test
-    public void constructFlashcard() {
-        Flashcard card = new Flashcard();
-
-    }
-
-    @Test
-    public void setQATest() {
-        card.setQA("edited Q", "edited A");
-        assertEquals("edited Q", card.getQuestion());
-        assertEquals("edited A", card.getAnswer());
-    }
-
-    @Test
-    public void setCardName() {
-        card.setName("New Name");
-        assertEquals("New Name", card.getName());
-    }
-
-    @Test
-    public void correctAnswer() {
-        assertTrue(card.correctAnswer("Answer"));
-    }
-
-    @Test
-    public void correctAnswerCaseInsensitive() {
-        assertTrue(card.correctAnswer("aNsWeR"));
-    }
-
-    @Test
-    public void wrongAnswer() {
-        assertFalse(card.correctAnswer("Answe r"));
     }
 
     @Test
