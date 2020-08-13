@@ -36,7 +36,9 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     private Deck activeDeck = deckCollection.getActiveDeck();
 
-    Buttons buttons;
+    private SaveButton saveButton;
+    private AddCardButton addCardButton;
+    private RemoveCardButton removeCardButton;
 
     private JTextField nameField;
     private JTextField questionField;
@@ -66,8 +68,10 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         makeFields();
         makeList();
         scrollPane = new JScrollPane(flashcardJList);
-        buttons = new Buttons(nameField, questionField, answerField, flashcardJList,
-                listModel, deckCollection);
+        saveButton = new SaveButton();
+        addCardButton = new AddCardButton();
+        removeCardButton = new RemoveCardButton();
+
         makePanel();
         actionFields();
     }
@@ -122,7 +126,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
         JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.X_AXIS));
-        optionsPanel.add(buttons.getSaveButton());
+        optionsPanel.add(saveButton.getSaveButton());
         optionsPanel.add(Box.createHorizontalStrut(5));
         add(Box.createHorizontalStrut(10));
         optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
@@ -135,9 +139,9 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         optionsPanel.add(answerLabel);
         optionsPanel.add(answerField);
         optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
-        optionsPanel.add(buttons.getAddCardButton());
+        optionsPanel.add(addCardButton.getAddCardButton());
         optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
-        optionsPanel.add(buttons.getRemoveButton());
+        optionsPanel.add(removeCardButton.getRemoveCardButton());
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         add(scrollPane, BorderLayout.CENTER);
@@ -147,15 +151,15 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void actionFields() {
 
         saveListener = new SaveListener(this.deckCollection);
-        buttons.getSaveButton().addActionListener(saveListener);
+        saveButton.getSaveButton().addActionListener(saveListener);
 
-        addCardListener = new AddCardListener(this.buttons.getAddCardButton(), this.listModel,
+        addCardListener = new AddCardListener(addCardButton.getAddCardButton(), this.listModel,
                 this.deckCollection.getActiveDeck(), nameField, questionField, answerField);
-        this.buttons.getAddCardButton().addActionListener(addCardListener);
+        addCardButton.getAddCardButton().addActionListener(addCardListener);
 
-        removeListener = new RemoveListener(this.buttons.getRemoveButton(), this.flashcardJList, this.listModel,
+        removeListener = new RemoveListener(removeCardButton.getRemoveCardButton(), this.flashcardJList, this.listModel,
                 this.deckCollection.getActiveDeck());
-        this.buttons.getRemoveButton().addActionListener(removeListener);
+        removeCardButton.getRemoveCardButton().addActionListener(removeListener);
 
         nameField.addActionListener(addCardListener);
         nameField.getDocument().addDocumentListener(addCardListener);
@@ -172,7 +176,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     public void valueChanged(ListSelectionEvent e) {
         emptyCase();
         if (!e.getValueIsAdjusting()) {
-            buttons.getRemoveButton().setEnabled(flashcardJList.getSelectedIndex() != -1);
+            removeCardButton.getRemoveCardButton().setEnabled(flashcardJList.getSelectedIndex() != -1);
         }
     }
 
@@ -180,7 +184,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: if the deck is empty initially, disables the removeButton
     public void emptyCase() {
         if (activeDeck.getCardList().isEmpty()) {
-            buttons.getRemoveButton().setEnabled(false);
+            removeCardButton.getRemoveCardButton().setEnabled(false);
         }
     }
 }
