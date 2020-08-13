@@ -1,7 +1,6 @@
 package ui.gui;
 
 import model.Deck;
-import model.Flashcard;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,12 +12,12 @@ import java.awt.event.ActionListener;
 
 public class RemoveListener implements ActionListener {
     JButton button;
-    private JList<Flashcard> flashList;
+    private JList<String> flashList;
     private DefaultListModel<String> flashcardListModel;
     private Deck activeDeck;
 
     // EFFECTS: creates a RemoveListener and sets its fields; disables button for removal if deck is empty
-    public RemoveListener(JButton button, JList<Flashcard> flashList, DefaultListModel<String> flashcardListModel,
+    public RemoveListener(JButton button, JList<String> flashList, DefaultListModel<String> flashcardListModel,
                           Deck activeDeck) {
         this.flashList = flashList;
         this.flashcardListModel = flashcardListModel;

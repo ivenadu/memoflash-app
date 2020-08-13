@@ -17,7 +17,6 @@ import java.awt.event.ActionListener;
  */
 
 public class AddCardListener implements ActionListener, DocumentListener {
-    private boolean enabled = false;
     private JButton addCardButton;
     private DefaultListModel<String> flashcardListModel;
     private Deck activeDeck;
@@ -42,7 +41,7 @@ public class AddCardListener implements ActionListener, DocumentListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!(checkEmpty(nameField) || checkEmpty(questionField) || checkEmpty(answerField))) {
-            Flashcard newCard = null;
+            Flashcard newCard;
             try {
                 newCard = new Flashcard(nameField.getText().trim(),
                         questionField.getText().trim(), answerField.getText().trim());

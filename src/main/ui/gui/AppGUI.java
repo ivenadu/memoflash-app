@@ -20,10 +20,9 @@ import java.util.ArrayList;
 
 public class AppGUI extends JPanel implements ListSelectionListener {
 
-    // Object[][] info;
     private ArrayList<String> cardsInfo = new ArrayList<>();
-    private JList<Flashcard> flashcardJList;
-    private DefaultListModel flashcardListModel;
+    private JList<String> flashcardJList;
+    private DefaultListModel<String> listModel;
 
     private DeckCollection deckCollection;
 
@@ -35,25 +34,13 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         }
     }
 
-    //  final String[] columns = {"Name", "Question", "Answer"};
-
     private Deck activeDeck = deckCollection.getActiveDeck();
 
-    private static final String removeString = "REMOVE SELECTED CARD";
-    private static final String addString = "ADD CARD";
-    private static final String saveString = "SAVE DECK";
-
-    private JButton saveButton;
-    private JButton addCardButton;
-    private JButton removeButton;
+    Buttons buttons;
 
     private JTextField nameField;
     private JTextField questionField;
     private JTextField answerField;
-
-    private SaveListener saveListener;
-    private AddCardListener addCardListener;
-    private RemoveListener removeListener;
 
     private JScrollPane scrollPane;
 
@@ -75,10 +62,8 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         makeFields();
         makeList();
         scrollPane = new JScrollPane(flashcardJList);
-        makeSaveButton();
-        makeAddCardButton();
-        makeRemoveButtonMaker();
-        actionFields();
+        buttons = new Buttons(nameField, questionField, answerField, flashcardJList,
+                listModel, deckCollection);
         makePanel();
     }
 
@@ -93,9 +78,9 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: make a JList that takes in a DefaultListModel representing the flashcards in the Deck in string form
     public void makeList() {
 
-        flashcardListModel = new DefaultListModel();
+        listModel = new DefaultListModel<>();
         addToListModel(convertToStringArray(activeDeck.getCardList()));
-        flashcardJList = new JList(flashcardListModel);
+        flashcardJList = new JList<>(listModel);
         flashcardJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         flashcardJList.setSelectedIndex(0);
         flashcardJList.addListSelectionListener(this);
@@ -107,7 +92,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: adds the combined result of strings to the DefaultListModel
     private void addToListModel(ArrayList<String> strings) {
         for (String s : strings) {
-            flashcardListModel.addElement(s);
+            listModel.addElement(s);
         }
     }
 
@@ -122,55 +107,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
     // EFFECTS: combines the Flashcard's fields into one string and returns the string
     public String combineString(String name, String question, String answer) {
-        String combined = "NAME: " + name + "   QUESTION: " + question + "   ANSWER: " + answer;
-        return combined;
-    }
-
-    // MODIFIES: this and saveButton
-    // EFFECTS: creates button that allows user to save current deck information
-    public void makeSaveButton() {
-
-        saveButton = new JButton(saveString);
-        saveListener = new SaveListener(this.deckCollection);
-        saveButton.setActionCommand(saveString);
-        saveButton.addActionListener(saveListener);
-        saveButton.setEnabled(true);
-    }
-
-    // MODIFIES: this and addCardButton
-    // EFFECTS: creates button that allows user to add a card to deck
-    public void makeAddCardButton() {
-
-        addCardButton = new JButton(addString);
-        addCardListener = new AddCardListener(addCardButton, flashcardListModel, activeDeck, nameField, questionField,
-                answerField);
-        addCardButton.setActionCommand(addString);
-        addCardButton.addActionListener(addCardListener);
-        addCardButton.setEnabled(false);
-    }
-
-    // MODIFIES: this and removeButton
-    // EFFECTS: creates button that allows user to remove a card from deck
-    public void makeRemoveButtonMaker() {
-
-        removeButton = new JButton(removeString);
-        removeListener = new RemoveListener(removeButton, this.flashcardJList, this.flashcardListModel,
-                this.activeDeck);
-        removeButton.setActionCommand(removeString);
-        removeButton.addActionListener(removeListener);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: adds the text fields' respective listeners
-    public void actionFields() {
-
-        nameField.addActionListener(addCardListener);
-        nameField.getDocument().addDocumentListener(addCardListener);
-        questionField.addActionListener(addCardListener);
-        questionField.getDocument().addDocumentListener(addCardListener);
-        answerField.addActionListener(addCardListener);
-        answerField.getDocument().addDocumentListener(addCardListener);
-
+        return "NAME: " + name + "   QUESTION: " + question + "   ANSWER: " + answer;
     }
 
     // MODIFIES: this
@@ -180,7 +117,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
 
         JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.X_AXIS));
-        optionsPanel.add(saveButton);
+        optionsPanel.add(buttons.getSaveButton());
         optionsPanel.add(Box.createHorizontalStrut(5));
         add(Box.createHorizontalStrut(10));
         optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
@@ -193,30 +130,30 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         optionsPanel.add(answerLabel);
         optionsPanel.add(answerField);
         optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
-        optionsPanel.add(addCardButton);
+        optionsPanel.add(buttons.getAddCardButton());
         optionsPanel.add(Box.createRigidArea(new Dimension(FIXED_WIDTH, FIXED_HEIGHT)));
-        optionsPanel.add(removeButton);
+        optionsPanel.add(buttons.getRemoveButton());
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         add(scrollPane, BorderLayout.CENTER);
         add(optionsPanel, BorderLayout.PAGE_END);
     }
 
-    // MODIFIES: removeButton
+    // MODIFIES: this and removeButton
     // EFFECTS: sets the removeButton to true if the selected index is valid; otherwise disables the button
     @Override
     public void valueChanged(ListSelectionEvent e) {
         emptyCase();
         if (!e.getValueIsAdjusting()) {
-            removeButton.setEnabled(flashcardJList.getSelectedIndex() != -1);
+            buttons.getRemoveButton().setEnabled(flashcardJList.getSelectedIndex() != -1);
         }
     }
 
-    // MODIFIES: removeButton
+    // MODIFIES: this and removeButton
     // EFFECTS: if the deck is empty initially, disables the removeButton
     public void emptyCase() {
         if (activeDeck.getCardList().isEmpty()) {
-            removeButton.setEnabled(false);
+            buttons.getRemoveButton().setEnabled(false);
         }
     }
 }

@@ -59,8 +59,6 @@ public class DeckCollectionTest {
         assertTrue(decks.decks.contains(d3));
         assertTrue(decks.decks.get(0) == d2);
         assertTrue(decks.decks.get(1) == d3);
-
-
     }
 
     @Test
