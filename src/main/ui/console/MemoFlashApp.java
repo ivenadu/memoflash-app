@@ -72,8 +72,7 @@ public class MemoFlashApp extends Load {
         System.out.println("Go to flashcard menu: Press f");
         System.out.println("Go to deck menu: Press d");
         System.out.println("Begin test: Press t");
-        System.out.println("End Program: Press q\n");
-
+        System.out.println("Save and quit: Press q\n");
     }
 
     // MODIFIES: this
@@ -262,7 +261,8 @@ public class MemoFlashApp extends Load {
         String in = getInput();
         Deck newDeck = new Deck(in);
         deckCollection.addDeck(newDeck);
-        System.out.println("Your deck " + getUserDeck().getTitle() + " has been created and set as your active deck.");
+        System.out.println("Your deck \"" + getUserDeck().getTitle() + "\" has been created and set as your "
+                + "active deck.");
         goToMenu();
     }
 
@@ -273,7 +273,7 @@ public class MemoFlashApp extends Load {
 
     // EFFECTS: displays all decks
     private void decksViewer() {
-        System.out.println("Active deck: " + deckCollection.getActiveDeck().getTitle());
+        System.out.println("Active deck: \"" + deckCollection.getActiveDeck().getTitle() + "\"");
         System.out.println("You have " + deckCollection.size() + " deck(s) in your collection.");
         System.out.println(deckCollection.viewDeckTitles());
         goToMenu();
@@ -294,7 +294,7 @@ public class MemoFlashApp extends Load {
             System.out.println("Please enter integer within range.");
         }
         deckCollection.setActiveDeck(deckCollection.retrieveDeckWithIndex(intIn));
-        System.out.println("Active deck switched to " + deckCollection.getActiveDeck().getTitle() + ".");
+        System.out.println("Active deck switched to \"" + deckCollection.getActiveDeck().getTitle() + "\"");
         goToMenu();
     }
 
@@ -333,6 +333,7 @@ public class MemoFlashApp extends Load {
         goToMenu();
     }
 
+
     // EFFECTS: goes to main menu once user presses 'm'
     private void goToMenu() {
         String in = "";
@@ -350,7 +351,7 @@ public class MemoFlashApp extends Load {
         int count = 0;
         for (int i = 0; i < getUserDeck().size(); i++) {
             Flashcard card = getUserDeck().getCardFromIndex(i);
-            String question = card.getQuestion();
+            String question = "Question: " + "\"" + card.getQuestion() + "\"";
             System.out.println(question);
             String in = getInput();
             if (card.getAnswer().equalsIgnoreCase(in)) {
@@ -361,6 +362,7 @@ public class MemoFlashApp extends Load {
                 this.count = count;
                 System.out.println("Incorrect. The answer is: " + "\"" + card.getAnswer() + "\"");
             }
+            System.out.println("");
         }
     }
 }
