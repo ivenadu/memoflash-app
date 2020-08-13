@@ -1,5 +1,7 @@
 package ui.gui;
 
+import model.DeckCollection;
+
 import javax.swing.*;
 
 /**
@@ -12,9 +14,10 @@ public class SaveButton {
     private JButton saveButton;
 
     // EFFECTS: creates the button for saving
-    public SaveButton() {
+    public SaveButton(DeckCollection deckCollection) {
         saveButton = new JButton(saveString);
         saveButton.setActionCommand(saveString);
+        saveButton.addActionListener(new SaveListener(deckCollection));
         saveButton.setEnabled(true);
     }
 

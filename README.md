@@ -43,3 +43,4 @@ CARD" button
 The methods in the Flashcard class are robust. The checked exception, BlankStringException, is thrown for having blank string inputs when creating a Flashcard object.
 
 #### Phase 4: Task 3
+Before refactoring, the AppGUI class had poor cohesion: the methods clustered into different tasks. There were methods dedicated to creating their respective buttons for the GUI, 

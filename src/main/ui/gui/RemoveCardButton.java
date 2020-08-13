@@ -1,5 +1,7 @@
 package ui.gui;
 
+import model.Deck;
+
 import javax.swing.*;
 
 /**
@@ -12,9 +14,11 @@ public class RemoveCardButton {
     private JButton removeCardButton;
 
     // EFFECTS: makes the button for card removal
-    public RemoveCardButton() {
+    public RemoveCardButton(JList<String> flashcardJList, DefaultListModel<String> listModel, Deck activeDeck) {
 
         removeCardButton = new JButton(removeString);
+        removeCardButton.addActionListener(new RemoveListener(this.getRemoveCardButton(), flashcardJList, listModel,
+                activeDeck));
         removeCardButton.setActionCommand(removeString);
     }
 

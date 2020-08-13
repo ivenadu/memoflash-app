@@ -68,9 +68,9 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         makeFields();
         makeList();
         scrollPane = new JScrollPane(flashcardJList);
-        saveButton = new SaveButton();
-        addCardButton = new AddCardButton();
-        removeCardButton = new RemoveCardButton();
+        saveButton = new SaveButton(this.deckCollection);
+        addCardButton = new AddCardButton(listModel, activeDeck, nameField, questionField, answerField);
+        removeCardButton = new RemoveCardButton(flashcardJList, listModel, activeDeck);
 
         makePanel();
         actionFields();
@@ -148,18 +148,16 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         add(optionsPanel, BorderLayout.PAGE_END);
     }
 
+    // EFFECTS: adds listeners to the JTextFields
     public void actionFields() {
 
         saveListener = new SaveListener(this.deckCollection);
-        saveButton.getSaveButton().addActionListener(saveListener);
 
         addCardListener = new AddCardListener(addCardButton.getAddCardButton(), this.listModel,
                 this.deckCollection.getActiveDeck(), nameField, questionField, answerField);
-        addCardButton.getAddCardButton().addActionListener(addCardListener);
 
         removeListener = new RemoveListener(removeCardButton.getRemoveCardButton(), this.flashcardJList, this.listModel,
                 this.deckCollection.getActiveDeck());
-        removeCardButton.getRemoveCardButton().addActionListener(removeListener);
 
         nameField.addActionListener(addCardListener);
         nameField.getDocument().addDocumentListener(addCardListener);
