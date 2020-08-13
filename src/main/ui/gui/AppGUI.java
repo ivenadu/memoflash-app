@@ -9,7 +9,6 @@ import model.Flashcard;
 import persistence.Load;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -29,8 +28,9 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     {
         try {
             deckCollection = Load.loadFile("./data/myFile.json");
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            deckCollection = new DeckCollection();
+            deckCollection.addDeck(new Deck("Default"));
         }
     }
 
@@ -50,9 +50,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     private JLabel questionLabel = new JLabel(QUESTION_LABEL);
     private JLabel answerLabel = new JLabel(ANSWER_LABEL);
 
-    private SaveListener saveListener;
     private AddCardListener addCardListener;
-    private RemoveListener removeListener;
 
     private static final String NAME_LABEL = "Name: ";
     private static final String QUESTION_LABEL = "Question: ";
@@ -151,12 +149,12 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: adds listeners to the JTextFields
     public void actionFields() {
 
-        saveListener = new SaveListener(this.deckCollection);
+        new SaveListener(this.deckCollection);
 
         addCardListener = new AddCardListener(addCardButton.getAddCardButton(), this.listModel,
                 this.deckCollection.getActiveDeck(), nameField, questionField, answerField);
 
-        removeListener = new RemoveListener(removeCardButton.getRemoveCardButton(), this.flashcardJList, this.listModel,
+        new RemoveCardListener(removeCardButton.getRemoveCardButton(), this.flashcardJList, this.listModel,
                 this.deckCollection.getActiveDeck());
 
         nameField.addActionListener(addCardListener);

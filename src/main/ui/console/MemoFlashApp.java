@@ -16,7 +16,7 @@ import java.util.*;
  */
 
 public class MemoFlashApp extends Load {
-    private DeckCollection deckCollection = null;
+    private DeckCollection deckCollection;
     private Scanner scan = new Scanner(System.in);
     private int count;
     private static final String NEW = "n";
@@ -174,6 +174,7 @@ public class MemoFlashApp extends Load {
         }
         try {
             getUserDeck().addCard(card);
+            assert card != null;
             System.out.println("Your flashcard- \tname: " + card.getName() + "\t" + card.getQA()
                     + "\t has been created and " + "added to your current deck: " + getUserDeck().getTitle());
         } catch (NonDistinctException e) {
@@ -235,7 +236,7 @@ public class MemoFlashApp extends Load {
             }
         }
         getUserDeck().removeCardWithIndex(intIn);
-        System.out.println("Card removed from \"" + getUserDeck().getTitle() + "\"" + "deck.");
+        System.out.println("Card removed from \"" + getUserDeck().getTitle() + "\"" + " deck.");
         goToMenu();
     }
 

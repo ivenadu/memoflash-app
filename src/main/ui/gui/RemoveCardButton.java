@@ -17,7 +17,7 @@ public class RemoveCardButton {
     public RemoveCardButton(JList<String> flashcardJList, DefaultListModel<String> listModel, Deck activeDeck) {
 
         removeCardButton = new JButton(removeString);
-        removeCardButton.addActionListener(new RemoveListener(this.getRemoveCardButton(), flashcardJList, listModel,
+        removeCardButton.addActionListener(new RemoveCardListener(this.getRemoveCardButton(), flashcardJList, listModel,
                 activeDeck));
         removeCardButton.setActionCommand(removeString);
     }

@@ -10,15 +10,15 @@ import java.awt.event.ActionListener;
  * Represents a Listener that removes cards from the Deck
  */
 
-public class RemoveListener implements ActionListener {
+public class RemoveCardListener implements ActionListener {
     JButton button;
     private JList<String> flashList;
     private DefaultListModel<String> flashcardListModel;
     private Deck activeDeck;
 
-    // EFFECTS: creates a RemoveListener and sets its fields; disables button for removal if deck is empty
-    public RemoveListener(JButton button, JList<String> flashList, DefaultListModel<String> flashcardListModel,
-                          Deck activeDeck) {
+    // EFFECTS: creates a RemoveCardListener and sets its fields; disables button for removal if deck is empty
+    public RemoveCardListener(JButton button, JList<String> flashList, DefaultListModel<String> flashcardListModel,
+                              Deck activeDeck) {
         this.flashList = flashList;
         this.flashcardListModel = flashcardListModel;
         this.activeDeck = activeDeck;

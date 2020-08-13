@@ -54,4 +54,4 @@ constructor is important: if one method requiring the instantiation of a variabl
 before the required method, it would result in a NullPointerException. However, the fields being passed around are 
 required for the execution of the separate methods. This is, I believe, the least complicated way for the program to work.
 The classes take in different parameters, which makes introducing an interface unnecessarily complicated and messy. This
-also would not solve the issue of tight coupling, which cannot be avoided due to the fields required by the methods.
+also would not solve the issue of tight coupling, which cannot be avoided due to the dependencies between classes.
