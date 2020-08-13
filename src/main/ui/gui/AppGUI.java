@@ -48,6 +48,10 @@ public class AppGUI extends JPanel implements ListSelectionListener {
     private JLabel questionLabel = new JLabel(QUESTION_LABEL);
     private JLabel answerLabel = new JLabel(ANSWER_LABEL);
 
+    private SaveListener saveListener;
+    private AddCardListener addCardListener;
+    private RemoveListener removeListener;
+
     private static final String NAME_LABEL = "Name: ";
     private static final String QUESTION_LABEL = "Question: ";
     private static final String ANSWER_LABEL = "Answer: ";
@@ -65,6 +69,7 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         buttons = new Buttons(nameField, questionField, answerField, flashcardJList,
                 listModel, deckCollection);
         makePanel();
+        actionFields();
     }
 
     public void makeFields() {
@@ -138,6 +143,28 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         add(scrollPane, BorderLayout.CENTER);
         add(optionsPanel, BorderLayout.PAGE_END);
     }
+
+    public void actionFields() {
+
+        saveListener = new SaveListener(this.deckCollection);
+        buttons.getSaveButton().addActionListener(saveListener);
+
+        addCardListener = new AddCardListener(this.buttons.getAddCardButton(), this.listModel,
+                this.deckCollection.getActiveDeck(), nameField, questionField, answerField);
+        this.buttons.getAddCardButton().addActionListener(addCardListener);
+
+        removeListener = new RemoveListener(this.buttons.getRemoveButton(), this.flashcardJList, this.listModel,
+                this.deckCollection.getActiveDeck());
+        this.buttons.getRemoveButton().addActionListener(removeListener);
+
+        nameField.addActionListener(addCardListener);
+        nameField.getDocument().addDocumentListener(addCardListener);
+        questionField.addActionListener(addCardListener);
+        questionField.getDocument().addDocumentListener(addCardListener);
+        answerField.addActionListener(addCardListener);
+        answerField.getDocument().addDocumentListener(addCardListener);
+    }
+
 
     // MODIFIES: this and removeButton
     // EFFECTS: sets the removeButton to true if the selected index is valid; otherwise disables the button

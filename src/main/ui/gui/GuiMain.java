@@ -28,7 +28,6 @@ public class GuiMain {
     // EFFECTS: run program of GUI
     public static void main(String[] args) {
         invokeLater(() -> makeGUI());
-
     }
 
     // MODIFIES: this

@@ -23,10 +23,6 @@ public class Buttons {
     private JTextField questionField;
     private JTextField answerField;
 
-    private SaveListener saveListener;
-    private AddCardListener addCardListener;
-    private RemoveListener removeListener;
-
 
     public Buttons(JTextField nameField, JTextField questionField, JTextField answerField,
                    JList<String> flashcardJList, DefaultListModel<String> flashcardListModel,
@@ -40,7 +36,6 @@ public class Buttons {
         makeSaveButton();
         makeAddCardButton();
         makeRemoveButtonMaker();
-        actionFields();
     }
 
     public JButton getSaveButton() {
@@ -60,9 +55,7 @@ public class Buttons {
     public void makeSaveButton() {
 
         saveButton = new JButton(saveString);
-        saveListener = new SaveListener(this.deckCollection);
         saveButton.setActionCommand(saveString);
-        saveButton.addActionListener(saveListener);
         saveButton.setEnabled(true);
     }
 
@@ -71,10 +64,7 @@ public class Buttons {
     public void makeAddCardButton() {
 
         addCardButton = new JButton(addString);
-        addCardListener = new AddCardListener(addCardButton, flashcardListModel, deckCollection.getActiveDeck(),
-                nameField, questionField, answerField);
         addCardButton.setActionCommand(addString);
-        addCardButton.addActionListener(addCardListener);
         addCardButton.setEnabled(false);
     }
 
@@ -83,20 +73,6 @@ public class Buttons {
     public void makeRemoveButtonMaker() {
 
         removeButton = new JButton(removeString);
-        removeListener = new RemoveListener(removeButton, this.flashcardJList, this.flashcardListModel,
-                this.deckCollection.getActiveDeck());
         removeButton.setActionCommand(removeString);
-        removeButton.addActionListener(removeListener);
     }
-
-    public void actionFields() {
-
-        nameField.addActionListener(addCardListener);
-        nameField.getDocument().addDocumentListener(addCardListener);
-        questionField.addActionListener(addCardListener);
-        questionField.getDocument().addDocumentListener(addCardListener);
-        answerField.addActionListener(addCardListener);
-        answerField.getDocument().addDocumentListener(addCardListener);
-    }
-
 }
