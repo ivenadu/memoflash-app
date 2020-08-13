@@ -80,7 +80,6 @@ public class AppGUI extends JPanel implements ListSelectionListener {
         makeRemoveButtonMaker();
         actionFields();
         makePanel();
-
     }
 
     public void makeFields() {

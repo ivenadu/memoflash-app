@@ -1,13 +1,8 @@
 package ui.gui;
 
 import sun.applet.AppletAudioClip;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import java.applet.AudioClip;
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 //SOURCES REFERRED TO:
