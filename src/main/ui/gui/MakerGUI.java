@@ -9,7 +9,7 @@ import persistence.Load;
  * Represents a class that makes a GUI for the MemoFlashApp
  */
 
-public class GUImaker {
+public class MakerGUI {
 
     private static String deckName;
 
@@ -22,7 +22,7 @@ public class GUImaker {
     }
 
     // EFFECTS: makes a GUI
-    public GUImaker() {
+    public MakerGUI() {
 
         JFrame frame = new JFrame("Displaying your active deck: " + deckName);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
