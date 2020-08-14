@@ -59,7 +59,7 @@ public class AddCardListener implements ActionListener, DocumentListener {
                 setUp(nameField);
                 setUp(questionField);
                 setUp(answerField);
-            } catch (BlankStringException | NonDistinctException blankStringException) {
+            } catch (BlankStringException | NonDistinctException ex) {
                 System.out.println("Unsuccessful!");
             }
         }

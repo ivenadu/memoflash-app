@@ -1,12 +1,8 @@
 package ui.gui;
 
 import model.Deck;
-import model.DeckCollection;
-import persistence.Load;
 
 import javax.swing.*;
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Represents a button that is intended to be clicked when adding a card

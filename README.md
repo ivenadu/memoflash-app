@@ -45,13 +45,18 @@ blank string inputs when creating a Flashcard object.
 
 #### Phase 4: Task 3
 Before refactoring, the AppGUI class had poor cohesion: the methods clustered into different tasks. 
-There were three buttons in the class, meaning three separate problems with cohesion. After refactoring, there are now 
+The issue with cohesion came from having three buttons and their methods clustered in the class. After refactoring, there are now 
 three cohesive classes named "SaveButton" (for writing the data to file), "AddCardButton" (for adding a card to deck), 
 and "RemoveCardButton" (for removing card from deck).
+
+The second issue was that the GuiMain contained not only its main method, but also a method that was responsible for making
+the GUI upon being called by the main method. To clean up the main class, I refactored the method which it called into its
+own class. This increased the cohesion of the program.
+
 There is also tight coupling happening in the gui package classes, where fields from the AppGUI are passed 
 into classes that use them for carrying out the tasks. The order in which the AppGUI calls methods in its 
 constructor is important: if one method requiring the instantiation of a variable found in another method is called
 before the required method, it would result in a NullPointerException. However, the fields being passed around are 
 required for the execution of the separate methods. This is, I believe, the least complicated way for the program to work.
 The classes take in different parameters, which makes introducing an interface unnecessarily complicated and messy. This
-also would not solve the issue of tight coupling, which cannot be avoided due to the dependencies between classes.
+also would not solve the issue of tight coupling, which cannot be avoided due to the dependencies that exist.

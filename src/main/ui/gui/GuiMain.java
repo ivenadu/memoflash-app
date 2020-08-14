@@ -27,20 +27,6 @@ public class GuiMain {
     // MODIFIES: this
     // EFFECTS: run program of GUI
     public static void main(String[] args) {
-        invokeLater(() -> makeGUI());
-    }
-
-    // MODIFIES: this
-    // EFFECTS: creates and displays GUI
-    public static void makeGUI() {
-        JFrame frame = new JFrame("Displaying your active deck: " + deckName);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JComponent contentPane = new AppGUI();
-        contentPane.setOpaque(true);
-        frame.setContentPane(contentPane);
-
-        frame.pack();
-        frame.setVisible(true);
+        invokeLater(() -> new GUImaker());
     }
 }

@@ -29,8 +29,5 @@ public class SaveListener implements ActionListener {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-
     }
-
-
 }
