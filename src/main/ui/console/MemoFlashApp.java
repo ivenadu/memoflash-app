@@ -329,6 +329,11 @@ public class MemoFlashApp extends Load {
         } else {
             doTest();
             System.out.println("\nFinished! Your score: " + this.count + "/" + getUserDeck().size());
+            Double numerator = (double) this.count;
+            Double denominator = (double) getUserDeck().size();
+            double percentage = 100 * (numerator / denominator);
+            double roundedPercentage = Math.round(percentage * 100d) / 100d;
+            System.out.println(roundedPercentage + "%");
         }
         goToMenu();
     }
